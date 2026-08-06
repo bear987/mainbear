@@ -9,10 +9,10 @@ export default function NotFound() {
       <div className="mx-auto max-w-xl text-center">
         <p className="font-display text-7xl font-semibold text-heading tnum">404</p>
         <h1 className="mt-6 text-[clamp(1.875rem,3vw+0.5rem,2.75rem)] font-semibold">
-          That plate isn't on the menu.
+          That plate isn&rsquo;t on the menu.
         </h1>
         <p className="mt-4 text-lg leading-relaxed text-muted">
-          The page you're looking for moved or never existed. The food, however,
+          The page you&rsquo;re looking for moved or never existed. The food, however,
           is very real.
         </p>
         <div className="mt-9 flex flex-wrap justify-center gap-3">
