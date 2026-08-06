@@ -1,0 +1,104 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { PageHeader, breadcrumbSchema } from "../../components/page-header";
+import { Section } from "../../components/section";
+import { VehicleBrowser } from "../../components/vehicle-browser";
+import { catalogueStats, vehicles } from "../../content/vehicles";
+import { contact, site } from "../../content/site";
+import { whatsappGeneral } from "../../lib/contact";
+
+export const metadata: Metadata = {
+  title: "Mini Buses & Mini Trucks for Sale in Lagos",
+  description:
+    "Suzuki and Daihatsu mini buses and mini trucks from GG Autos Lagos. Hijet, Gran Max, Carry, Every and APV. Compare specifications and prices in naira, then call or WhatsApp.",
+  alternates: { canonical: "/inventory" },
+  openGraph: {
+    title: `Mini Buses & Mini Trucks | ${site.name}`,
+    description:
+      "Suzuki and Daihatsu mini buses and mini trucks. Compare specifications side by side, retail and wholesale.",
+    url: `${site.url}/inventory`,
+  },
+};
+
+const crumbs = [{ label: "Inventory", href: "/inventory" }];
+
+const itemListSchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Mini buses and mini trucks supplied by GG Autos",
+  numberOfItems: vehicles.length,
+  itemListElement: vehicles.map((vehicle, index) => ({
+    "@type": "ListItem",
+    position: index + 1,
+    url: `${site.url}/inventory/${vehicle.slug}`,
+    name: `${vehicle.brand} ${vehicle.name}`,
+  })),
+};
+
+export default function InventoryPage() {
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([breadcrumbSchema(crumbs), itemListSchema]),
+        }}
+      />
+
+      <PageHeader
+        label="The range"
+        title="Mini buses and mini trucks"
+        crumbs={crumbs}
+        intro="Suzuki and Daihatsu, in passenger and load-carrying bodies. Pick a model on the left to see its full specification and its photographs."
+        rail={[
+          { label: "Models", value: String(catalogueStats.models) },
+          { label: "Mini buses", value: String(catalogueStats.buses) },
+          { label: "Mini trucks", value: String(catalogueStats.trucks) },
+        ]}
+      />
+
+      <Section space="normal">
+        <VehicleBrowser vehicles={vehicles} />
+      </Section>
+
+      <Section tone="ink" space="tight">
+        <div className="grid items-end gap-8 lg:grid-cols-12">
+          <div className="lg:col-span-7">
+            <span className="stamp">Not in the range</span>
+            <h2 className="mt-4 text-[clamp(1.8rem,3.6vw,2.8rem)]">
+              Tell us the load and we will tell you the vehicle
+            </h2>
+            <p className="mt-4 max-w-[52ch] text-[#cfcdc7]">
+              We couple to order, and bodies are built to the work the vehicle will do. If what
+              you need is not on this page, it is usually a phone call away.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3 lg:col-span-5 lg:justify-end">
+            <a
+              href={contact.phoneHref}
+              className="bg-action-500 px-7 py-4 text-sm font-medium uppercase tracking-[0.08em] text-white transition-transform duration-150 ease-[var(--ease-quint)] hover:-translate-y-0.5"
+            >
+              Call now
+            </a>
+            <a
+              href={whatsappGeneral}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border border-[#f3f1ec]/50 px-7 py-4 text-sm font-medium uppercase tracking-[0.08em] text-[#f3f1ec] transition-colors duration-150 hover:border-[#f3f1ec] hover:bg-[#f3f1ec]/10"
+            >
+              Enquire on WhatsApp
+            </a>
+            <Link
+              href="/wholesale"
+              data-cta
+              data-cta-section="inventory_footer"
+              className="border border-[#f3f1ec]/50 px-7 py-4 text-sm font-medium uppercase tracking-[0.08em] text-[#f3f1ec] transition-colors duration-150 hover:border-[#f3f1ec] hover:bg-[#f3f1ec]/10"
+            >
+              Wholesale
+            </Link>
+          </div>
+        </div>
+      </Section>
+    </>
+  );
+}

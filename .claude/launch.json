@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "company-a",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "company-a", "dev"],
+      "port": 3000
+    },
+    {
+      "name": "company-b",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "company-b", "dev"],
+      "port": 3001
+    }
+  ]
+}

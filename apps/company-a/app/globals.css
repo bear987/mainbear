@@ -1,0 +1,293 @@
+@import "tailwindcss";
+@source "../../../packages/ui/src";
+
+/* ============================================================
+   GG BEARERS — "Obsidian" dark design system.
+   Deep obsidian surfaces, luminous blue accent, glass panels.
+   Branding lives here (Tailwind v4 CSS-first config).
+   ============================================================ */
+@theme {
+  /* Type */
+  --font-display: var(--font-sora), ui-sans-serif, system-ui, sans-serif;
+  --font-body: var(--font-geist), ui-sans-serif, system-ui, sans-serif;
+
+  /* Surfaces (dark, OLED base + glass panels over ambient light) */
+  --color-paper: #050508; /* page — near-black */
+  --color-surface: rgb(255 255 255 / 0.045); /* glass cards / panels */
+  --color-elevated: rgb(255 255 255 / 0.08); /* raised / hover */
+  --color-highlight: #17223b; /* tints, chips, selected */
+  --color-line: #ffffff1a; /* ~10% white hairline */
+  --color-line-strong: #ffffff40; /* emphasized borders / hover */
+
+  /* Text */
+  --color-heading: #f4f7fc; /* headings + strong text */
+  --color-fg: #d5dcea; /* body */
+  --color-muted: #8d9bb8; /* secondary */
+
+  /* Ink (navy) — 50→900 scale; deep end used for bands + footer */
+  --color-ink-50: #eef1f8;
+  --color-ink-100: #d9deec;
+  --color-ink-200: #b3bcd4;
+  --color-ink-300: #8593b4;
+  --color-ink-400: #56658c;
+  --color-ink-500: #36486e;
+  --color-ink-600: #26324f;
+  --color-ink-700: #1a2440;
+  --color-ink-800: #121b32;
+  --color-ink-900: #0c1324;
+
+  /* Action (luminous blue) — 50→900 scale */
+  --color-action-50: #eef2fe;
+  --color-action-100: #dde4fd;
+  --color-action-200: #c0ccfb;
+  --color-action-300: #97a9f7;
+  --color-action-400: #6b82f0;
+  --color-action-500: #3b5bdb; /* CTAs */
+  --color-action-600: #2f49c4;
+  --color-action-700: #2740a0;
+  --color-action-800: #233a82;
+  --color-action-900: #1f3268;
+
+  /* Radii */
+  --radius-sm: 6px;
+  --radius-lg: 12px;
+  --radius-xl: 20px;
+
+  /* Depth — dark shadows + accent glow */
+  --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px rgb(0 0 0 / 0.45);
+  --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.5), 0 24px 56px rgb(0 0 0 / 0.55);
+  --shadow-glow:
+    0 0 0 1px rgb(151 169 247 / 0.14), 0 24px 60px -24px rgb(59 91 219 / 0.55);
+
+  /* Motion */
+  --ease-quint: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@layer base {
+  :root {
+    color-scheme: dark;
+    --header-h: 5.25rem;
+  }
+
+  /* Light theme — token overrides only; components are token-driven. */
+  :root[data-theme="light"] {
+    color-scheme: light;
+    --color-paper: #f4f6fb;
+    --color-surface: rgb(22 32 58 / 0.05);
+    --color-elevated: rgb(22 32 58 / 0.1);
+    --color-highlight: #dfe7fd;
+    --color-line: #16203a1f;
+    --color-line-strong: #16203a4d;
+    --color-heading: #0c1228;
+    --color-fg: #333d52;
+    --color-muted: #5e6a83;
+    /* link/accent text blues darken for contrast on light surfaces */
+    --color-action-200: #2740a0;
+    --color-action-300: #2f49c4;
+    --color-action-400: #3b5bdb;
+    --shadow-card: 0 1px 2px rgb(22 32 58 / 0.06), 0 10px 28px rgb(22 32 58 / 0.1);
+    --shadow-lift: 0 2px 6px rgb(22 32 58 / 0.08), 0 20px 48px rgb(22 32 58 / 0.16);
+    --shadow-glow:
+      0 0 0 1px rgb(59 91 219 / 0.15), 0 20px 48px -20px rgb(59 91 219 / 0.35);
+  }
+
+  /* Cinematic islands (hero, photo regions, ink bands) stay dark in light
+     mode: custom properties resolve from the NEAREST ancestor, so this wins
+     inside regardless of the page theme. */
+  .force-dark {
+    color-scheme: dark;
+    --color-paper: #050508;
+    --color-surface: rgb(255 255 255 / 0.045);
+    --color-elevated: rgb(255 255 255 / 0.08);
+    --color-highlight: #17223b;
+    --color-line: #ffffff1a;
+    --color-line-strong: #ffffff40;
+    --color-heading: #f4f7fc;
+    --color-fg: #d5dcea;
+    --color-muted: #8d9bb8;
+    --color-action-200: #c0ccfb;
+    --color-action-300: #97a9f7;
+    --color-action-400: #6b82f0;
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 12px 32px rgb(0 0 0 / 0.45);
+    --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.5), 0 24px 56px rgb(0 0 0 / 0.55);
+    --shadow-glow:
+      0 0 0 1px rgb(151 169 247 / 0.14), 0 24px 60px -24px rgb(59 91 219 / 0.55);
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-fg);
+    font-family: var(--font-body);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    color: var(--color-heading);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  :target {
+    scroll-margin-top: calc(var(--header-h) + 1rem);
+  }
+
+  ::selection {
+    background: rgb(59 91 219 / 0.4);
+    color: #fff;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-action-400);
+    outline-offset: 2px;
+    border-radius: 3px;
+  }
+
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(255 255 255 / 0.16) transparent;
+  }
+  *::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  *::-webkit-scrollbar-thumb {
+    background: rgb(255 255 255 / 0.14);
+    border-radius: 999px;
+    border: 3px solid var(--color-paper);
+  }
+
+  .tnum {
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Global film grain — fixed, non-interactive, uniform premium texture.
+     No blend mode: blending a fixed full-viewport layer forces whole-page
+     re-composite on every scroll frame (visible as scroll freezes). */
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    pointer-events: none;
+    opacity: 0.035;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+}
+
+@layer utilities {
+  [data-reveal] {
+    opacity: 0;
+    transform: translateY(22px);
+    filter: blur(6px);
+    transition:
+      opacity 0.7s var(--ease-quint),
+      transform 0.7s var(--ease-quint),
+      filter 0.7s var(--ease-quint);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  /* Promote layers only BEFORE reveal — dozens of permanently promoted
+     layers add compositing pressure that shows up as scroll jank. */
+  [data-reveal]:not(.is-visible) {
+    will-change: opacity, transform, filter;
+  }
+  [data-reveal].is-visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+/* Hero "trade blueprint" signature — connective route arcs draw between nodes. */
+@keyframes route-draw {
+  from {
+    stroke-dashoffset: var(--route-len, 600);
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes node-pulse {
+  0%,
+  100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes glow-breathe {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.08);
+  }
+}
+.route-line {
+  stroke-dasharray: var(--route-len, 600);
+  animation: route-draw 3.2s var(--ease-quint) forwards;
+}
+.route-node {
+  animation: node-pulse 3.4s ease-in-out infinite;
+}
+.glow-breathe {
+  animation: glow-breathe 9s ease-in-out infinite;
+}
+
+/* Infinite capabilities marquee — two identical halves, -50% loop */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  width: max-content;
+  animation: marquee 46s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
