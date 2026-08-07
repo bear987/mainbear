@@ -12,7 +12,7 @@ export const site = {
   tagline: "Suzuki and Daihatsu mini buses and mini trucks, coupled and sold in Lagos.",
   description:
     "GG Autos couples and sells Suzuki and Daihatsu mini buses and mini trucks in Lagos, Nigeria. Retail sales for drivers and owners, wholesale supply for dealers, fleets and transport companies.",
-  url: "https://c.ggbearers.com",
+  url: "https://autos.ggbearers.com",
   locale: "en_NG",
   region: "Lagos, Nigeria",
   /** Stamped into page margins as a coordinate readout. */
@@ -28,7 +28,7 @@ export const group = {
   },
   sibling: {
     name: "GG Foods",
-    href: "https://b.ggbearers.com",
+    href: "https://foods.ggbearers.com",
     description: "Restaurant, catering and food service",
   },
 } as const;

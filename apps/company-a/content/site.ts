@@ -40,8 +40,8 @@ export const site = {
 
   /** Subsidiary sites, always linked via full absolute URLs. */
   subsidiaries: {
-    foods: "https://b.ggbearers.com",
-    autos: "https://c.ggbearers.com",
+    foods: "https://foods.ggbearers.com",
+    autos: "https://autos.ggbearers.com",
   },
 
   nav: [

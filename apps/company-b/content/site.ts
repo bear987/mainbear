@@ -17,7 +17,7 @@ export const site = {
     "Intercontinental dishes and Nigerian classics, cooked fresh in Okota, Lagos.",
   description:
     "GG FOODS is a Lagos restaurant serving intercontinental dishes, Nigerian meals, fresh smoothies and natural fruit drinks. Part of the GG BEARERS group.",
-  url: "https://b.ggbearers.com",
+  url: "https://foods.ggbearers.com",
   email: "ggbearers@gmail.com",
 
   parent: {
@@ -25,7 +25,7 @@ export const site = {
     url: "https://ggbearers.com",
     label: "Part of the GG BEARERS group",
   },
-  siblings: [{ name: "GG AUTOS", url: "https://c.ggbearers.com" }],
+  siblings: [{ name: "GG AUTOS", url: "https://autos.ggbearers.com" }],
 
   phone: { label: PHONE, tel: `tel:+234${PHONE.replace(/^0/, "")}` },
   whatsapp: {
