@@ -1,10 +1,20 @@
+import Image from "next/image";
 import type { CSSProperties } from "react";
 import { GlobeBackdrop } from "@/components/globe-backdrop";
 
 /**
- * Cinematic hero for the Obsidian theme: a rotating wireframe globe (global
- * trade reach) with luminous shipping-lane arcs and a breathing glow layered on
- * top. Pure canvas/SVG, no external asset, and it pauses under reduced motion.
+ * Cinematic hero for the Obsidian theme.
+ *
+ * A real photograph of the port carries the frame, graded down into the
+ * Obsidian palette so it reads as part of the brand rather than a stock
+ * image dropped behind text. The wireframe globe and shipping-lane arcs
+ * survive as a lighter layer on top: they say "trade reach" without
+ * competing with the photograph for attention.
+ *
+ * Legibility comes from ONE directional scrim, heavy on the left where the
+ * headline sits and clearing to nothing on the right so the picture is
+ * actually visible. (It previously used two stacked full-frame vignettes at
+ * 45% and 55%, which muted everything behind them.)
  */
 
 type RouteStyle = CSSProperties & { "--route-len": number };
@@ -26,17 +36,32 @@ const nodes: { cx: number; cy: number; delay: number }[] = [
 export function HeroMedia() {
   return (
     <div className="absolute inset-0 overflow-hidden bg-paper" aria-hidden>
-      {/* bloom behind the globe */}
+      {/* The photograph. Carries LCP, so it is eager and full-width. */}
+      <Image
+        src="/images/home-port.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="scale-105 object-cover object-center brightness-[0.42] saturate-[0.75]"
+      />
+
+      {/* Navy grade: ties the photograph to the Obsidian palette. A flat
+          tint rather than a blend mode, which keeps scrolling cheap. */}
+      <div className="absolute inset-0 bg-ink-900/55" />
+
+      {/* Accent bloom, tying the blue action colour into the image. */}
       <div
-        className="glow-breathe absolute right-[4%] top-1/2 h-[62vh] w-[62vh] -translate-y-1/2 rounded-full blur-3xl"
+        className="glow-breathe absolute right-[4%] top-1/2 h-[62vh] w-[62vh] -translate-y-1/2 rounded-full opacity-70 blur-3xl"
         style={{
           background:
-            "radial-gradient(circle at center, rgba(59,91,219,0.42), rgba(59,91,219,0) 62%)",
+            "radial-gradient(circle at center, rgba(59,91,219,0.34), rgba(59,91,219,0) 62%)",
         }}
       />
-      {/* blueprint grid */}
+
+      {/* Blueprint grid, barely there, for texture over the photograph. */}
       <div
-        className="absolute inset-0 opacity-[0.05]"
+        className="absolute inset-0 opacity-[0.04]"
         style={{
           backgroundImage:
             "linear-gradient(to right, rgba(255,255,255,0.5) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.5) 1px, transparent 1px)",
@@ -44,19 +69,19 @@ export function HeroMedia() {
         }}
       />
 
-      {/* rotating wireframe globe — smaller canvas on phones */}
-      <div className="absolute right-[-30%] top-1/2 h-[62vh] w-[62vh] -translate-y-1/2 sm:right-[-8%] sm:h-[94vh] sm:max-h-[880px] sm:w-[94vh] sm:max-w-[880px]">
+      {/* Rotating wireframe globe, now a supporting layer over the photo. */}
+      <div className="absolute right-[-30%] top-1/2 h-[62vh] w-[62vh] -translate-y-1/2 opacity-45 sm:right-[-8%] sm:h-[94vh] sm:max-h-[880px] sm:w-[94vh] sm:max-w-[880px]">
         <GlobeBackdrop />
       </div>
 
-      {/* shipping-lane arcs */}
+      {/* Shipping-lane arcs. */}
       <svg
-        className="absolute inset-0 h-full w-full"
+        className="absolute inset-0 h-full w-full opacity-80"
         viewBox="0 0 1200 700"
         preserveAspectRatio="xMidYMid slice"
         fill="none"
       >
-        <g stroke="rgba(151,169,247,0.4)" strokeWidth="1.5" strokeLinecap="round">
+        <g stroke="rgba(151,169,247,0.45)" strokeWidth="1.5" strokeLinecap="round">
           {routes.map((r, i) => (
             <path
               key={i}
@@ -80,9 +105,12 @@ export function HeroMedia() {
         </g>
       </svg>
 
-      {/* legibility vignettes for light text */}
-      <div className="absolute inset-0 bg-gradient-to-t from-paper via-paper/45 to-paper/10" />
-      <div className="absolute inset-0 bg-gradient-to-r from-paper via-paper/55 to-transparent" />
+      {/* ONE directional scrim: opaque behind the headline, clear over the
+          picture on the right. */}
+      <div className="absolute inset-0 bg-gradient-to-r from-paper via-paper/75 to-transparent" />
+
+      {/* Short bottom fade so the band hands off to the next section. */}
+      <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-paper to-transparent" />
     </div>
   );
 }
