@@ -56,6 +56,9 @@ export async function POST(req: Request) {
 
   const data = parsed.data;
   const apiKey = process.env.RESEND_API_KEY;
+  /* Reported back to the caller so "it submitted" and "it was actually
+     emailed" can never be confused again. */
+  let delivered = false;
 
   if (apiKey) {
     try {
@@ -86,6 +89,7 @@ export async function POST(req: Request) {
       });
 
       if (error) throw error;
+      delivered = true;
     } catch (err) {
       console.error("[gg-foods contact] email send failed", err);
       return NextResponse.json(
@@ -101,5 +105,5 @@ export async function POST(req: Request) {
     });
   }
 
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, delivered });
 }

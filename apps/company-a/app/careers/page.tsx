@@ -32,10 +32,10 @@ export default function CareersPage() {
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div className="max-w-xl">
             <h2 className="text-2xl font-semibold sm:text-3xl">
-              Don't see your role?
+              Don&rsquo;t see your role?
             </h2>
             <p className="mt-2 text-muted">
-              We hire for character and trade sense first. If you'd add value to
+              We hire for character and trade sense first. If you&rsquo;d add value to
               the group, introduce yourself, we keep good people in mind.
             </p>
           </div>
