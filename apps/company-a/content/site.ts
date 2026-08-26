@@ -15,7 +15,7 @@ function toTelHref(local: string): string {
 
 export const site = {
   name: "GG BEARERS",
-  legalName: "GG Bearers Limited",
+  legalName: "GG Bearers Company Limited",
   motto: "Integrity is our first priority",
   tagline: "A Lagos-based operating group in global trade, and the parent of GG FOODS and GG AUTOS.",
   description:

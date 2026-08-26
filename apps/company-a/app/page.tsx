@@ -27,7 +27,9 @@ export default function HomePage() {
       {/* HERO, cinematic band (stays dark in light mode) */}
       <section className="force-dark relative isolate overflow-hidden">
         <HeroMedia />
-        <Container className="relative grid min-h-[clamp(32rem,82dvh,46rem)] grid-cols-1 items-center gap-12 py-20 sm:py-24 lg:grid-cols-12">
+        {/* Tighter vertical padding on phones: the statement adds ~7 lines
+            there, and without this the primary CTA falls below the fold. */}
+        <Container className="relative grid min-h-[clamp(32rem,82dvh,46rem)] grid-cols-1 items-center gap-12 py-8 sm:py-24 lg:grid-cols-12">
           <div className="lg:col-span-7">
             <Reveal>
               <span className="inline-flex items-center gap-2 rounded-full border border-line bg-elevated px-3 py-1 text-[11px] font-medium uppercase tracking-[0.18em] text-heading backdrop-blur-sm">
@@ -40,13 +42,22 @@ export default function HomePage() {
                 {home.hero.title}
               </h1>
             </Reveal>
-            <Reveal delay={160}>
-              <p className="mt-6 max-w-[52ch] text-[1.0625rem] leading-relaxed text-ink-200 sm:text-lg">
+            {/* Company statement. Display font at a size between the headline
+                and the lede, on a brighter step of the ink scale, so the hero
+                reads as three tiers rather than two grey paragraphs. */}
+            <Reveal delay={140}>
+              <p className="mt-4 max-w-[46ch] font-display text-[clamp(1.25rem,0.6vw+1.1rem,1.55rem)] font-normal leading-[1.45] tracking-[-0.01em] text-ink-100 sm:mt-6 sm:leading-[1.5]">
+                <span className="font-medium text-heading">{home.hero.standfirst.lead}</span>
+                {home.hero.standfirst.body}
+              </p>
+            </Reveal>
+            <Reveal delay={200}>
+              <p className="mt-4 max-w-[52ch] text-[1.0625rem] leading-relaxed text-ink-200 sm:text-lg">
                 {home.hero.lede}
               </p>
             </Reveal>
-            <Reveal delay={240}>
-              <div className="mt-9 flex flex-wrap gap-3">
+            <Reveal delay={260}>
+              <div className="mt-6 flex flex-wrap gap-3 sm:mt-9">
                 <CtaButton
                   href={home.hero.primary.href}
                   variant="primary"

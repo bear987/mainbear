@@ -13,7 +13,14 @@ export const home = {
   hero: {
     eyebrow: "Operating group · Lagos, Nigeria",
     title: "An operating group built on trade, and on integrity.",
-    lede: "GG BEARERS imports, exports and trades across borders, running partnerships, investment and corporate services in-house, and owning the GG FOODS and GG AUTOS businesses.",
+    /* Company statement, set directly under the headline. Split in two so the
+       legal name can be typeset brighter than the rest of the sentence without
+       moving copy out of this file. */
+    standfirst: {
+      lead: "GG Bearers Company Limited",
+      body: " is a forward-thinking technology and consulting company dedicated to proffering global solutions to individuals, organisations and nations at large.",
+    },
+    lede: "GG BEARERS imports, exports, clears and trades across borders, running partnerships, investment and corporate services in-house, and owning the GG FOODS and GG AUTOS businesses.",
     primary: { label: "Get in touch", href: "/contact" },
     secondary: { label: "Meet our companies", href: "/companies" },
   },
