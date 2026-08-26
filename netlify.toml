@@ -1,0 +1,13 @@
+# Shared Netlify configuration for all three sites in this monorepo.
+#
+# Deliberately minimal. Build command, publish directory and package
+# directory stay in each site's dashboard settings, because they differ per
+# site and a root netlify.toml cannot vary between them. Only keys present
+# here override the dashboard, so those settings are left alone.
+#
+# The ignore hook is site-aware via Netlify's SITE_NAME variable, so one
+# committed script covers gg-bearers, gg-food and gg-autos. See
+# scripts/netlify-ignore.sh.
+
+[build]
+  ignore = "bash scripts/netlify-ignore.sh"
