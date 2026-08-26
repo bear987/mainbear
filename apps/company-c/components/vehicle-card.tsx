@@ -1,7 +1,6 @@
 import Link from "next/link";
 import type { Vehicle } from "../content/vehicles";
 import { bodyTypeLabels, capacityOf, statusLabels } from "../content/vehicles";
-import { formatNaira } from "../lib/format";
 import { VehicleImage } from "./vehicle-image";
 
 /**
@@ -45,9 +44,7 @@ export function VehicleCard({ vehicle }: { vehicle: Vehicle }) {
           {vehicle.variant} / <span className="tnum">{capacityOf(vehicle)}</span>
         </p>
 
-        <p className="tnum mt-auto pt-5 text-[1.35rem] font-semibold leading-none tracking-[-0.03em] text-action-600">
-          {formatNaira(vehicle.priceFromNGN)}
-        </p>
+        <p className="stamp mt-auto pt-5 text-action-600">Price on enquiry</p>
       </div>
     </article>
   );

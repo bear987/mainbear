@@ -1,21 +1,21 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader, breadcrumbSchema } from "../../components/page-header";
-import { Section } from "../../components/section";
+import { Section, SectionHead } from "../../components/section";
 import { VehicleBrowser } from "../../components/vehicle-browser";
-import { catalogueStats, vehicles } from "../../content/vehicles";
+import { catalogueStats, specifications, vehicles } from "../../content/vehicles";
 import { contact, site } from "../../content/site";
 import { whatsappGeneral } from "../../lib/contact";
 
 export const metadata: Metadata = {
   title: "Mini Buses & Mini Trucks for Sale in Lagos",
   description:
-    "Suzuki and Daihatsu mini buses and mini trucks from GG Autos Lagos. Hijet, Gran Max, Carry, Every and APV. Compare specifications and prices in naira, then call or WhatsApp.",
+    "Mini buses and mini trucks from GG Autos Lagos: Suzuki, Hijet, Daihatsu, Toyota, Mazda, Nissan and Hummer. Compare specifications, then call or WhatsApp for a price.",
   alternates: { canonical: "/inventory" },
   openGraph: {
     title: `Mini Buses & Mini Trucks | ${site.name}`,
     description:
-      "Suzuki and Daihatsu mini buses and mini trucks. Compare specifications side by side, retail and wholesale.",
+      "Suzuki, Hijet, Daihatsu, Toyota, Mazda, Nissan and Hummer. Compare specifications side by side, retail and wholesale.",
     url: `${site.url}/inventory`,
   },
 };
@@ -49,16 +49,40 @@ export default function InventoryPage() {
         label="The range"
         title="Mini buses and mini trucks"
         crumbs={crumbs}
-        intro="Suzuki and Daihatsu, in passenger and load-carrying bodies. Pick a model on the left to see its full specification and its photographs."
+        intro="Every make we supply, in passenger and load-carrying bodies. Pick a model on the left to see its specification and its photographs, then call the yard for a price."
         rail={[
           { label: "Models", value: String(catalogueStats.models) },
           { label: "Mini buses", value: String(catalogueStats.buses) },
+          { label: "Full-size", value: String(catalogueStats.fullSizeBuses) },
           { label: "Mini trucks", value: String(catalogueStats.trucks) },
         ]}
       />
 
       <Section space="normal">
         <VehicleBrowser vehicles={vehicles} />
+      </Section>
+
+      {/* Build options offered across the whole range, rather than figures
+          belonging to any one model. */}
+      <Section tone="tint" rules>
+        <SectionHead
+          label={specifications.label}
+          title={specifications.title}
+          align="split"
+          intro={specifications.intro}
+        />
+
+        <dl className="mt-14 border-t border-line">
+          {specifications.options.map((option) => (
+            <div
+              key={option.title}
+              className="grid gap-2 border-b border-line py-6 md:grid-cols-[minmax(0,16rem)_1fr] md:gap-8"
+            >
+              <dt className="text-[1.15rem] leading-tight text-heading">{option.title}</dt>
+              <dd className="max-w-[58ch] text-fg">{option.body}</dd>
+            </div>
+          ))}
+        </dl>
       </Section>
 
       <Section tone="ink" space="tight">

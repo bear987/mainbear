@@ -1,18 +1,18 @@
 /* ============================================================
    SERVICES COPY.
-   Coupling and attachment are the SAME service under two names
-   the trade uses interchangeably. Both words appear here so a
-   buyer searching either one finds us. Do not split them into
-   two services.
+   Coupling, attachment and joining are the SAME service under
+   three names the trade uses interchangeably. All three words
+   appear here so a buyer searching any one of them finds us.
+   Do not split them into separate services.
    ============================================================ */
 
 export const service = {
   label: "Core capability",
-  title: "Coupling & attachment",
+  title: "Coupling, attachment & joining",
   standfirst:
-    "Coupling and attachment are two names for the same work: putting component parts together into a complete, functioning vehicle. It is what GG Autos does before a single bus reaches the yard.",
+    "Coupling, attachment and joining are three names for the same work: putting component parts together into a complete, functioning vehicle. It is what GG Autos does before a single bus reaches the yard.",
   intro:
-    "A vehicle arrives with us as parts. Chassis and body sections, engine and drivetrain, glass, doors, seats, wiring and trim. Our fitters put those parts together into a finished mini bus or mini truck built for Nigerian roads, then we test it before anyone sees it. That is coupling. Some of the trade calls it attachment. There is no difference between the two, and anyone who tells you otherwise is selling something.",
+    "A vehicle arrives with us as parts. Chassis and body sections, engine and drivetrain, glass, doors, seats, wiring and trim. Our fitters put those parts together into a finished mini bus or mini truck built for Nigerian roads, then we test it before anyone sees it. That is coupling. Some of the trade calls it attachment, others call it joining. There is no difference between the three, and anyone who tells you otherwise is selling something.",
 } as const;
 
 /* A real sequence, so it is genuinely numbered. */
@@ -70,11 +70,59 @@ export const buyerMeaning = {
   ],
 } as const;
 
-/* The full catalogue. Three services, no more. */
+/* What the vehicles are supplied for, and what comes with them.
+   NOT a sequence, so these are deliberately not numbered: the uses are two
+   parallel audiences and the rest are things included with any order. */
+export const supply = {
+  label: "Products & services",
+  title: "What we supply, and who for",
+  intro:
+    "The same vehicles serve two very different buyers, and everything below comes with them either way.",
+  uses: [
+    {
+      title: "Private use",
+      body: "Schools and organisations running transport of their own.",
+    },
+    {
+      title: "Commercial use",
+      body: "Interstate transport, factories, logistics and delivery work of every kind.",
+    },
+  ],
+  /* Makes supplied to order. Broader than the priced range in the inventory,
+     which stays Suzuki, Hijet and Daihatsu. */
+  makes: [
+    "Hummer buses",
+    "Toyota Hiace",
+    "Dyna trucks",
+    "Mazda Bongo trucks and buses",
+    "Nissan Vanette",
+  ],
+  workshop: [
+    "Full body painting, and servicing of the engine.",
+    "Logistics upgrades: additional springs, burglary proofing, full container bodies, and a change from 12 rings to 14 rings for maximum support and balancing.",
+    "Wheel balancing and alignment.",
+  ],
+  included: [
+    "Maintenance and repair services, carried out on our own yard.",
+    "Genuine vehicle spare parts, distributed across the globe.",
+    "Delivery of the vehicle to your location.",
+    "Certified joining experts on every build.",
+  ],
+  /* A real figure from the yard, stamped as a readout. */
+  turnaround: { value: "2 to 3", unit: "days", label: "To couple a vehicle" },
+} as const;
+
+/* The full catalogue. Four services, no more.
+   Importation and clearing was added on the owner's instruction: GG Autos
+   handles it for its own yard AND for the wider GG Bearers group. */
 export const catalogue = [
   {
-    title: "Coupling & attachment",
+    title: "Coupling, attachment & joining",
     body: "Component parts assembled into complete, road-ready mini buses and mini trucks on our own yard in Okota.",
+  },
+  {
+    title: "Importation & clearing",
+    body: "Vehicles and parts imported and cleared in-house, for our own yard and for the wider GG Bearers group.",
   },
   {
     title: "Mini bus and mini truck sales",
@@ -88,9 +136,9 @@ export const catalogue = [
 
 export const faqs = [
   {
-    question: "Is coupling the same thing as attachment?",
+    question: "Is coupling the same thing as attachment and joining?",
     answer:
-      "Yes. They are two words the trade uses for the same job, which is assembling component parts into a complete vehicle. We use both because buyers ask for both.",
+      "Yes. They are three words the trade uses for the same job, which is assembling component parts into a complete vehicle. We use all three because buyers ask for all three.",
   },
   {
     question: "Can I have a bus built to my own specification?",
@@ -100,7 +148,7 @@ export const faqs = [
   {
     question: "How long does a build take?",
     answer:
-      "It depends on the platform and on parts availability, and it changes with the size of the order. Call the yard with the model and quantity and we will give you a date rather than a guess.",
+      "Two to three days to couple a single vehicle. Larger orders, custom body work and parts availability move that, so call the yard with the model and quantity and we will give you a date rather than a guess.",
   },
   {
     question: "Do you couple buses for other dealers?",

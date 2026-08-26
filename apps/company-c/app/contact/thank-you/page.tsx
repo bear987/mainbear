@@ -18,7 +18,7 @@ const next = [
   },
   {
     title: "We reply with what fits",
-    body: "You get the units that match your budget and seating, with the real condition and the real price against each one.",
+    body: "You get the models that match your budget and seating, with the specification and a real price against each one.",
   },
   {
     title: "You come and inspect",

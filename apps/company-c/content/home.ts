@@ -19,7 +19,7 @@ export const assembly = {
   body: "Most dealers buy a finished vehicle and mark it up. We couple ours. Component parts come into the Okota workshop and leave as a complete, road-ready mini bus or mini truck, which means we know exactly how every unit was put together, and we can fix it when something goes wrong.",
   points: [
     {
-      title: "Coupling and attachment",
+      title: "Coupling, attachment and joining",
       body: "Chassis, body, cabin and interior assembled in-house, and load bodies built to the work the vehicle will do.",
     },
     {
@@ -40,7 +40,7 @@ export const paths = [
     key: "retail",
     label: "Buying one vehicle",
     title: "Retail",
-    body: "For drivers, traders and owners buying a single unit. Compare the models side by side, see the full specification and the price in naira, then call us.",
+    body: "For drivers, traders and owners buying a single unit. Compare the models side by side, see the full specification, then call us for a price.",
     cta: { label: "See the range", href: "/inventory" },
   },
   {
@@ -62,7 +62,7 @@ export const trust = {
     },
     {
       title: "Papers complete",
-      body: "Customs duty, registration and ownership documents are in order before a unit is handed over.",
+      body: "Every unit is handed over with its duty, registration and ownership documents in order. Where you need them arranged from scratch, GG Autos can provide customs duty, vehicle registration and papers at your own expense.",
     },
     {
       title: "Parts you can actually get",
@@ -88,9 +88,9 @@ export const faqs = [
       "If you are carrying people, a bus. If you are carrying goods, a truck, and then it is a question of whether the load needs to stay dry. Tell us the route and the load and we will tell you which one to put on it.",
   },
   {
-    question: "What is the difference between the Suzuki and the Daihatsu?",
+    question: "What is the difference between the Suzuki and the Hijet?",
     answer:
-      "They are close competitors and both are well supported here. In broad terms the Suzuki Every is the most economical on fuel, the Daihatsu Gran Max carries the most, and the Hijet sits in the middle at the lowest price.",
+      "Neither is heavy on fuel, which is why both sell. The difference is behind the badge: the Hijet is a Daihatsu model and Daihatsu is owned by Toyota, while Suzuki is a manufacturer in its own right. On the yard they are close competitors, and Lagos mechanics know both.",
   },
   {
     question: "Do you sell to dealers and fleets?",
@@ -103,8 +103,8 @@ export const faqs = [
       "Within reason. Seating layout, roof height, load body and interior finish are the usual requests. Tell us the work the vehicle will do and we will tell you what we can build.",
   },
   {
-    question: "Is the price on the site the final price?",
+    question: "Why are there no prices on the site?",
     answer:
-      "It is the price the model starts from today. Options and body work move it up, and a wholesale order moves it down with quantity.",
+      "Prices move with specification, body work and quantity, so a number on a page would be out of date or wrong for your build. Call or message the yard with the model you want and we will give you a real figure.",
   },
 ];

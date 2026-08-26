@@ -110,8 +110,8 @@ export default function HomePage() {
       {/* TRUST BAR */}
       <Section tone="surface" space="tight" className="border-b border-line">
         <dl className="grid grid-cols-2 gap-8 sm:gap-10 lg:grid-cols-4">
-          {home.stats.map((stat) => (
-            <Stat key={stat.label} stat={stat} />
+          {home.stats.map((stat, i) => (
+            <Stat key={stat.label} stat={stat} delay={i * 110} />
           ))}
         </dl>
       </Section>

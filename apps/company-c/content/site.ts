@@ -9,9 +9,13 @@ export const site = {
   name: "GG Autos",
   legalName: "GG Autos",
   /** One line, used in metadata and the footer brand block. */
-  tagline: "Suzuki and Daihatsu mini buses and mini trucks, coupled and sold in Lagos.",
+  tagline:
+    "Suzuki and Daihatsu mini buses and mini trucks, imported, cleared and coupled in Lagos.",
+  /* Kept under ~160 characters so search engines show it whole. The previous
+     version ran to 189 and was being truncated, so importation and clearing
+     were worked in by tightening rather than appending. */
   description:
-    "GG Autos couples and sells Suzuki and Daihatsu mini buses and mini trucks in Lagos, Nigeria. Retail sales for drivers and owners, wholesale supply for dealers, fleets and transport companies.",
+    "GG Autos imports, clears, couples and sells Suzuki and Daihatsu mini buses and mini trucks in Lagos, Nigeria. Retail and wholesale to dealers and fleets.",
   url: "https://autos.ggbearers.com",
   locale: "en_NG",
   region: "Lagos, Nigeria",
@@ -95,7 +99,7 @@ export const footerColumns = [
   {
     title: "Company",
     links: [
-      { label: "Coupling & attachment", href: "/services" },
+      { label: "Coupling, attachment & joining", href: "/services" },
       { label: "Wholesale & fleet", href: "/wholesale" },
       { label: "About GG Autos", href: "/about" },
       { label: "Contact", href: "/contact" },
@@ -110,16 +114,18 @@ export const footerColumns = [
   },
 ];
 
-/** The three real services. Invent no others. */
+/** The four real services. Invent no others. */
 export const capabilities = [
-  "Coupling & attachment",
+  "Coupling, attachment & joining",
+  "Importation & clearing",
   "Retail sales",
   "Wholesale distribution",
 ] as const;
 
 /** Monospace hero ticker. Vocabulary from the yard, not marketing. */
 export const tickerItems = [
-  "COUPLING & ATTACHMENT",
+  "COUPLING, ATTACHMENT & JOINING",
+  "IMPORTATION & CLEARING",
   "SUZUKI",
   "DAIHATSU",
   "MINI BUSES",

@@ -12,18 +12,19 @@ import {
   process,
   quality,
   service,
+  supply,
 } from "../../content/services";
 import { contact, site } from "../../content/site";
 import { whatsappAssembly } from "../../lib/contact";
 import { sequence } from "../../lib/format";
 
 export const metadata: Metadata = {
-  title: "Mini Bus Coupling & Attachment in Lagos",
+  title: "Mini Bus Coupling, Attachment & Joining in Lagos",
   description:
-    "GG Autos couples and attaches mini buses in Okota, Lagos: component parts assembled into complete, road-tested passenger vehicles. See the process and talk to the builder.",
+    "GG Autos couples, attaches and joins mini buses and mini trucks in Okota, Lagos: component parts assembled into complete, road-tested vehicles. See the process and talk to the builder.",
   alternates: { canonical: "/services" },
   openGraph: {
-    title: `Mini Bus Coupling & Attachment | ${site.name}`,
+    title: `Mini Bus Coupling, Attachment & Joining | ${site.name}`,
     description:
       "Component parts assembled into complete, road-tested mini buses on our own yard in Lagos.",
     url: `${site.url}/services`,
@@ -35,8 +36,8 @@ const crumbs = [{ label: "Services", href: "/services" }];
 const serviceSchema = {
   "@context": "https://schema.org",
   "@type": "Service",
-  name: "Mini bus coupling and attachment",
-  alternateName: ["Mini bus attachment", "Mini bus assembly"],
+  name: "Mini bus coupling, attachment and joining",
+  alternateName: ["Mini bus attachment", "Mini bus joining", "Mini bus assembly"],
   serviceType: "Vehicle assembly",
   description: service.standfirst,
   url: `${site.url}/services`,
@@ -107,6 +108,91 @@ export default function ServicesPage() {
         </div>
       </Section>
 
+      {/* Products & services. The two uses sit as paired cells, the rest as a
+          ruled ledger. No 01/02 markers: this is a list, not a sequence. */}
+      <Section tone="ink">
+        <Reveal>
+          <SectionHead
+            label={supply.label}
+            title={supply.title}
+            align="split"
+            intro={supply.intro}
+          />
+        </Reveal>
+
+        <div className="mt-14 grid gap-px bg-[#f3f1ec]/20 md:grid-cols-2">
+          {supply.uses.map((use, index) => (
+            <Reveal key={use.title} delay={index * 90}>
+              <div className="h-full bg-[#111110] p-8">
+                <span className="stamp">{`Use 0${index + 1}`}</span>
+                <h3 className="mt-4 text-[clamp(1.5rem,3vw,2.1rem)]">{use.title}</h3>
+                <p className="mt-3 max-w-[42ch] text-[#cfcdc7]">{use.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal delay={130}>
+          <h3 className="stamp mt-12 border-b border-line pb-3">Vehicles we supply</h3>
+          <ul className="mt-4 flex flex-wrap gap-2">
+            {supply.makes.map((make) => (
+              <li
+                key={make}
+                className="stamp border border-line px-3 py-1.5 text-[#f3f1ec]"
+              >
+                {make}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
+        <Reveal delay={150}>
+          <h3 className="stamp mt-12 border-b border-line pb-3">Workshop services</h3>
+          <ul>
+            {supply.workshop.map((item) => (
+              <li
+                key={item}
+                className="flex items-baseline gap-4 border-b border-line py-4 text-[1.05rem] text-[#cfcdc7]"
+              >
+                <span aria-hidden className="text-action-600">
+                  +
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
+        <Reveal delay={170}>
+          <h3 className="stamp mt-12 border-b border-line pb-3">Included either way</h3>
+          <ul>
+            {supply.included.map((item) => (
+              <li
+                key={item}
+                className="flex items-baseline gap-4 border-b border-line py-4 text-[1.05rem] text-[#cfcdc7]"
+              >
+                <span aria-hidden className="text-action-600">
+                  +
+                </span>
+                {item}
+              </li>
+            ))}
+          </ul>
+        </Reveal>
+
+        {/* Turnaround as a stamped readout rather than a sentence. */}
+        <Reveal delay={190}>
+          <div className="mt-12 flex flex-wrap items-baseline gap-x-5 gap-y-2 border border-line px-6 py-5">
+            <span className="stamp">Turnaround</span>
+            <span className="tnum text-[clamp(1.8rem,4vw,2.6rem)] font-semibold leading-none tracking-[-0.03em] text-action-500">
+              {supply.turnaround.value}
+            </span>
+            <span className="stamp text-[#f3f1ec]">{supply.turnaround.unit}</span>
+            <span className="stamp ml-auto">{supply.turnaround.label}</span>
+          </div>
+        </Reveal>
+      </Section>
+
       {/* A genuine sequence, so it is genuinely numbered. */}
       <Section tone="tint" rules>
         <Reveal>
@@ -173,12 +259,12 @@ export default function ServicesPage() {
         <Reveal>
           <SectionHead
             label="Everything we do"
-            title="Three services, no padding"
+            title="Four services, no padding"
             align="split"
-            intro="Coupling is the technical core. The other two are how a finished bus reaches its owner."
+            intro="Coupling, attachment and joining are the technical core. Importation and clearing get the parts here, and the last two are how a finished vehicle reaches its owner."
           />
         </Reveal>
-        <div className="mt-12 grid gap-px bg-line md:grid-cols-3">
+        <div className="mt-12 grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
           {catalogue.map((item, index) => (
             <Reveal key={item.title} delay={index * 80}>
               <div className="h-full bg-highlight p-7">

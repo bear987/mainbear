@@ -35,7 +35,7 @@ export const home = {
   whatWeDo: {
     eyebrow: "What we do",
     title: "A working business, not a holding shell.",
-    lede: "Two jobs, done at once: we run real trade services of our own, and we steward two operating companies underneath us.",
+    lede: "We import cars, trucks, mini buses, Nissan and Toyota products, and heavy-duty trucks, among others. Two jobs, done at once: we run real trade services of our own, and we steward the operating companies underneath us.",
     areas: [
       ...services.map<DoArea>((s) => ({
         name: s.name,
@@ -55,8 +55,10 @@ export const home = {
 
   companies: {
     eyebrow: "Our companies",
-    title: "Two businesses. One group standard.",
-    lede: "GG BEARERS owns and operates both companies below. Each runs its own market, visit their sites to go deeper.",
+    /* "Our" rather than "Two", so the section still reads correctly as the
+       group takes on further companies or partners. */
+    title: "Our businesses. One group standard.",
+    lede: "GG BEARERS owns and operates the companies below. Each runs its own market, visit their sites to go deeper.",
   },
 
   closing: {

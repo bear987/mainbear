@@ -11,7 +11,6 @@ import {
   whatsappWhenAvailable,
   whatsappWholesaleForVehicle,
 } from "../lib/contact";
-import { formatNaira } from "../lib/format";
 import { VehicleCarousel } from "./vehicle-carousel";
 
 function chip(active: boolean): string {
@@ -262,16 +261,19 @@ export function VehicleBrowser({ vehicles }: { vehicles: Vehicle[] }) {
 
                 {selected.status === "available" ? (
                   <>
+                    {/* No prices anywhere by the owner's decision: buyers call
+                        the yard for a figure. */}
                     <div className="border-t border-line px-5 py-4">
-                      <span className="stamp">Price from</span>
-                      <p className="tnum mt-1 text-[1.9rem] font-semibold leading-none tracking-[-0.03em] text-action-600">
-                        {formatNaira(selected.priceFromNGN)}
+                      <span className="stamp">Price</span>
+                      <p className="mt-1 text-[1.35rem] font-semibold leading-tight tracking-[-0.02em] text-action-600">
+                        On enquiry
                       </p>
-                      {selected.wholesaleAvailable && (
-                        <p className="stamp mt-2">
-                          Wholesale from {selected.minWholesaleQty ?? 2} units.
-                        </p>
-                      )}
+                      <p className="stamp mt-2">
+                        Call or message the yard for a figure on this model
+                        {selected.wholesaleAvailable
+                          ? `, or for wholesale from ${selected.minWholesaleQty ?? 2} units.`
+                          : "."}
+                      </p>
                     </div>
 
                     <div className="border-t border-line px-5 py-5">

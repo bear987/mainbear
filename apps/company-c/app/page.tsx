@@ -65,14 +65,14 @@ export default function HomePage() {
         </Reveal>
       </Section>
 
-      {/* The manifest. Real stock, priced, on the homepage. */}
+      {/* The manifest. The real range, on the homepage. */}
       <Section tone="tint">
         <Reveal>
           <SectionHead
             label="The range"
             title="What we supply"
             align="split"
-            intro="Suzuki and Daihatsu, in passenger and load-carrying bodies. Prices are what each model starts from today, in naira."
+            intro="Passenger and load-carrying bodies across every make we supply. Call the yard for a price on any of them."
           />
         </Reveal>
 

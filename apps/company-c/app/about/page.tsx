@@ -3,7 +3,16 @@ import Link from "next/link";
 import { Reveal } from "@repo/ui/reveal";
 import { PageHeader, breadcrumbSchema } from "../../components/page-header";
 import { Section, SectionHead, RegistrationMarks } from "../../components/section";
-import { about, groupBand, stats, story, team, values } from "../../content/about";
+import {
+  about,
+  groupBand,
+  mission,
+  stats,
+  story,
+  team,
+  values,
+  whatWeDo,
+} from "../../content/about";
 import { contact, group, site } from "../../content/site";
 import { whatsappGeneral } from "../../lib/contact";
 import { sequence } from "../../lib/format";
@@ -55,6 +64,55 @@ export default function AboutPage() {
               </div>
             </Reveal>
           </div>
+        </div>
+      </Section>
+
+      {/* MISSION. The statement carries at display scale; the commitments sit
+          under it as a ruled ledger so the section reads as a pledge. */}
+      <Section tone="ink" space="loose">
+        <Reveal>
+          <SectionHead label={mission.label} title={mission.title} size="xl" />
+        </Reveal>
+
+        <ul className="mt-14 border-t border-line">
+          {mission.points.map((point, index) => (
+            <Reveal key={point} delay={index * 80}>
+              <li className="grid gap-3 border-b border-line py-7 md:grid-cols-[4rem_1fr] md:gap-8">
+                <span aria-hidden className="stamp pt-1.5 text-action-600">
+                  &mdash;
+                </span>
+                <p className="max-w-[62ch] text-[1.15rem] leading-relaxed text-[#cfcdc7]">
+                  {point}
+                </p>
+              </li>
+            </Reveal>
+          ))}
+        </ul>
+      </Section>
+
+      {/* WHAT WE DO. Two jobs running in parallel, so paired cells rather
+          than a numbered sequence. */}
+      <Section rules>
+        <Reveal>
+          <SectionHead
+            label={whatWeDo.label}
+            title={whatWeDo.title}
+            align="split"
+            intro="Importing, clearing and building are not separate departments here. The same yard does all of it."
+          />
+        </Reveal>
+
+        <div className="mt-14 grid gap-px bg-line md:grid-cols-2">
+          {whatWeDo.points.map((point, index) => (
+            <Reveal key={point.title} delay={index * 90}>
+              <div className="h-full bg-paper p-8">
+                <h3 className="text-[clamp(1.4rem,2.6vw,1.9rem)] leading-tight">
+                  {point.title}
+                </h3>
+                <p className="mt-4 max-w-[42ch] text-fg">{point.body}</p>
+              </div>
+            </Reveal>
+          ))}
         </div>
       </Section>
 

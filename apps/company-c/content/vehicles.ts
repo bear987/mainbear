@@ -7,13 +7,15 @@
    that model's images.
 
    WHAT IS AVAILABLE
-   Only three names are stocked today: Suzuki, Hijet and
-   Daihatsu, each as a mini bus and as a mini truck. Anything
-   else in this file is marked `status: "coming-soon"` and shows
-   on the site as coming soon, with no price and no order CTA.
+   Suzuki, Hijet and Daihatsu are the kei-class range, each as a
+   mini bus and a mini truck, with full specifications. Toyota,
+   Mazda, Nissan and Hummer are also supplied. Their detailed
+   specifications are NOT yet confirmed by the owner, so those
+   fields are deliberately left out and the site shows
+   "to be confirmed" rather than a guess. Fill them in here.
 
    TO MAKE A COMING SOON MODEL AVAILABLE
-   Change its `status` to "available" and fill in its price and
+   Change its `status` to "available" and fill in its
    specification. Nothing else needs editing.
 
    TO ADD A MODEL
@@ -27,15 +29,25 @@
       Set `imageCount` to how many slides to look for. Files that
       are not there yet are skipped automatically, so you can add
       photographs one at a time and just refresh the page.
-   3. `priceFromNGN` is a plain number of naira, no commas.
-      Use `null` to show "Price on request" instead.
-   4. Mini buses use `seats`. Mini trucks use `payloadKg` and
-      `bedLength`. Leave the other one out.
+   3. PRICES ARE NOT SHOWN ANYWHERE ON THIS SITE, by the owner's
+      decision. Buyers contact the yard for a price, so there is
+      deliberately no price field. Do not add one back.
+   4. Passenger vehicles (mini bus, full-size bus) use `seats`.
+      Mini trucks use `payloadKg` and `bedLength`. Leave the
+      other one out. Every MINI bus is a 7 seater; a full-size
+      bus carries more and has its own seat count.
    ============================================================ */
 
-/** The only names stocked today. Do not add others as available. */
-export type Brand = "Suzuki" | "Hijet" | "Daihatsu";
-export type BodyType = "mini-bus" | "mini-truck";
+/** Brands stocked or supplied to order. */
+export type Brand =
+  | "Suzuki"
+  | "Hijet"
+  | "Daihatsu"
+  | "Toyota"
+  | "Mazda"
+  | "Nissan"
+  | "Hummer";
+export type BodyType = "mini-bus" | "full-size-bus" | "mini-truck";
 export type Status = "available" | "coming-soon";
 
 export type Vehicle = {
@@ -64,8 +76,6 @@ export type Vehicle = {
   dimensions?: string;
   fuelUse?: string;
 
-  /** Naira. `null` renders "Price on request". Always null when coming soon. */
-  priceFromNGN: number | null;
   wholesaleAvailable: boolean;
   minWholesaleQty?: number;
   /** TRUE when GG Autos couples this model in-house from parts. */
@@ -96,7 +106,6 @@ export const vehicles: Vehicle[] = [
     drive: "Rear wheel",
     dimensions: "3.40 m long, 1.48 m wide, 1.90 m high",
     fuelUse: "About 16 km per litre in town",
-    priceFromNGN: 13900000,
     wholesaleAvailable: true,
     minWholesaleQty: 5,
     coupledInHouse: true,
@@ -128,7 +137,6 @@ export const vehicles: Vehicle[] = [
     drive: "Rear wheel",
     dimensions: "3.80 m long, 1.55 m wide, 1.79 m high",
     fuelUse: "About 14 km per litre loaded",
-    priceFromNGN: 13400000,
     wholesaleAvailable: true,
     minWholesaleQty: 5,
     coupledInHouse: true,
@@ -159,7 +167,6 @@ export const vehicles: Vehicle[] = [
     drive: "Rear wheel",
     dimensions: "3.40 m long, 1.48 m wide, 1.90 m high",
     fuelUse: "About 15 km per litre in town",
-    priceFromNGN: 14500000,
     wholesaleAvailable: true,
     minWholesaleQty: 5,
     coupledInHouse: true,
@@ -191,7 +198,6 @@ export const vehicles: Vehicle[] = [
     drive: "Rear wheel",
     dimensions: "3.40 m long, 1.48 m wide, 1.78 m high",
     fuelUse: "About 15 km per litre loaded",
-    priceFromNGN: 13200000,
     wholesaleAvailable: true,
     minWholesaleQty: 5,
     coupledInHouse: true,
@@ -215,22 +221,21 @@ export const vehicles: Vehicle[] = [
     bodyType: "mini-bus",
     status: "available",
     variant: "passenger van",
-    seats: 9,
+    seats: 7,
     engine: "1.5L 4-cylinder",
     fuel: "petrol",
     transmission: "manual",
     drive: "Rear wheel",
     dimensions: "4.19 m long, 1.66 m wide, 1.90 m high",
     fuelUse: "About 12 km per litre in town",
-    priceFromNGN: 19800000,
     wholesaleAvailable: true,
     minWholesaleQty: 5,
     coupledInHouse: true,
     summary:
-      "More rows and a bigger engine to carry them. The step up for an operator who wants more fares per trip without moving to a full size bus and its running costs.",
+      "The same seven seats with a bigger engine behind them. The step up for an operator running longer routes or heavier loads, without moving to a full size bus and its running costs.",
     bestFor: ["Longer commercial routes", "Hotel and airport transfers", "Group transport"],
     features: [
-      "9 seat layout",
+      "7 seat layout",
       "1.5L engine",
       "Sliding side door",
       "Air conditioning",
@@ -254,7 +259,6 @@ export const vehicles: Vehicle[] = [
     drive: "Rear wheel",
     dimensions: "4.19 m long, 1.66 m wide, 1.80 m high",
     fuelUse: "About 11 km per litre loaded",
-    priceFromNGN: 18400000,
     wholesaleAvailable: true,
     minWholesaleQty: 5,
     coupledInHouse: true,
@@ -272,8 +276,115 @@ export const vehicles: Vehicle[] = [
     updated: "2026-08-04",
   },
 
+  /* ---- SUPPLIED TO ORDER ----
+     Confirmed by the owner as part of the supply range. Engine, seating and
+     payload figures are NOT yet supplied, so they are omitted rather than
+     invented: the site renders "to be confirmed" for anything missing. */
+  {
+    slug: "toyota-hiace",
+    name: "Toyota Hiace",
+    brand: "Toyota",
+    bodyType: "mini-bus",
+    status: "available",
+    variant: "passenger bus",
+    wholesaleAvailable: true,
+    minWholesaleQty: 3,
+    coupledInHouse: false,
+    summary:
+      "The bus most Lagos commercial routes are built around. Supplied to order, with the seating plan and interior finished to the work it will do.",
+    bestFor: ["Commercial passenger routes", "Staff and school transport", "Charter work"],
+    features: ["Supplied to order", "Seating plan fitted to your route"],
+    imageCount: 3,
+    updated: "2026-08-08",
+  },
+  {
+    slug: "hummer-bus",
+    name: "Hummer Bus",
+    brand: "Hummer",
+    bodyType: "full-size-bus",
+    status: "available",
+    variant: "high-capacity bus",
+    wholesaleAvailable: true,
+    minWholesaleQty: 2,
+    coupledInHouse: false,
+    summary:
+      "The high-capacity body for operators who need more fares per trip than a mini bus can carry. Supplied to order.",
+    bestFor: ["High-capacity routes", "Interstate transport", "Group charter"],
+    features: ["Supplied to order", "High-capacity body"],
+    imageCount: 3,
+    updated: "2026-08-08",
+  },
+  {
+    slug: "nissan-vanette",
+    name: "Nissan Vanette",
+    brand: "Nissan",
+    bodyType: "mini-bus",
+    status: "available",
+    variant: "passenger van",
+    wholesaleAvailable: true,
+    minWholesaleQty: 3,
+    coupledInHouse: false,
+    summary:
+      "A compact passenger van for short routes and private transport, supplied to order.",
+    bestFor: ["Short routes", "Private and staff transport", "Light delivery"],
+    features: ["Supplied to order", "Compact van body"],
+    imageCount: 3,
+    updated: "2026-08-08",
+  },
+  {
+    slug: "mazda-bongo-bus",
+    name: "Mazda Bongo Bus",
+    brand: "Mazda",
+    bodyType: "mini-bus",
+    status: "available",
+    variant: "passenger van",
+    wholesaleAvailable: true,
+    minWholesaleQty: 3,
+    coupledInHouse: false,
+    summary:
+      "The passenger version of the Bongo, supplied to order for route and private work.",
+    bestFor: ["Commercial routes", "Private transport"],
+    features: ["Supplied to order", "Passenger body"],
+    imageCount: 3,
+    updated: "2026-08-08",
+  },
+  {
+    slug: "toyota-dyna-truck",
+    name: "Dyna Truck",
+    brand: "Toyota",
+    bodyType: "mini-truck",
+    status: "available",
+    variant: "light truck",
+    wholesaleAvailable: true,
+    minWholesaleQty: 2,
+    coupledInHouse: false,
+    summary:
+      "A step up in payload from the kei trucks, for distributors whose rounds have outgrown a mini truck. Supplied to order with the load body built to suit.",
+    bestFor: ["Heavier distribution", "Building materials", "Fleet delivery work"],
+    features: ["Supplied to order", "Load body built to suit"],
+    imageCount: 3,
+    updated: "2026-08-08",
+  },
+  {
+    slug: "mazda-bongo-truck",
+    name: "Mazda Bongo Truck",
+    brand: "Mazda",
+    bodyType: "mini-truck",
+    status: "available",
+    variant: "dropside truck",
+    wholesaleAvailable: true,
+    minWholesaleQty: 3,
+    coupledInHouse: false,
+    summary:
+      "The load-carrying version of the Bongo, supplied to order for trade and delivery work.",
+    bestFor: ["Trade deliveries", "Market runs", "Light haulage"],
+    features: ["Supplied to order", "Dropside body available"],
+    imageCount: 3,
+    updated: "2026-08-08",
+  },
+
   /* ---------------- COMING SOON ----------------
-     Not stocked yet. No price, no specification and no order CTA
+     Not stocked yet. No specification and no order CTA
      until the owner confirms them. Change `status` to "available"
      and fill in the figures when they land. */
   {
@@ -283,7 +394,6 @@ export const vehicles: Vehicle[] = [
     bodyType: "mini-truck",
     status: "coming-soon",
     variant: "enclosed box body",
-    priceFromNGN: null,
     wholesaleAvailable: false,
     coupledInHouse: true,
     summary:
@@ -300,7 +410,6 @@ export const vehicles: Vehicle[] = [
     bodyType: "mini-bus",
     status: "coming-soon",
     variant: "extended passenger van",
-    priceFromNGN: null,
     wholesaleAvailable: false,
     coupledInHouse: true,
     summary:
@@ -312,10 +421,41 @@ export const vehicles: Vehicle[] = [
   },
 ];
 
+/* ------------------------------------------------------------
+   SPECIFICATION OPTIONS offered across the range. These are the
+   choices a buyer makes when ordering, not per-model figures, so
+   they live here rather than on any single vehicle.
+   ------------------------------------------------------------ */
+export const specifications = {
+  label: "Specification",
+  title: "What you can specify",
+  intro:
+    "The same model can be built more than one way. These are the choices open to you when you order, and they are settled before the build starts.",
+  options: [
+    {
+      title: "Engines",
+      body: "Belt and chain engines, depending on the platform and how you intend to run it.",
+    },
+    {
+      title: "Gear selection",
+      body: "Manual and automatic gear selections.",
+    },
+    {
+      title: "Plug system",
+      body: "Three and four plug systems.",
+    },
+    {
+      title: "Mini truck gearing",
+      body: "Four and five speeds on the mini trucks.",
+    },
+  ],
+} as const;
+
 /* ---------- Helpers. Do not edit below unless you write code. ---------- */
 
 export const bodyTypeLabels: Record<BodyType, string> = {
   "mini-bus": "Mini bus",
+  "full-size-bus": "Full-size bus",
   "mini-truck": "Mini truck",
 };
 
@@ -324,8 +464,16 @@ export const statusLabels: Record<Status, string> = {
   "coming-soon": "Coming soon",
 };
 
-export const brands: Brand[] = ["Suzuki", "Hijet", "Daihatsu"];
-export const bodyTypes: BodyType[] = ["mini-bus", "mini-truck"];
+export const brands: Brand[] = [
+  "Suzuki",
+  "Hijet",
+  "Daihatsu",
+  "Toyota",
+  "Mazda",
+  "Nissan",
+  "Hummer",
+];
+export const bodyTypes: BodyType[] = ["mini-bus", "full-size-bus", "mini-truck"];
 
 export function getVehicle(slug: string): Vehicle | undefined {
   return vehicles.find((vehicle) => vehicle.slug === slug);
@@ -337,17 +485,16 @@ export function isAvailable(vehicle: Vehicle): boolean {
 
 /** The capacity line: seats for a bus, payload for a truck. */
 export function capacityOf(vehicle: Vehicle): string {
-  if (vehicle.bodyType === "mini-bus") {
-    return vehicle.seats ? `${vehicle.seats} seats` : "Seats to be confirmed";
+  if (vehicle.bodyType === "mini-truck") {
+    return vehicle.payloadKg ? `${vehicle.payloadKg} kg payload` : "Payload to be confirmed";
   }
-  return vehicle.payloadKg ? `${vehicle.payloadKg} kg payload` : "Payload to be confirmed";
+  return vehicle.seats ? `${vehicle.seats} seats` : "Seats to be confirmed";
 }
 
 /** Featured on the homepage: stocked models only, cheapest first. */
 export function featuredVehicles(count = 6): Vehicle[] {
   return vehicles
     .filter(isAvailable)
-    .sort((a, b) => (a.priceFromNGN ?? 0) - (b.priceFromNGN ?? 0))
     .slice(0, count);
 }
 
@@ -367,6 +514,7 @@ const availableVehicles = vehicles.filter(isAvailable);
 export const catalogueStats = {
   models: availableVehicles.length,
   buses: availableVehicles.filter((vehicle) => vehicle.bodyType === "mini-bus").length,
+  fullSizeBuses: availableVehicles.filter((v) => v.bodyType === "full-size-bus").length,
   trucks: availableVehicles.filter((vehicle) => vehicle.bodyType === "mini-truck").length,
   comingSoon: vehicles.length - availableVehicles.length,
   coupled: availableVehicles.filter((vehicle) => vehicle.coupledInHouse).length,

@@ -26,6 +26,35 @@ export const story = {
   ],
 } as const;
 
+/* The mission. The opening statement carries as the section headline, and
+   the three commitments beneath it are the promises we are held to. */
+export const mission = {
+  label: "Our mission",
+  title: "World class vehicles that serve their purpose",
+  points: [
+    "We ensure every vehicle meets global safety and performance standards.",
+    "We are committed to reducing carbon emissions and to supplying sound vehicles to our customers, building long-term relationships, trust and service excellence.",
+    "We have always held integrity as our first priority.",
+  ],
+} as const;
+
+/* Several jobs run at once, so they are listed side by side rather than
+   numbered as though one follows the other. */
+export const whatWeDo = {
+  label: "What we do",
+  title: "Several jobs, done at once",
+  points: [
+    {
+      title: "Importation and clearing",
+      body: "Importation of the goods, and clearing of the goods, for our own yard and for the wider GG Bearers group.",
+    },
+    {
+      title: "Joining and coupling",
+      body: "Joining and coupling, as well as wiring systems.",
+    },
+  ],
+} as const;
+
 /* Real numbers only once the owner supplies them. */
 export const stats = [
   { label: "Years assembling buses", value: "[ADD YOUR STAT]" },
@@ -61,7 +90,7 @@ export const team = [
   },
   {
     role: "Workshop Manager",
-    remit: "Coupling and attachment, build quality and the inspection sign-off.",
+    remit: "Coupling, attachment and joining, build quality and the inspection sign-off.",
   },
   {
     role: "Sales Lead",

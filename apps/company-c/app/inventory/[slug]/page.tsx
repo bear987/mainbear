@@ -22,7 +22,7 @@ import {
   whatsappWhenAvailable,
   whatsappWholesaleForVehicle,
 } from "../../../lib/contact";
-import { formatNaira, formatStampDate } from "../../../lib/format";
+import { formatStampDate } from "../../../lib/format";
 
 export function generateStaticParams() {
   return vehicles.map((vehicle) => ({ slug: vehicle.slug }));
@@ -38,16 +38,15 @@ export async function generateMetadata({
   if (!vehicle) return { title: "Model not found" };
 
   const coming = vehicle.status !== "available";
-  const price = vehicle.priceFromNGN ? `From ${formatNaira(vehicle.priceFromNGN)}. ` : "";
   const title = coming
     ? `${vehicle.name}, coming soon`
-    : `${vehicle.name} Price in Nigeria`;
+    : `${vehicle.name} in Lagos, Nigeria`;
   const spec = vehicle.engine
     ? `${capacityOf(vehicle)}, ${vehicle.engine} ${vehicle.fuel}, ${vehicle.transmission}. `
     : "";
   const description = coming
     ? `The ${vehicle.name} is not yet stocked at GG Autos Lagos. Tell us you want one and we will call you when it lands.`
-    : `${vehicle.name} ${vehicle.variant}, ${spec}${price}Call or WhatsApp GG Autos in Okota, Lagos.`;
+    : `${vehicle.name} ${vehicle.variant}, ${spec}Call or WhatsApp GG Autos in Okota, Lagos for a price.`;
 
   return {
     title,
@@ -142,14 +141,6 @@ export default async function VehicleDetailPage({
     offers: {
       "@type": "Offer",
       priceCurrency: "NGN",
-      ...(vehicle.priceFromNGN
-        ? { price: vehicle.priceFromNGN, priceSpecification: {
-            "@type": "PriceSpecification",
-            price: vehicle.priceFromNGN,
-            priceCurrency: "NGN",
-            valueAddedTaxIncluded: false,
-          } }
-        : {}),
       availability: available
         ? "https://schema.org/InStock"
         : "https://schema.org/PreOrder",
@@ -275,23 +266,25 @@ export default async function VehicleDetailPage({
               <div className="border-b border-line p-6">
                 {available ? (
                   <>
-                    <span className="stamp">Price from</span>
-                    <p className="tnum mt-2 text-[clamp(2rem,4vw,2.8rem)] font-semibold leading-none tracking-[-0.03em] text-action-600">
-                      {formatNaira(vehicle.priceFromNGN)}
+                    {/* No prices on this site by the owner's decision: a buyer
+                        calls the yard for a figure. */}
+                    <span className="stamp">Price</span>
+                    <p className="mt-2 text-[clamp(1.6rem,3vw,2.2rem)] font-semibold leading-tight tracking-[-0.02em] text-action-600">
+                      On enquiry
                     </p>
-                    {vehicle.wholesaleAvailable && (
-                      <p className="stamp mt-3">
-                        Wholesale from {vehicle.minWholesaleQty ?? 2} units. Price changes with
-                        quantity.
-                      </p>
-                    )}
+                    <p className="stamp mt-3">
+                      Call or message the yard for a figure on this model
+                      {vehicle.wholesaleAvailable
+                        ? `, or for wholesale from ${vehicle.minWholesaleQty ?? 2} units.`
+                        : "."}
+                    </p>
                   </>
                 ) : (
                   <>
                     <div className="hazard-hatch h-1.5 w-full opacity-60" aria-hidden />
                     <span className="stamp mt-4 block text-ink">Not on the yard yet</span>
                     <p className="mt-2 text-fg">
-                      This model is not in stock, so there is no price against it yet.
+                      This model is not in stock yet. Tell us you want one and we will call you when it lands.
                     </p>
                   </>
                 )}

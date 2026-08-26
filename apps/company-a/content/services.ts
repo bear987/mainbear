@@ -30,8 +30,11 @@ export const services: Service[] = [
     tagline: "Trade partnerships built to last.",
     summary:
       "Co-import, distribution and supply partnerships with manufacturers, exporters and traders who want a dependable Nigerian counterpart.",
+    /* Named partners are woven into the opening sentence rather than bolted on
+       as a separate line, so the paragraph gains the credibility without
+       gaining bulk. */
     intro:
-      "We partner with manufacturers, exporters, distributors and fellow traders who need a credible, well-connected counterpart in Nigeria and across the region. A GG BEARERS partnership is a working relationship, shared logistics, shared market access and a single accountable point of contact, not a one-off transaction.",
+      "We partner with manufacturers, exporters, distributors and fellow traders who need a credible, well-connected counterpart in Nigeria and across the region, among them JD Mercentile Company Limited and Antways Japan Company Limited. A GG BEARERS partnership is a working relationship, shared logistics, shared market access and a single accountable point of contact, not a one-off transaction.",
     what: [
       "Co-importation arrangements where we share sourcing, clearing and last-mile distribution so partners reach the Nigerian market without standing up their own operation.",
       "Distribution partnerships that put your product into our wholesale and retail channels, with transparent terms and honest reporting on what actually moves.",
