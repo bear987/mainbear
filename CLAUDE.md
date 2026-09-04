@@ -212,13 +212,37 @@ monorepo, is never deployed, and no Netlify site maps to it.
   It shows which Netlify sites will actually rebuild, using the same rules as
   `scripts/netlify-ignore.sh` (`lib/git.ts`, `sitesThatWouldRebuild`) — keep
   that list in step with the shell script.
+- **Pictures and video** live on each site's media page. `lib/media.ts` is the
+  registry: fixed slots for page headers, heroes and backdrops, plus slots
+  **derived from the content itself** — one per dish from `menu.json`, and per
+  vehicle from `vehicles.json` including its `imageCount` and an optional
+  walkaround video. Adding a vehicle in the editor immediately creates
+  somewhere to put its photographs. 106 slots across the three sites.
+  - Uploads are **re-encoded through system ffmpeg**, which is already on PATH
+    (`winget install Gyan.FFmpeg` if it ever is not). Deliberately **no npm
+    dependency**, because anything added to the admin lands in the lockfile,
+    which is a shared path, and would rebuild all three sites.
+  - Images scale down to the slot's `maxWidth` (never up) and are written as
+    clean JPEG. Video becomes H.264 at the slot's height, CRF 26, `faststart`,
+    and **audio is dropped**, since every video on these sites plays muted as a
+    background layer. A 4032×3024 photo came down 84%, a 1080p clip 95%.
+  - Every write goes to a temporary file first and is moved into place only on
+    success, so a failed encode can never leave a half-written file where the
+    site expects a picture.
+  - A slot the site has no fallback for cannot be deleted, only replaced.
+  - **The logo is the one special case.** `site.logoFile` in company-a's
+    content names the file, the slot preserves a PNG rather than flattening its
+    transparency, and uploading one rewrites `logoFile` to match. Do not go
+    back to trying `.png` then `.jpg` in the component: `nav.tsx` is a client
+    component so it cannot check the filesystem, and a guess 404s on every page
+    load for whichever file is absent.
 - **Preview** starts a site's dev server on demand and links to it.
 - Everything editable is enumerated in `lib/sites.ts`. Nothing outside that
   registry can be read or written, which is what blocks a path-traversal
   request; `dataPath()` throws for anything else.
 
-Not built yet: media upload (Phase 2), the design and token editor (Phase 3),
-and section reordering (Phase 4).
+Not built yet: the design and token editor (Phase 3), and section reordering
+(Phase 4).
 
 ## Current state, site by site
 
@@ -541,6 +565,8 @@ is currently covering on a live site.
 **All sites:** real photography, a transparent PNG logo (company-a currently
 uses a JPG on black, company-c falls back to a text wordmark), a GA4
 measurement ID, real team names and roles, real statistics and testimonials.
+Photography and the logo can now be uploaded through the admin's media page,
+so these no longer need a developer.
 
 **GG FOODS:** the real menu and prices, its own address, phone and opening
 hours (it currently reuses the parent's), and a real maps link for the visit
@@ -565,6 +591,20 @@ one, so it was not built.
 
 Newest first, one entry per change. Keep to roughly 25 entries.
 
+- **2026-09-04** — **Admin platform, Phase 2: pictures and video.** A media
+  page per site, 106 slots, the per-dish and per-vehicle ones derived from the
+  content so they appear as soon as an item is added. Drag and drop or browse;
+  everything is re-encoded through system ffmpeg on the way in, with no npm
+  dependency added, so the lockfile is untouched and no site rebuilds because
+  of the admin. Verified with real files: a 4032×3024 photo saved at 1600 wide
+  and 84% smaller, a 1080p clip with audio saved at 720p, 95% smaller, silent,
+  and faststart confirmed by byte offset. Guards tested: a path the site does
+  not use, a path escaping the public folder, traversal on the file-serving
+  route, deleting a picture with no fallback, and a non-media file, all
+  refused; a failed upload leaves the existing picture byte-identical and no
+  temporary file behind. Company-a's logo now comes from `site.logoFile`, and
+  uploading a transparent PNG keeps its alpha and updates that value, which
+  also removes the guessed-extension 404 the first attempt would have caused.
 - **2026-09-04** — **Admin platform, Phase 1.** The editable content of all
   three sites moved from TypeScript to `content/data/*.json`, with each
   `content/*.ts` becoming a typed loader that keeps every derived value

@@ -40,8 +40,8 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   icons: {
-    icon: "/brand/logo.jpg",
-    apple: "/brand/logo.jpg",
+    icon: `/${site.logoFile}`,
+    apple: `/${site.logoFile}`,
   },
 };
 

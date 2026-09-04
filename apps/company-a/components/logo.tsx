@@ -5,10 +5,13 @@ import { cn } from "@/lib/cn";
 import { site } from "@/content/site";
 
 /**
- * Brand lockup: the GG BEARERS crest (from /brand/logo.png) beside the wordmark.
- * If the image file isn't present yet, it falls back to a monogram tile so the
- * header/footer never break. Drop the real logo at:
- *   apps/company-a/public/brand/logo.png
+ * Brand lockup: the GG BEARERS crest beside the wordmark.
+ *
+ * Which file to use is content, not a guess: site.logoFile names it, and the
+ * admin updates that when a logo is uploaded. This is why the component does
+ * not try one extension and then another, which would 404 on every page load
+ * for whichever one is not there. A monogram tile still covers the case where
+ * the file is missing entirely, so the header and footer never break.
  */
 export function Logo({ className }: { className?: string }) {
   const [imgOk, setImgOk] = useState(true);
@@ -18,7 +21,7 @@ export function Logo({ className }: { className?: string }) {
       {imgOk ? (
         // eslint-disable-next-line @next/next/no-img-element
         <img
-          src="/brand/logo.jpg"
+          src={`/${site.logoFile}`}
           alt={`${site.name} logo`}
           width={40}
           height={40}

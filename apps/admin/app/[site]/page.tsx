@@ -38,6 +38,16 @@ export default async function SitePage({ params }: { params: Promise<{ site: str
       </h2>
 
       <div className="mt-3 grid gap-2">
+        <Link
+          href={`/${site.id}/media`}
+          className="rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-muted"
+        >
+          <h3 className="text-sm font-semibold text-heading">Pictures and video</h3>
+          <p className="mt-0.5 text-sm text-muted">
+            Every photograph and video the site shows, in one place. Drop a file in to replace it.
+          </p>
+        </Link>
+
         {site.files.map((file) => (
           <Link
             key={file.id}
