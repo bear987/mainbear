@@ -236,13 +236,41 @@ monorepo, is never deployed, and no Netlify site maps to it.
     back to trying `.png` then `.jpg` in the component: `nav.tsx` is a client
     component so it cannot check the filesystem, and a guess 404s on every page
     load for whichever file is absent.
+- **Colours and design** edits each site's `globals.css` tokens. The file is
+  never regenerated: `lib/theme.ts` finds a block by selector, locates each
+  `--name: value;` declaration, and replaces **only the value's byte range**,
+  so comments, ordering and anything the admin does not understand survive. A
+  page-colour change came out as exactly two changed lines.
+  - Editable blocks are `@theme` plus each site's light-mode block. Values that
+    would break the stylesheet are refused before any write: `;`, `{`, `}`, a
+    comment, a token that is not in that block, a block that is not editable,
+    or a radius without a unit.
+  - **Typefaces are read-only**, because they are loaded by `next/font` in
+    `layout.tsx`. A CSS edit alone cannot add a family, so the field says so
+    rather than pretending.
+  - **Mirror blocks are kept in step.** `.force-dark` (company-a) and `.on-ink`
+    (company-c) hold a second copy of the dark tokens so those regions stay
+    dark on a light page. Editing `@theme` also updates a mirror **only when it
+    currently holds the identical value**, so a deliberate difference is never
+    overwritten.
+  - **Contrast is checked, never corrected.** `lib/contrast-pairs.ts` scores
+    the combinations these sites actually use, compositing translucent
+    surfaces over the page colour first. The accent row reports the most
+    readable of the accent shades, because the dark sites put a light accent on
+    near-black while GG Autos puts a dark one on concrete, so a fixed shade
+    would warn about a pairing that never appears. Button text is checked as
+    white only, since the filled buttons hardcode white. The maths is validated
+    against known values, including the 5.4:1 that company-c's own stylesheet
+    claims for `action-600` on concrete.
+  - **Three pre-existing warnings stand, deliberately unfixed** (changing brand
+    colour is the owner's call): white on GG Foods' flame `action-500` is
+    3.66:1 in both themes, and GG Autos' `muted` on concrete is 4.30:1.
 - **Preview** starts a site's dev server on demand and links to it.
 - Everything editable is enumerated in `lib/sites.ts`. Nothing outside that
   registry can be read or written, which is what blocks a path-traversal
   request; `dataPath()` throws for anything else.
 
-Not built yet: the design and token editor (Phase 3), and section reordering
-(Phase 4).
+Not built yet: section reordering (Phase 4).
 
 ## Current state, site by site
 
@@ -591,6 +619,16 @@ one, so it was not built.
 
 Newest first, one entry per change. Keep to roughly 25 entries.
 
+- **2026-09-04** — **Admin platform, Phase 3: colours and design.** A design
+  page per site editing the `globals.css` tokens in place, with live swatches,
+  a colour picker on plain hex values, and a readability check per theme.
+  Verified: a page-colour change rewrote exactly two lines, the `.force-dark`
+  mirror included and the deliberately different light-mode value untouched,
+  with the comment on the line preserved; the edited values reached the
+  compiled production stylesheet. Every guard refused what it should. The
+  contrast maths was validated against four known values. Three genuine
+  pre-existing warnings were surfaced and left for the owner to decide on.
+  Typefaces are shown read-only, because `next/font` loads them in code.
 - **2026-09-04** — **Admin platform, Phase 2: pictures and video.** A media
   page per site, 106 slots, the per-dish and per-vehicle ones derived from the
   content so they appear as soon as an item is added. Drag and drop or browse;

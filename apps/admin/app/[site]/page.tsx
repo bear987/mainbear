@@ -48,6 +48,17 @@ export default async function SitePage({ params }: { params: Promise<{ site: str
           </p>
         </Link>
 
+        <Link
+          href={`/${site.id}/design`}
+          className="rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-muted"
+        >
+          <h3 className="text-sm font-semibold text-heading">Colours and design</h3>
+          <p className="mt-0.5 text-sm text-muted">
+            The palette, corner radius and shadows the whole site is built from, with a readability
+            check.
+          </p>
+        </Link>
+
         {site.files.map((file) => (
           <Link
             key={file.id}
