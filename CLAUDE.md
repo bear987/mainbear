@@ -472,6 +472,15 @@ Each of these cost real time. Read before debugging something similar.
 - `curl` to the live domains fails TLS on this machine because local antivirus
   intercepts it (the certificate reads "Avast Web/Mail Shield Root"). Use
   `curl -k`. This is a local artefact, not a site problem.
+- **Stopping a background dev server does not always kill it.** Stopping the
+  task kills the `pnpm` wrapper and leaves the Next child listening, which then
+  blocks the next start with `EADDRINUSE`. Find the holder with
+  `Get-NetTCPConnection -LocalPort <port> -State Listen`, check its
+  `CommandLine` contains `group-sites`, and only then stop that PID. Never kill
+  node broadly.
+- **`buildId` is not in the served HTML**, so polling for it to detect a fresh
+  deploy silently never fires. Read the Netlify dashboard for the published
+  commit instead, it is the authoritative signal.
 - **The Chrome extension is connected on this machine**, so the Netlify,
   Cloudflare and GitHub dashboards can be read directly through the
   `claude-in-chrome` tools using the owner's logged-in session. That is how
@@ -569,6 +578,15 @@ Newest first, one entry per change. Keep to roughly 25 entries.
   an edit through the UI reaches disk, saving an unedited file produces a
   byte-identical file, and path traversal is refused. Phases 2 to 4 (media,
   design tokens, section reordering) are not built yet.
+  **Shipped as `64374fe` and verified in production:** this was the first push
+  in a while to genuinely rebuild all three sites, because the lockfile is a
+  shared path. All three published, and all 42 routes were compared against the
+  newly deployed sites on visible text and metadata, plus `robots.txt`
+  byte-for-byte: identical. Every site returns 200, real 404s, CSP and HSTS
+  intact, no `unsafe-eval`. All three contact endpoints accept a honeypot
+  payload with 200 and reject an invalid one with 400. **GG Autos requires
+  `phone` and its honeypot field is `website`**, unlike the other two, so a
+  payload shaped for A or B returns 400 there and that is correct.
 - **2026-09-04** (`6deaaf1`, plus this follow-up) — Replaced the original
   scaffold `CLAUDE.md` with this living project file, and reduced the Claude
   memory entry to a pointer to it. The old file still described a Next 15 /
