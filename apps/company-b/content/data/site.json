@@ -1,0 +1,70 @@
+{
+  "site": {
+    "name": "GG FOODS",
+    "legalName": "GG Foods",
+    "motto": "Taste with a touch of excellence",
+    "tagline": "Intercontinental dishes and Nigerian classics, cooked fresh in Okota, Lagos.",
+    "description": "GG FOODS is a Lagos restaurant serving intercontinental dishes, Nigerian meals, fresh smoothies and natural fruit drinks. Part of the GG BEARERS group.",
+    "url": "https://foods.ggbearers.com",
+    "email": "ggbearers@gmail.com",
+    "parent": {
+      "name": "GG BEARERS",
+      "url": "https://ggbearers.com",
+      "label": "Part of the GG BEARERS group"
+    },
+    "siblings": [
+      {
+        "name": "GG AUTOS",
+        "url": "https://autos.ggbearers.com"
+      }
+    ],
+    "address": {
+      "street": "13 Femi Killa Street, opp. Market Square, Ago Palace",
+      "locality": "Okota",
+      "region": "Lagos",
+      "country": "Nigeria",
+      "full": "13 Femi Killa Street, opp. Market Square, Ago Palace, Okota, Lagos",
+      "mapsQuery": "13 Femi Killa Street, Ago Palace, Okota, Lagos"
+    },
+    "hours": {
+      "display": "Monday to Sunday, 10:00am to 10:00pm",
+      "short": "Daily, 10am till 10pm",
+      "schemaDays": [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+        "Sunday"
+      ],
+      "opens": "10:00",
+      "closes": "22:00"
+    },
+    "nav": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "Menu",
+        "href": "/menu"
+      },
+      {
+        "label": "About",
+        "href": "/about"
+      },
+      {
+        "label": "Visit",
+        "href": "/visit"
+      }
+    ],
+    "orderCta": {
+      "label": "Order Now",
+      "href": "/order"
+    },
+    "phoneNumber": "09018495507",
+    "whatsappNumber": "2348062891562",
+    "whatsappPrefill": "Hi GG Foods, I'd like to place an order."
+  }
+}

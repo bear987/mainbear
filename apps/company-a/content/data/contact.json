@@ -1,0 +1,30 @@
+{
+  "contactCopy": {
+    "eyebrow": "Contact",
+    "title": "Start a conversation.",
+    "lede": "Tell us what it's about and we'll route you to the right person, partnerships, investment, corporate services, or careers. We typically reply within two business days.",
+    "responseTime": "Typical reply time: within 2 business days"
+  },
+  "inquiryTypes": [
+    {
+      "value": "partnership",
+      "label": "Partnership"
+    },
+    {
+      "value": "investment",
+      "label": "Investment"
+    },
+    {
+      "value": "corporate-services",
+      "label": "Corporate services"
+    },
+    {
+      "value": "careers",
+      "label": "Careers"
+    },
+    {
+      "value": "general",
+      "label": "General enquiry"
+    }
+  ]
+}

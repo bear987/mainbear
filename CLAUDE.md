@@ -34,6 +34,7 @@ live**, so placeholder content is visible to real customers.
 | `apps/company-a` | GG BEARERS (parent) | `gg-bearers` | ggbearers.com | 3000 |
 | `apps/company-b` | GG FOODS (restaurant) | `gg-food` (singular, `gg-foods` was taken) | foods.ggbearers.com | 3001 |
 | `apps/company-c` | GG AUTOS (vehicles) | `gg-autos` | autos.ggbearers.com | 3002 |
+| `apps/admin` | The editing tool, not a site | none, never deployed | local only | 4000 |
 
 GG BEARERS is an *operating* holding company. It runs its own services
 (import/export, wholesale, retail, partnerships, investment, corporate
@@ -54,6 +55,7 @@ services) **and** routes to the two subsidiaries. It is not a passive parent.
 
 ```
 pnpm install
+pnpm admin                         # the editing tool, http://127.0.0.1:4000
 pnpm --filter company-a dev        # or company-b / company-c
 pnpm --filter company-a build
 pnpm --filter company-a lint
@@ -85,9 +87,20 @@ the dev server then serves broken chunks.
 
 ## Working rules
 
-- **All copy and data live in `apps/<app>/content/*.ts`**, never inline in JSX,
-  so a CMS can be added later. This is not negotiable, it is what lets the
-  owner edit the sites.
+- **All copy and data live in `apps/<app>/content/data/*.json`**, never inline
+  in JSX. Each `content/<name>.ts` is now a thin loader: it imports the JSON,
+  declares the TypeScript types the site is written against, and computes
+  anything derived. This is not negotiable, it is what lets the owner edit the
+  sites through `pnpm admin`.
+- **Derived values never go in the JSON.** A `tel:` link is built from the
+  phone number, the GG FOODS wa.me and Maps links from the number and address,
+  GG BEARERS' company cards from `site.subsidiaries`, the homepage service
+  cards from `services`, GG AUTOS' Group footer column from `group`, and its
+  `catalogueStats` counted from the vehicle list. Store the source, compute the
+  rest, or editing one value silently fails to update the other.
+- **The type vocabulary stays in TypeScript.** `Brand`, `BodyType`, `Status`,
+  the label maps and `inquiryTypes` values are what the site is typed against
+  and what other code matches on, so they are not editable data.
 - **No em dashes or en dashes anywhere in site copy.** The owner reads them as
   AI-generated. Plain punctuation only, commas and full stops.
 - **Never invent facts.** No fake people, no fake testimonials, no guessed
@@ -171,6 +184,41 @@ Shared across all three sites until each subsidiary has its own.
   and flagged as such in its `content/site.ts`.
 
 ---
+
+## The admin app
+
+`pnpm admin` starts it on `http://127.0.0.1:4000`. It is a fourth app in the
+monorepo, is never deployed, and no Netlify site maps to it.
+
+- **Pick a site, pick a section, edit, save.** Saving writes the JSON to disk
+  only. Nothing is public until Publish.
+- **Editors are inferred, not hand-written.** `lib/fields.ts` chooses a control
+  from the shape of the value: long strings get a box, numbers a number input,
+  booleans a checkbox, lists of objects a collapsible add-and-remove list.
+  Overrides live in that one file: `READ_ONLY` for fields that set a web
+  address or must match code (`id`, `value`, `tag`), `ALWAYS_LONG` for prose,
+  and `FIELD_NOTES` for the fields where a wrong value shows on the site.
+  Adding a field to a content file needs no admin change at all.
+- **Two guards run before anything is written** (`lib/validate.ts`). The file
+  currently on disk is the template: values may change and list items may be
+  added or removed, but a field cannot disappear or change type, because the
+  loaders cast the JSON to hand-written types. And no string may contain an em
+  or en dash. A save that fails returns the exact paths, and writes nothing.
+  **Optional fields are handled by merging every existing list item and
+  requiring only the keys that appear in all of them** — comparing against the
+  first item alone reported every dish without tags as broken.
+- **Publish** stages only `apps/company-*/content/data/*.json` and
+  `apps/company-*/public/*`, so unrelated work in the repo is never swept in.
+  It shows which Netlify sites will actually rebuild, using the same rules as
+  `scripts/netlify-ignore.sh` (`lib/git.ts`, `sitesThatWouldRebuild`) — keep
+  that list in step with the shell script.
+- **Preview** starts a site's dev server on demand and links to it.
+- Everything editable is enumerated in `lib/sites.ts`. Nothing outside that
+  registry can be read or written, which is what blocks a path-traversal
+  request; `dataPath()` throws for anything else.
+
+Not built yet: media upload (Phase 2), the design and token editor (Phase 3),
+and section reordering (Phase 4).
 
 ## Current state, site by site
 
@@ -382,6 +430,23 @@ Each of these cost real time. Read before debugging something similar.
   `NODE_ENV !== "production"`, because React and Turbopack need eval in dev.
   Verified that it does not leak into production.
 
+**Changing the content layer safely**
+
+- **Prove a refactor by diffing rendered HTML, not by reading the code.** The
+  content migration was verified by capturing every route from the local dev
+  servers before and after and diffing. First prove the harness itself is
+  deterministic by capturing twice with no change: the run that caught this
+  needed `self.__next_r` and Turbopack chunk names normalised before two
+  identical captures matched. A noisy harness proves nothing.
+- **Extract data by importing the module, never by retyping it.** Node 24
+  strips TypeScript types natively, so copying `content/*.ts` to a temp folder,
+  rewriting the `@/content/...` alias to a relative path with an explicit
+  extension, and importing it dumps the exact values the site renders. Use
+  `pathToFileURL` for the import specifier on Windows.
+- `pnpm build` at the root fails on this machine with exit code 3221225781, a
+  Windows DLL error inside the turbo binary. Build each app instead:
+  `pnpm --filter company-a build`. Netlify is unaffected, it filters per site.
+
 **Environment and tooling on this machine**
 
 - **PowerShell mangles multi-line `git commit -m` strings** that contain quotes
@@ -491,6 +556,19 @@ one, so it was not built.
 
 Newest first, one entry per change. Keep to roughly 25 entries.
 
+- **2026-09-04** — **Admin platform, Phase 1.** The editable content of all
+  three sites moved from TypeScript to `content/data/*.json`, with each
+  `content/*.ts` becoming a typed loader that keeps every derived value
+  computed. Verified by capturing all 45 routes before and after from the local
+  dev servers: **zero diff**, and all three production builds green with lint
+  unchanged. Added `apps/admin`, a local-only editing tool on port 4000: site
+  picker, inferred editors for every content file, shape and dash validation
+  before any write, an on-demand preview, and a review screen that shows the
+  diff in plain language and which Netlify sites a publish would rebuild before
+  committing and pushing. Verified end to end in a browser: the page hydrates,
+  an edit through the UI reaches disk, saving an unedited file produces a
+  byte-identical file, and path traversal is refused. Phases 2 to 4 (media,
+  design tokens, section reordering) are not built yet.
 - **2026-09-04** (`6deaaf1`, plus this follow-up) — Replaced the original
   scaffold `CLAUDE.md` with this living project file, and reduced the Claude
   memory entry to a pointer to it. The old file still described a Next 15 /

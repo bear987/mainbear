@@ -1,21 +1,27 @@
 /**
  * Contact data. `inquiryTypes` powers the routed "what's this about?" selector;
  * the values MUST stay in sync with the enum in lib/contact-schema.ts and with
- * the `subject` values used by service-page CTAs.
+ * the `subject` values used by service-page CTAs. The admin app exposes the
+ * labels for editing but not the values, for that reason.
+ *
+ * Editable values live in data/contact.json.
  */
-export const inquiryTypes = [
-  { value: "partnership", label: "Partnership" },
-  { value: "investment", label: "Investment" },
-  { value: "corporate-services", label: "Corporate services" },
-  { value: "careers", label: "Careers" },
-  { value: "general", label: "General enquiry" },
-] as const;
+import data from "./data/contact.json";
 
-export type InquiryValue = (typeof inquiryTypes)[number]["value"];
+export type InquiryValue =
+  | "partnership"
+  | "investment"
+  | "corporate-services"
+  | "careers"
+  | "general";
 
-export const contactCopy = {
-  eyebrow: "Contact",
-  title: "Start a conversation.",
-  lede: "Tell us what it's about and we'll route you to the right person, partnerships, investment, corporate services, or careers. We typically reply within two business days.",
-  responseTime: "Typical reply time: within 2 business days",
-};
+export type InquiryType = { value: InquiryValue; label: string };
+
+export const inquiryTypes: InquiryType[] = data.inquiryTypes as InquiryType[];
+
+export const contactCopy: {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  responseTime: string;
+} = data.contactCopy;

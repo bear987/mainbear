@@ -1,0 +1,67 @@
+{
+  "home": {
+    "hero": {
+      "eyebrow": "Operating group · Lagos, Nigeria",
+      "title": "An operating group built on trade, and on integrity.",
+      "standfirst": {
+        "lead": "GG Bearers Company Limited",
+        "body": " is a forward-thinking technology and consulting company dedicated to proffering global solutions to individuals, organisations and nations at large."
+      },
+      "lede": "GG BEARERS imports, exports, clears and trades across borders, running partnerships, investment and corporate services in-house, and owning the GG FOODS and GG AUTOS businesses.",
+      "primary": {
+        "label": "Get in touch",
+        "href": "/contact"
+      },
+      "secondary": {
+        "label": "Meet our companies",
+        "href": "/companies"
+      }
+    },
+    "stats": [
+      {
+        "value": "2",
+        "label": "Companies we own and operate",
+        "countTo": 2
+      },
+      {
+        "value": "3",
+        "label": "Service lines run in-house",
+        "countTo": 3
+      },
+      {
+        "value": "Import & export",
+        "label": "Cross-border trade"
+      },
+      {
+        "value": "Integrity",
+        "label": "Our first priority"
+      }
+    ],
+    "whatWeDo": {
+      "eyebrow": "What we do",
+      "title": "A working business, not a holding shell.",
+      "lede": "We import cars, trucks, mini buses, Nissan and Toyota products, and heavy-duty trucks, among others. Two jobs, done at once: we run real trade services of our own, and we steward the operating companies underneath us.",
+      "extraAreas": [
+        {
+          "name": "Careers & Talent",
+          "summary": "A single hiring hub for the whole group, open roles across GG BEARERS, GG FOODS and GG AUTOS, in one place.",
+          "href": "/careers",
+          "icon": "Users"
+        }
+      ]
+    },
+    "companies": {
+      "eyebrow": "Our companies",
+      "title": "Our businesses. One group standard.",
+      "lede": "GG BEARERS owns and operates the companies below. Each runs its own market, visit their sites to go deeper."
+    },
+    "closing": {
+      "title": "Let's talk about working together.",
+      "lede": "Whether it's a partnership, an investment, a shipment to clear or a role to fill, start a conversation and we'll route you to the right person.",
+      "primary": {
+        "label": "Get in touch",
+        "href": "/contact"
+      }
+    }
+  }
+}

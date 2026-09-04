@@ -1,0 +1,20 @@
+{
+  "companies": [
+    {
+      "id": "foods",
+      "name": "GG FOODS",
+      "tag": "B",
+      "oneLiner": "Food importation, wholesale supply and retail distribution.",
+      "blurb": "GG FOODS sources and moves quality food products at scale, handling importation, wholesale supply and retail distribution for partners and households across Nigeria.",
+      "logoText": "GF"
+    },
+    {
+      "id": "autos",
+      "name": "GG AUTOS",
+      "tag": "C",
+      "oneLiner": "Vehicle sourcing, parts importation and automotive trade.",
+      "blurb": "GG AUTOS handles vehicle sourcing, spare-parts importation and automotive trade, connecting trusted supply to dealers, fleets and individual buyers.",
+      "logoText": "GA"
+    }
+  ]
+}

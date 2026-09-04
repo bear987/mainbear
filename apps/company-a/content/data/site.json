@@ -1,0 +1,57 @@
+{
+  "site": {
+    "name": "GG BEARERS",
+    "legalName": "GG Bearers Company Limited",
+    "motto": "Integrity is our first priority",
+    "tagline": "A Lagos-based operating group in global trade, and the parent of GG FOODS and GG AUTOS.",
+    "description": "GG BEARERS is an operating holding company in Lagos, Nigeria. We run import and export, wholesale and retail trade, and offer partnerships, investment and corporate services, and we own the GG FOODS and GG AUTOS businesses.",
+    "url": "https://ggbearers.com",
+    "email": "ggbearers@gmail.com",
+    "address": {
+      "street": "13 Femi Killa Street, opp. Market Square, Ago Palace",
+      "locality": "Okota",
+      "region": "Lagos",
+      "country": "Nigeria",
+      "full": "13 Femi Killa Street, opp. Market Square, Ago Palace, Okota, Lagos, Nigeria"
+    },
+    "hours": "Monday to Friday, 9:00am to 6:00pm WAT",
+    "subsidiaries": {
+      "foods": "https://foods.ggbearers.com",
+      "autos": "https://autos.ggbearers.com"
+    },
+    "nav": [
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "About",
+        "href": "/about"
+      },
+      {
+        "label": "Services",
+        "href": "/services"
+      },
+      {
+        "label": "Our Companies",
+        "href": "/companies"
+      },
+      {
+        "label": "Careers",
+        "href": "/careers"
+      },
+      {
+        "label": "Contact",
+        "href": "/contact"
+      }
+    ],
+    "primaryCta": {
+      "label": "Get in touch",
+      "href": "/contact"
+    },
+    "phoneNumbers": [
+      "09018495507",
+      "08062891562"
+    ]
+  }
+}

@@ -1,0 +1,159 @@
+{
+  "capabilities": [
+    "Coupling, attachment & joining",
+    "Importation & clearing",
+    "Retail sales",
+    "Wholesale distribution"
+  ],
+  "contact": {
+    "phoneDisplay": "0901 849 5507",
+    "phoneHref": "tel:+2349018495507",
+    "phoneAltDisplay": "0806 289 1562",
+    "phoneAltHref": "tel:+2348062891562",
+    "whatsappNumber": "2348062891562",
+    "email": "ggbearers@gmail.com",
+    "address": {
+      "street": "13 Femi Killa Street",
+      "landmark": "Opposite Market Square, Ago Palace",
+      "area": "Okota",
+      "city": "Lagos",
+      "country": "Nigeria",
+      "full": "13 Femi Killa Street, opposite Market Square, Ago Palace, Okota, Lagos, Nigeria"
+    },
+    "hours": [
+      {
+        "days": "Monday to Friday",
+        "opens": "08:00",
+        "closes": "18:00"
+      },
+      {
+        "days": "Saturday",
+        "opens": "09:00",
+        "closes": "16:00"
+      },
+      {
+        "days": "Sunday",
+        "opens": null,
+        "closes": null
+      }
+    ],
+    "responseTime": "We reply to WhatsApp enquiries the same working day."
+  },
+  "footerColumns": [
+    {
+      "title": "Vehicles",
+      "links": [
+        {
+          "label": "The full range",
+          "href": "/inventory"
+        },
+        {
+          "label": "Mini buses",
+          "href": "/inventory?type=mini-bus"
+        },
+        {
+          "label": "Mini trucks",
+          "href": "/inventory?type=mini-truck"
+        },
+        {
+          "label": "Suzuki",
+          "href": "/inventory?brand=Suzuki"
+        },
+        {
+          "label": "Daihatsu",
+          "href": "/inventory?brand=Daihatsu"
+        }
+      ]
+    },
+    {
+      "title": "Company",
+      "links": [
+        {
+          "label": "Coupling, attachment & joining",
+          "href": "/services"
+        },
+        {
+          "label": "Wholesale & fleet",
+          "href": "/wholesale"
+        },
+        {
+          "label": "About GG Autos",
+          "href": "/about"
+        },
+        {
+          "label": "Contact",
+          "href": "/contact"
+        }
+      ]
+    }
+  ],
+  "group": {
+    "parent": {
+      "name": "GG Bearers",
+      "href": "https://ggbearers.com",
+      "label": "Part of the GG Bearers group"
+    },
+    "sibling": {
+      "name": "GG Foods",
+      "href": "https://foods.ggbearers.com",
+      "description": "Restaurant, catering and food service"
+    }
+  },
+  "navCta": {
+    "label": "Check Availability",
+    "href": "/inventory"
+  },
+  "navLinks": [
+    {
+      "label": "Home",
+      "href": "/"
+    },
+    {
+      "label": "Inventory",
+      "href": "/inventory"
+    },
+    {
+      "label": "Services",
+      "href": "/services"
+    },
+    {
+      "label": "Wholesale",
+      "href": "/wholesale"
+    },
+    {
+      "label": "About",
+      "href": "/about"
+    },
+    {
+      "label": "Contact",
+      "href": "/contact"
+    }
+  ],
+  "site": {
+    "name": "GG Autos",
+    "legalName": "GG Autos",
+    "tagline": "Suzuki and Daihatsu mini buses and mini trucks, imported, cleared and coupled in Lagos.",
+    "description": "GG Autos imports, clears, couples and sells Suzuki and Daihatsu mini buses and mini trucks in Lagos, Nigeria. Retail and wholesale to dealers and fleets.",
+    "url": "https://autos.ggbearers.com",
+    "locale": "en_NG",
+    "region": "Lagos, Nigeria",
+    "coordinates": "6.5244° N, 3.3792° E"
+  },
+  "tickerItems": [
+    "COUPLING, ATTACHMENT & JOINING",
+    "IMPORTATION & CLEARING",
+    "SUZUKI",
+    "DAIHATSU",
+    "MINI BUSES",
+    "MINI TRUCKS",
+    "HIJET",
+    "GRAN MAX",
+    "CARRY",
+    "RETAIL SALES",
+    "WHOLESALE SUPPLY",
+    "IN-HOUSE ASSEMBLY",
+    "LAGOS, NIGERIA",
+    "PART OF GG BEARERS"
+  ],
+  "groupColumnTitle": "Group"
+}

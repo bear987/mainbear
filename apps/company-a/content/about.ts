@@ -2,100 +2,22 @@
  * About / Our Story content. Leadership is presented as role-title cards with
  * styled monogram placeholders (no invented individuals), swap in real names,
  * bios and photos later without touching the layout.
+ *
+ * Editable values live in data/about.json.
  */
+import data from "./data/about.json";
 
 export type Value = { title: string; body: string };
 export type Milestone = { phase: string; body: string };
 export type Leader = { role: string; focus: string; initials: string };
 
-export const about = {
-  hero: {
-    eyebrow: "Our story",
-    title: "Built in Lagos on one idea: trade you can trust.",
-    lede: "GG BEARERS grew from hands-on importation and trade into an operating group, one that runs its own services and stewards two businesses, held together by a single standard.",
-  },
+export type About = {
+  hero: { eyebrow: string; title: string; lede: string };
+  story: { title: string; paragraphs: string[] };
+  vision: { title: string; body: string };
+  values: Value[];
+  milestones: Milestone[];
+  leadership: { title: string; lede: string; roles: Leader[] };
+};
 
-  story: {
-    title: "Where we come from",
-    paragraphs: [
-      "GG BEARERS began the way most durable trading houses do, moving real goods, meeting real obligations, and being the name a supplier or buyer could count on when it mattered. That reputation, earned shipment by shipment out of Lagos, is the foundation everything else is built on.",
-      "As the trade grew, so did what we could offer. Importation and exportation expanded into wholesale and retail. Reliable supply relationships became formal partnerships. Surplus capital and hard-won operating knowledge became investments in ventures we understood. Today those threads run through one operating group.",
-      "We are not a passive holding company. GG BEARERS runs its own trade services and owns two operating businesses, GG FOODS and GG AUTOS, each led as a real company in its own right, and each held to the same standard we started with.",
-    ],
-  },
-
-  vision: {
-    title: "Where we're going",
-    body: "To be West Africa's most trusted trade group, the partner international suppliers seek out, the buyer local businesses rely on, and the parent that lets GG FOODS and GG AUTOS grow faster together than either could alone.",
-  },
-
-  values: [
-    {
-      title: "Integrity first",
-      body: "Our motto is not decoration. If a deal needs a shortcut on honesty to work, it isn't a deal we take.",
-    },
-    {
-      title: "Reliability",
-      body: "The goods arrive, the terms hold, the report is accurate. Dependability is the product we actually sell.",
-    },
-    {
-      title: "Transparency",
-      body: "Itemised quotes, honest reconciliation, plain-spoken reporting. Partners always know where they stand.",
-    },
-    {
-      title: "Long-term partnership",
-      body: "We pilot, then scale, then stay. We would rather grow a relationship for years than win once and vanish.",
-    },
-  ] satisfies Value[],
-
-  milestones: [
-    {
-      phase: "Foundation",
-      body: "Established in Lagos as a hands-on importation and trade business, earning a reputation for dependable delivery.",
-    },
-    {
-      phase: "Expansion",
-      body: "Grew from importation into exportation, wholesale and retail, widening both the categories and the routes we handle.",
-    },
-    {
-      phase: "Services",
-      body: "Formalised partnerships, investment and corporate services, offering the group's trade backbone to other businesses.",
-    },
-    {
-      phase: "Group",
-      body: "Brought GG FOODS and GG AUTOS under the GG BEARERS group as dedicated operating companies.",
-    },
-  ] satisfies Milestone[],
-
-  leadership: {
-    title: "The people accountable",
-    lede: "Roles are shown while we finalise team profiles, real names, photos and bios will replace these placeholders. Every role reports to one standard.",
-    roles: [
-      {
-        role: "Founder & Managing Director",
-        focus: "Sets group direction and holds every deal to the integrity standard.",
-        initials: "MD",
-      },
-      {
-        role: "Director, Trade Operations",
-        focus: "Owns importation, clearing, warehousing and distribution across the group.",
-        initials: "TO",
-      },
-      {
-        role: "Head of Partnerships & Investments",
-        focus: "Builds trade partnerships and evaluates where the group deploys capital.",
-        initials: "PI",
-      },
-      {
-        role: "Group Finance Controller",
-        focus: "Keeps the numbers honest, reconciliation, reporting and cost discipline.",
-        initials: "FC",
-      },
-      {
-        role: "People & Careers Lead",
-        focus: "Runs group-wide hiring across GG BEARERS, GG FOODS and GG AUTOS.",
-        initials: "PC",
-      },
-    ] satisfies Leader[],
-  },
-} as const;
+export const about: About = data.about;

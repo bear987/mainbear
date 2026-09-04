@@ -1,9 +1,14 @@
-import { site } from "@/content/site";
-
 /**
  * The two subsidiaries GG BEARERS routes visitors to.
- * `href` is always a full absolute URL (cross-subdomain).
+ * `href` is always a full absolute URL (cross-subdomain), and is taken from
+ * site.subsidiaries rather than stored here, so the group's URLs have exactly
+ * one source of truth.
+ *
+ * Editable values live in data/companies.json.
  */
+import { site } from "@/content/site";
+import data from "./data/companies.json";
+
 export type Company = {
   id: "foods" | "autos";
   name: string;
@@ -16,25 +21,9 @@ export type Company = {
   logoText: string;
 };
 
-export const companies: Company[] = [
-  {
-    id: "foods",
-    name: "GG FOODS",
-    tag: "B",
-    oneLiner: "Food importation, wholesale supply and retail distribution.",
-    blurb:
-      "GG FOODS sources and moves quality food products at scale, handling importation, wholesale supply and retail distribution for partners and households across Nigeria.",
-    href: site.subsidiaries.foods,
-    logoText: "GF",
-  },
-  {
-    id: "autos",
-    name: "GG AUTOS",
-    tag: "C",
-    oneLiner: "Vehicle sourcing, parts importation and automotive trade.",
-    blurb:
-      "GG AUTOS handles vehicle sourcing, spare-parts importation and automotive trade, connecting trusted supply to dealers, fleets and individual buyers.",
-    href: site.subsidiaries.autos,
-    logoText: "GA",
-  },
-];
+type CompanyData = Omit<Company, "href">;
+
+export const companies: Company[] = (data.companies as CompanyData[]).map((company) => ({
+  ...company,
+  href: site.subsidiaries[company.id],
+}));

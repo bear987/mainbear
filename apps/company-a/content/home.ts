@@ -1,4 +1,12 @@
+/**
+ * Homepage content.
+ *
+ * The "what we do" cards are the three services plus any extra cards held in
+ * data/home.json, so adding or renaming a service updates the homepage without
+ * a second edit. Only the extra cards are stored as data here.
+ */
 import { services } from "@/content/services";
+import data from "./data/home.json";
 
 export type Stat = { value: string; label: string; countTo?: number };
 
@@ -9,33 +17,30 @@ export type DoArea = {
   icon: "Handshake" | "TrendingUp" | "Building2" | "Users";
 };
 
-export const home = {
+type Cta = { label: string; href: string };
+
+export type Home = {
   hero: {
-    eyebrow: "Operating group · Lagos, Nigeria",
-    title: "An operating group built on trade, and on integrity.",
-    /* Company statement, set directly under the headline. Split in two so the
-       legal name can be typeset brighter than the rest of the sentence without
-       moving copy out of this file. */
-    standfirst: {
-      lead: "GG Bearers Company Limited",
-      body: " is a forward-thinking technology and consulting company dedicated to proffering global solutions to individuals, organisations and nations at large.",
-    },
-    lede: "GG BEARERS imports, exports, clears and trades across borders, running partnerships, investment and corporate services in-house, and owning the GG FOODS and GG AUTOS businesses.",
-    primary: { label: "Get in touch", href: "/contact" },
-    secondary: { label: "Meet our companies", href: "/companies" },
-  },
+    eyebrow: string;
+    title: string;
+    standfirst: { lead: string; body: string };
+    lede: string;
+    primary: Cta;
+    secondary: Cta;
+  };
+  stats: Stat[];
+  whatWeDo: { eyebrow: string; title: string; lede: string; areas: DoArea[] };
+  companies: { eyebrow: string; title: string; lede: string };
+  closing: { title: string; lede: string; primary: Cta };
+};
 
-  stats: [
-    { value: "2", label: "Companies we own and operate", countTo: 2 },
-    { value: "3", label: "Service lines run in-house", countTo: 3 },
-    { value: "Import & export", label: "Cross-border trade" },
-    { value: "Integrity", label: "Our first priority" },
-  ] satisfies Stat[],
+const { extraAreas, ...whatWeDo } = data.home.whatWeDo;
 
+export const home: Home = {
+  ...data.home,
+  stats: data.home.stats as Stat[],
   whatWeDo: {
-    eyebrow: "What we do",
-    title: "A working business, not a holding shell.",
-    lede: "We import cars, trucks, mini buses, Nissan and Toyota products, and heavy-duty trucks, among others. Two jobs, done at once: we run real trade services of our own, and we steward the operating companies underneath us.",
+    ...whatWeDo,
     areas: [
       ...services.map<DoArea>((s) => ({
         name: s.name,
@@ -43,27 +48,7 @@ export const home = {
         href: `/services/${s.slug}`,
         icon: s.icon,
       })),
-      {
-        name: "Careers & Talent",
-        summary:
-          "A single hiring hub for the whole group, open roles across GG BEARERS, GG FOODS and GG AUTOS, in one place.",
-        href: "/careers",
-        icon: "Users",
-      },
+      ...(extraAreas as DoArea[]),
     ],
   },
-
-  companies: {
-    eyebrow: "Our companies",
-    /* "Our" rather than "Two", so the section still reads correctly as the
-       group takes on further companies or partners. */
-    title: "Our businesses. One group standard.",
-    lede: "GG BEARERS owns and operates the companies below. Each runs its own market, visit their sites to go deeper.",
-  },
-
-  closing: {
-    title: "Let's talk about working together.",
-    lede: "Whether it's a partnership, an investment, a shipment to clear or a role to fill, start a conversation and we'll route you to the right person.",
-    primary: { label: "Get in touch", href: "/contact" },
-  },
-} as const;
+};
