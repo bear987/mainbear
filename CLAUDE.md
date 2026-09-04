@@ -102,6 +102,11 @@ the dev server then serves broken chunks.
   than a developer. Keep those current when the shape of the data changes.
 - Commit identity is set **repo-locally** to `GG Bearers <ggbearers@gmail.com>`.
   Do not change the machine's global git config.
+- **Shipping is semi-automatic.** Do the work, update this file, then ask the
+  owner a single yes or no question: commit and push? Do not ship without
+  asking, and do not write a long pitch either. One question, then act on the
+  answer. Work goes straight to `main`, which is how every commit here has been
+  made and what the Netlify pipeline expects.
 
 ---
 
@@ -402,6 +407,14 @@ Each of these cost real time. Read before debugging something similar.
 - `curl` to the live domains fails TLS on this machine because local antivirus
   intercepts it (the certificate reads "Avast Web/Mail Shield Root"). Use
   `curl -k`. This is a local artefact, not a site problem.
+- **The Chrome extension is connected on this machine**, so the Netlify,
+  Cloudflare and GitHub dashboards can be read directly through the
+  `claude-in-chrome` tools using the owner's logged-in session. That is how
+  deploy outcomes get verified. There is no Netlify CLI and no API token here,
+  so the dashboard is the only route. `get_page_text` returns "Loading" on the
+  first call because the deploy list hydrates late, just call it again. Deploy
+  log lines are not in `get_page_text` output at all, read them with
+  `read_page` scoped to the log region's `ref_id`.
 - Pasted chat images are **not** written to disk and cannot be recovered from
   Downloads or Temp. The owner must save the file and give a path.
 - The sandbox blocks `Remove-Item` on paths under `D:\GG`. Write temporary
@@ -411,6 +424,19 @@ Each of these cost real time. Read before debugging something similar.
 
 **Deployment**
 
+- **A build cancelled by the ignore hook is labelled "Failed" in the Netlify
+  dashboard, not "Skipped".** The deploy list shows a red `Failed`, and the
+  detail page says "Your deploy failed due to an error" with Initializing
+  marked Failed. That is normal and expected: Netlify's own line reads
+  `Failed during stage 'checking build content for changes': Canceled build due
+  to no content change`. To tell a real failure from a successful skip, open
+  the deploy log and look for `netlify-ignore: nothing affecting <workspace>
+  changed, cancelling build.` followed by `User-specified ignore command
+  returned exit code 0. Returning early from build.` Also check that the
+  **Published** deploy at the top of the list is still the previous commit,
+  which means nothing was replaced. Netlify's own built-in no-content-change
+  skip, seen on `d114080` before this hook existed, is the only thing that ever
+  shows the friendlier `Skipped` label.
 - **Netlify bakes environment variables in at deploy time.** A deploy created
   before a variable was saved never sees it, so always redeploy after adding
   vars.
@@ -465,10 +491,14 @@ one, so it was not built.
 
 Newest first, one entry per change. Keep to roughly 25 entries.
 
-- **2026-09-04** — Replaced the original scaffold `CLAUDE.md` with this living
-  project file, and reduced the Claude memory entry to a pointer to it. The old
-  file still described a Next 15 / Vercel / `b.companya.com` project that no
-  longer exists. No app code touched.
+- **2026-09-04** (`6deaaf1`, plus this follow-up) — Replaced the original
+  scaffold `CLAUDE.md` with this living project file, and reduced the Claude
+  memory entry to a pointer to it. The old file still described a Next 15 /
+  Vercel / `b.companya.com` project that no longer exists. No app code touched.
+  Pushed, and the ignore hook was verified in the Netlify dashboards: all three
+  sites cancelled the build and all three still publish `1dbfa4c`. Added the
+  gotchas that came out of that check, the misleading "Failed" label on a
+  cancelled build and how to read the dashboards from here.
 - **2026-08-26** (`1dbfa4c`) — Netlify build skipping: root `netlify.toml` plus
   one `SITE_NAME`-aware `scripts/netlify-ignore.sh`, so a push only rebuilds
   the sites it affects.
