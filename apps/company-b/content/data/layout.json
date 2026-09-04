@@ -1,0 +1,32 @@
+{
+  "home": {
+    "label": "Home page",
+    "sections": [
+      {
+        "id": "hero",
+        "label": "Hero",
+        "note": "The motto, the moving picture, and the address and hours strip.",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "signatureDishes",
+        "label": "Signature dishes",
+        "note": "The four dishes marked as signature on the menu.",
+        "enabled": true
+      },
+      {
+        "id": "orderTwoWays",
+        "label": "Order in two taps",
+        "note": "The call and WhatsApp band.",
+        "enabled": true
+      },
+      {
+        "id": "visitStrip",
+        "label": "Find us, hours, talk to us",
+        "note": "The three cards at the foot of the page.",
+        "enabled": true
+      }
+    ]
+  }
+}

@@ -1,9 +1,11 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { MapPin, Clock, Phone } from "lucide-react";
 import { Reveal } from "@repo/ui/reveal";
 import { CtaButton } from "@repo/ui/cta-button";
 import { Container } from "@repo/ui/container";
+import { sectionsFor } from "@/lib/layout";
 import { site } from "@/content/site";
 import { signatureDishes } from "@/content/menu";
 import { Section, Eyebrow } from "@/components/section";
@@ -20,9 +22,12 @@ export const metadata: Metadata = {
 };
 
 export default function HomePage() {
-  return (
-    <>
-      {/* HERO — appetizing, address and hours visible without scrolling */}
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in the
+     admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    /* HERO — appetizing, address and hours visible without scrolling */
+    hero: (
       <section className="relative isolate flex min-h-[min(92dvh,52rem)] flex-col overflow-hidden">
         <HeroVideo
           alt="A flaming wok of grilled beef and peppers cooking in the GG FOODS kitchen"
@@ -78,8 +83,10 @@ export default function HomePage() {
           </Container>
         </div>
       </section>
+    ),
 
-      {/* SIGNATURE DISHES */}
+    /* SIGNATURE DISHES */
+    signatureDishes: (
       <Section tone="paper">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <Reveal>
@@ -105,8 +112,10 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
+    ),
 
-      {/* ORDER TWO WAYS */}
+    /* ORDER TWO WAYS */
+    orderTwoWays: (
       <Section
         tone="ember"
         space="tight"
@@ -149,8 +158,10 @@ export default function HomePage() {
           </Reveal>
         </div>
       </Section>
+    ),
 
-      {/* VISIT STRIP */}
+    /* VISIT STRIP */
+    visitStrip: (
       <Section
         tone="paper"
         space="tight"
@@ -195,6 +206,14 @@ export default function HomePage() {
           </Reveal>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      {sectionsFor("home").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

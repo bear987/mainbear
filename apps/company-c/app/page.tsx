@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
 import { Reveal } from "@repo/ui/reveal";
 import { Container } from "@repo/ui/container";
@@ -11,22 +12,25 @@ import { featuredVehicles } from "../content/vehicles";
 import { contact } from "../content/site";
 import { whatsappGeneral } from "../lib/contact";
 import { sequence } from "../lib/format";
+import { sectionsFor } from "../lib/layout";
 
 export default function HomePage() {
   const featured = featuredVehicles(4);
 
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }}
-      />
-
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in the
+     admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    hero: (
       <Hero />
-      <Ticker />
+    ),
 
-      {/* The differentiator leads, because it is the strongest thing a
-          buyer can know about us. Type-led, no image. */}
+    ticker: (
+      <Ticker />
+    ),
+
+    /* The differentiator leads, because it is the strongest thing a buyer can know about us. Type-led, no image. */
+    assembly: (
       <Section rules space="loose">
         <Reveal>
           <SectionHead
@@ -64,8 +68,10 @@ export default function HomePage() {
           </Link>
         </Reveal>
       </Section>
+    ),
 
-      {/* The manifest. The real range, on the homepage. */}
+    /* The manifest. The real range, on the homepage. */
+    manifest: (
       <Section tone="tint">
         <Reveal>
           <SectionHead
@@ -103,8 +109,10 @@ export default function HomePage() {
           </div>
         </Reveal>
       </Section>
+    ),
 
-      {/* Two audiences, equal weight and equal space. */}
+    /* Two audiences, equal weight and equal space. */
+    audiences: (
       <Section tone="ink" space="loose" bleed>
         <Container>
           <Reveal>
@@ -133,8 +141,10 @@ export default function HomePage() {
           </div>
         </Container>
       </Section>
+    ),
 
-      {/* Trust, as a ledger rather than three centred icon cards. */}
+    /* Trust, as a ledger rather than three centred icon cards. */
+    trust: (
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-4">
@@ -171,8 +181,10 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+    ),
 
-      {/* Objections, then the ask. */}
+    /* Objections, then the ask. */
+    faq: (
       <Section tone="tint">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -187,7 +199,9 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+    ),
 
+    closing: (
       <Section tone="ink" space="tight">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
@@ -215,6 +229,19 @@ export default function HomePage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema(faqs)) }}
+      />
+
+      {sectionsFor("home").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

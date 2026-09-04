@@ -1,0 +1,38 @@
+{
+  "home": {
+    "label": "Home page",
+    "sections": [
+      {
+        "id": "hero",
+        "label": "Hero",
+        "note": "The headline, the company statement and the main buttons.",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "ticker",
+        "label": "Capabilities ticker",
+        "note": "The scrolling line of what the group does.",
+        "enabled": true
+      },
+      {
+        "id": "stats",
+        "label": "Figures bar",
+        "note": "The four counting figures under the ticker.",
+        "enabled": true
+      },
+      {
+        "id": "whatWeDo",
+        "label": "What we do",
+        "note": "The four service cards.",
+        "enabled": true
+      },
+      {
+        "id": "companiesClosing",
+        "label": "Our companies, and the closing invitation",
+        "note": "These two move together: one photograph dissolves into the next across both of them, so separating them would put a hard seam in the middle.",
+        "enabled": true
+      }
+    ]
+  }
+}

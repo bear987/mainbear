@@ -1,0 +1,56 @@
+{
+  "home": {
+    "label": "Home page",
+    "sections": [
+      {
+        "id": "hero",
+        "label": "Hero",
+        "note": "The plant floor headline, the data rail and the video.",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "ticker",
+        "label": "Ticker",
+        "note": "The scrolling line of yard vocabulary under the hero.",
+        "enabled": true
+      },
+      {
+        "id": "assembly",
+        "label": "Coupling, attachment and joining",
+        "note": "The differentiator. It leads because it is the strongest thing a buyer can know about the yard.",
+        "enabled": true
+      },
+      {
+        "id": "manifest",
+        "label": "The range",
+        "note": "The real models, listed on the home page.",
+        "enabled": true
+      },
+      {
+        "id": "audiences",
+        "label": "Retail and wholesale",
+        "note": "The two audiences, given equal weight.",
+        "enabled": true
+      },
+      {
+        "id": "trust",
+        "label": "Why buyers choose the yard",
+        "note": "The trust ledger.",
+        "enabled": true
+      },
+      {
+        "id": "faq",
+        "label": "Questions",
+        "note": "The objections, answered. This also supplies the questions search engines show.",
+        "enabled": true
+      },
+      {
+        "id": "closing",
+        "label": "Closing invitation",
+        "note": "Call and WhatsApp, at the foot of the page.",
+        "enabled": true
+      }
+    ]
+  }
+}

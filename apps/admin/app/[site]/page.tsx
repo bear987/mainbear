@@ -49,6 +49,16 @@ export default async function SitePage({ params }: { params: Promise<{ site: str
         </Link>
 
         <Link
+          href={`/${site.id}/layout-order`}
+          className="rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-muted"
+        >
+          <h3 className="text-sm font-semibold text-heading">Page layout</h3>
+          <p className="mt-0.5 text-sm text-muted">
+            The order sections appear in on the home page, and whether they appear at all.
+          </p>
+        </Link>
+
+        <Link
           href={`/${site.id}/design`}
           className="rounded-lg border border-line bg-panel px-4 py-3 transition-colors hover:border-muted"
         >

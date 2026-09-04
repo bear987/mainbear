@@ -1,5 +1,7 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
+import { sectionsFor } from "@/lib/layout";
 import { home } from "@/content/home";
 import { companies } from "@/content/companies";
 import { site } from "@/content/site";
@@ -22,9 +24,12 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function HomePage() {
-  return (
-    <>
-      {/* HERO, cinematic band (stays dark in light mode) */}
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in the
+     admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    /* HERO, cinematic band (stays dark in light mode) */
+    hero: (
       <section className="force-dark relative isolate overflow-hidden">
         <HeroMedia />
         {/* Tighter vertical padding on phones: the statement adds ~7 lines
@@ -103,11 +108,13 @@ export default function HomePage() {
           </div>
         </Container>
       </section>
+    ),
 
-      {/* CAPABILITIES TICKER */}
-      <TradeMarquee />
+    /* CAPABILITIES TICKER */
+    ticker: <TradeMarquee />,
 
-      {/* TRUST BAR */}
+    /* TRUST BAR */
+    stats: (
       <Section tone="surface" space="tight" className="border-b border-line">
         <dl className="grid grid-cols-2 gap-8 sm:gap-10 lg:grid-cols-4">
           {home.stats.map((stat, i) => (
@@ -115,8 +122,10 @@ export default function HomePage() {
           ))}
         </dl>
       </Section>
+    ),
 
-      {/* WHAT WE DO */}
+    /* WHAT WE DO */
+    whatWeDo: (
       <Section tone="paper" globe>
         <div className="max-w-2xl">
           <Reveal>
@@ -163,72 +172,82 @@ export default function HomePage() {
           ))}
         </div>
       </Section>
+    ),
 
-      {/* OUR COMPANIES */}
-      {/* ONE continuous photo region: the port photo dissolves into the sea
-          photo across both bands, so no seam can exist between them. */}
+    /* OUR COMPANIES + CLOSING CTA.
+       ONE continuous photo region: the port photo dissolves into the sea
+       photo across both bands, so no seam can exist between them. They are a
+       single entry in the layout for that reason, and must stay together. */
+    companiesClosing: (
       <div className="force-dark relative isolate">
-      <PhotoDuo from="/images/home-port.jpg" to="/images/home-sea.jpg" />
-      <Section tone="none" id="companies" space="tight">
-        <div className="max-w-2xl">
-          <Reveal>
-            <Eyebrow>{home.companies.eyebrow}</Eyebrow>
-          </Reveal>
-          <Reveal delay={80}>
-            <h2 className="mt-4 text-[clamp(1.875rem,3vw+0.5rem,3rem)] font-semibold">
-              {home.companies.title}
-            </h2>
-          </Reveal>
-          <Reveal delay={160}>
-            <p className="mt-4 text-lg leading-relaxed text-muted">
-              {home.companies.lede}
-            </p>
-          </Reveal>
-        </div>
-
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
-          {companies.map((company, i) => (
-            <Reveal key={company.id} delay={i * 90}>
-              <CompanyCard company={company} />
+        <PhotoDuo from="/images/home-port.jpg" to="/images/home-sea.jpg" />
+        <Section tone="none" id="companies" space="tight">
+          <div className="max-w-2xl">
+            <Reveal>
+              <Eyebrow>{home.companies.eyebrow}</Eyebrow>
             </Reveal>
-          ))}
-        </div>
+            <Reveal delay={80}>
+              <h2 className="mt-4 text-[clamp(1.875rem,3vw+0.5rem,3rem)] font-semibold">
+                {home.companies.title}
+              </h2>
+            </Reveal>
+            <Reveal delay={160}>
+              <p className="mt-4 text-lg leading-relaxed text-muted">
+                {home.companies.lede}
+              </p>
+            </Reveal>
+          </div>
 
-        <div className="mt-8">
-          <CtaButton href="/companies" variant="ghost" trailing="ArrowRight">
-            More about the group structure
-          </CtaButton>
-        </div>
-      </Section>
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {companies.map((company, i) => (
+              <Reveal key={company.id} delay={i * 90}>
+                <CompanyCard company={company} />
+              </Reveal>
+            ))}
+          </div>
 
-      {/* CLOSING CTA */}
-      <Section tone="none" space="tight">
-        <div className="mx-auto max-w-2xl text-center">
-          <Reveal>
-            <h2 className="text-[clamp(1.875rem,3vw+0.5rem,3rem)] font-semibold text-heading">
-              {home.closing.title}
-            </h2>
-          </Reveal>
-          <Reveal delay={80}>
-            <p className="mt-5 text-lg leading-relaxed text-ink-200">
-              {home.closing.lede}
-            </p>
-          </Reveal>
-          <Reveal delay={160}>
-            <div className="mt-9 flex justify-center">
-              <CtaButton
-                href={home.closing.primary.href}
-                variant="primary"
-                size="lg"
-                trailing="ArrowRight"
-              >
-                {home.closing.primary.label}
-              </CtaButton>
-            </div>
-          </Reveal>
-        </div>
-      </Section>
+          <div className="mt-8">
+            <CtaButton href="/companies" variant="ghost" trailing="ArrowRight">
+              More about the group structure
+            </CtaButton>
+          </div>
+        </Section>
+
+        <Section tone="none" space="tight">
+          <div className="mx-auto max-w-2xl text-center">
+            <Reveal>
+              <h2 className="text-[clamp(1.875rem,3vw+0.5rem,3rem)] font-semibold text-heading">
+                {home.closing.title}
+              </h2>
+            </Reveal>
+            <Reveal delay={80}>
+              <p className="mt-5 text-lg leading-relaxed text-ink-200">
+                {home.closing.lede}
+              </p>
+            </Reveal>
+            <Reveal delay={160}>
+              <div className="mt-9 flex justify-center">
+                <CtaButton
+                  href={home.closing.primary.href}
+                  variant="primary"
+                  size="lg"
+                  trailing="ArrowRight"
+                >
+                  {home.closing.primary.label}
+                </CtaButton>
+              </div>
+            </Reveal>
+          </div>
+        </Section>
       </div>
+    ),
+  };
+
+  return (
+    <>
+      {sectionsFor("home").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

@@ -265,12 +265,30 @@ monorepo, is never deployed, and no Netlify site maps to it.
   - **Three pre-existing warnings stand, deliberately unfixed** (changing brand
     colour is the owner's call): white on GG Foods' flame `action-500` is
     3.66:1 in both themes, and GG Autos' `muted` on concrete is 4.30:1.
+- **Page layout** controls the order of the home page's sections and whether
+  each appears. Each app's `app/page.tsx` now holds its sections in a
+  `Record<string, ReactNode>` and renders
+  `sectionsFor("home").map(...)`; the order and the on/off flags live in
+  `content/data/layout.json`, read through the app's own `lib/layout.ts`.
+  - The admin only ever sends an **order and enabled flags**. Labels, notes and
+    which sections exist come from the file on disk, so it cannot invent a
+    section the page has no code for, drop one, or list one twice, and a
+    section marked `required` (every hero, which carries the H1) cannot be
+    switched off. All five refusals are tested.
+  - **company-a's `companiesClosing` is deliberately one entry**, not two. The
+    port photograph dissolves into the sea photograph across both bands through
+    a single `PhotoDuo`, so separating or reordering them apart would put a
+    hard seam in the middle. Keep coupled regions as one entry.
+  - Only the three home pages are wired up. Extending to another page means
+    moving that page's sections into the same record and adding an entry to its
+    `layout.json`.
 - **Preview** starts a site's dev server on demand and links to it.
 - Everything editable is enumerated in `lib/sites.ts`. Nothing outside that
   registry can be read or written, which is what blocks a path-traversal
   request; `dataPath()` throws for anything else.
 
-Not built yet: section reordering (Phase 4).
+All four phases are built. What remains is extending the layout control beyond
+the three home pages, and anything new the owner asks for.
 
 ## Current state, site by site
 
@@ -619,6 +637,18 @@ one, so it was not built.
 
 Newest first, one entry per change. Keep to roughly 25 entries.
 
+- **2026-09-04** — **Admin platform, Phase 4: page layout.** The three home
+  pages now render from `content/data/layout.json`, so sections can be reordered
+  or switched off in the admin. The pages were rebuilt **programmatically from
+  their own original blocks** rather than retyped, then verified by comparing
+  the rendered DOM with `<script>` payloads stripped: **identical on all three**
+  (43,205 / 40,544 / 43,997 characters of markup). Comparing the raw HTML is not
+  enough here, because React's module numbering inside the hydration payload
+  shifts when the component tree order changes without any visible difference.
+  The comparison was then proved to *detect* a change: disabling and reordering
+  a section produced a real diff and removed that content. Every guard refuses
+  what it should. company-a's companies and closing bands are one entry, since
+  one photograph dissolves across both.
 - **2026-09-04** — **Admin platform, Phase 3: colours and design.** A design
   page per site editing the `globals.css` tokens in place, with live swatches,
   a colour picker on plain hex values, and a readability check per theme.
