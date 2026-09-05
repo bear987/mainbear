@@ -120,6 +120,11 @@ the dev server then serves broken chunks.
   asking, and do not write a long pitch either. One question, then act on the
   answer. Work goes straight to `main`, which is how every commit here has been
   made and what the Netlify pipeline expects.
+- **The owner edits and publishes through the admin, so the repository moves
+  without you.** Their commits touch `content/data/*.json` and
+  `public/*` only. Run `git log` and `git status` at the start of a session,
+  and re-read a content file before editing it rather than working from what
+  it said earlier in the conversation. This has already happened once, cleanly.
 
 ---
 
@@ -604,6 +609,13 @@ Each of these cost real time. Read before debugging something similar.
 - **401 on every route including `robots.txt`**, with `Server: Netlify` and an
   empty body, is Netlify visitor-access password protection, not a build
   failure. Site configuration, Access and security, Visitor access.
+- **Comparing a local server against the live site always differs in one
+  place:** `og:image` and `twitter:image` are absolute, so they carry
+  `http://localhost:3001` locally and the real host in production. The
+  fingerprint after the `?` is the same image. Four changed lines per page, all
+  of them those two tags, means the content matches. Count the lines rather
+  than assuming, and prefer comparing a route against its own earlier capture
+  when you want a comparison with no expected noise at all.
 - **Domain diagnosis:** a 404 that persists with `curl -k` means the host is
   not attached to the site in Netlify. A 200 with `-k` but a TLS error without
   it means the host is attached and the certificate is still provisioning, so
@@ -664,6 +676,14 @@ Newest first, one entry per change. Keep to roughly 25 entries.
   entities, which is not what the owner should be reading. Two bugs caught on
   the way, both by the type check: the header slice re-emitted the function's
   opening line, and company-c's relative import needed one more level.
+  **Shipped as `69a9e30` and verified in production:** all three published, and
+  17 live pages compared against the local build differ only in the `og:image`
+  host, which is what comparing localhost with production looks like.
+- **2026-09-05** (`0f0ff66`) — **The owner published their first change through
+  the admin**, unprompted and without a developer: "JD Mercentile" became
+  "J Bliss Mercentile Company Limited" in GG Bearers' services content. One
+  file, one line, gg-bearers rebuilt, gg-autos correctly skipped, and it was
+  live within the minute. The tool works end to end.
 
 - **2026-09-04** — **Admin platform, Phase 4: page layout.** The three home
   pages now render from `content/data/layout.json`, so sections can be reordered
