@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@repo/ui/reveal";
@@ -30,22 +31,23 @@ export const metadata: Metadata = {
 };
 
 const crumbs = [{ label: "About", href: "/about" }];
+import { sectionsFor } from "../../lib/layout";
 
 export default function AboutPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }}
-      />
-
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         label={about.label}
         title={about.title}
         crumbs={crumbs}
         intro={about.standfirst}
       />
+    ),
 
+    section2: (
       <Section space="loose">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -66,9 +68,10 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
+    ),
 
-      {/* MISSION. The statement carries at display scale; the commitments sit
-          under it as a ruled ledger so the section reads as a pledge. */}
+    /* MISSION. The statement carries at display scale; the commitments sit under it as a ruled ledger so the section reads as a pledge. */
+    section3: (
       <Section tone="ink" space="loose">
         <Reveal>
           <SectionHead label={mission.label} title={mission.title} size="xl" />
@@ -89,9 +92,10 @@ export default function AboutPage() {
           ))}
         </ul>
       </Section>
+    ),
 
-      {/* WHAT WE DO. Two jobs running in parallel, so paired cells rather
-          than a numbered sequence. */}
+    /* WHAT WE DO. Two jobs running in parallel, so paired cells rather than a numbered sequence. */
+    section4: (
       <Section rules>
         <Reveal>
           <SectionHead
@@ -115,8 +119,10 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+    ),
 
-      {/* Stats stay visibly unfilled rather than being invented. */}
+    /* Stats stay visibly unfilled rather than being invented. */
+    section5: (
       <Section tone="tint" space="tight">
         <dl className="grid gap-px bg-line sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat) => {
@@ -138,7 +144,9 @@ export default function AboutPage() {
           })}
         </dl>
       </Section>
+    ),
 
+    section6: (
       <Section rules>
         <Reveal>
           <SectionHead
@@ -160,8 +168,10 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+    ),
 
-      {/* Roles, not invented people. */}
+    /* Roles, not invented people. */
+    section7: (
       <Section tone="tint">
         <Reveal>
           <SectionHead
@@ -185,7 +195,9 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+    ),
 
+    section8: (
       <Section tone="ink" space="loose">
         <div className="relative grid gap-10 lg:grid-cols-12">
           <RegistrationMarks className="-m-4 hidden lg:block" />
@@ -232,7 +244,9 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
+    ),
 
+    section9: (
       <Section space="tight">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
@@ -265,6 +279,19 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }}
+      />
+
+      {sectionsFor("about").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

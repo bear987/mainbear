@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@repo/ui/reveal";
@@ -26,19 +27,16 @@ export const metadata: Metadata = {
 };
 
 const crumbs = [{ label: "Wholesale", href: "/wholesale" }];
+import { sectionsFor } from "../../lib/layout";
 
 export default function WholesalePage() {
   const wholesaleRange = vehicles.filter((vehicle) => vehicle.wholesaleAvailable);
 
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([breadcrumbSchema(crumbs), faqSchema(faqs)]),
-        }}
-      />
-
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         label={wholesale.label}
         title={wholesale.title}
@@ -50,7 +48,9 @@ export default function WholesalePage() {
           { label: "Batch built", value: String(catalogueStats.coupled) },
         ]}
       />
+    ),
 
+    section2: (
       <Section>
         <Reveal>
           <SectionHead label="Who buys this way" title="Built for three kinds of buyer" />
@@ -66,7 +66,9 @@ export default function WholesalePage() {
           ))}
         </div>
       </Section>
+    ),
 
+    section3: (
       <Section tone="tint" rules>
         <Reveal>
           <SectionHead
@@ -88,8 +90,10 @@ export default function WholesalePage() {
           ))}
         </ol>
       </Section>
+    ),
 
-      {/* Terms as a ledger. Unconfirmed values are visibly bracketed. */}
+    /* Terms as a ledger. Unconfirmed values are visibly bracketed. */
+    section4: (
       <Section>
         <Reveal>
           <SectionHead
@@ -124,7 +128,9 @@ export default function WholesalePage() {
           })}
         </dl>
       </Section>
+    ),
 
+    section5: (
       <Section tone="ink">
         <Reveal>
           <SectionHead
@@ -146,7 +152,9 @@ export default function WholesalePage() {
           Filter the full range
         </Link>
       </Section>
+    ),
 
+    section6: (
       <Section tone="tint" id="quote">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -188,7 +196,9 @@ export default function WholesalePage() {
           </div>
         </div>
       </Section>
+    ),
 
+    section7: (
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -199,6 +209,21 @@ export default function WholesalePage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([breadcrumbSchema(crumbs), faqSchema(faqs)]),
+        }}
+      />
+
+      {sectionsFor("wholesale").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

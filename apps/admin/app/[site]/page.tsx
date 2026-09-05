@@ -54,7 +54,7 @@ export default async function SitePage({ params }: { params: Promise<{ site: str
         >
           <h3 className="text-sm font-semibold text-heading">Page layout</h3>
           <p className="mt-0.5 text-sm text-muted">
-            The order sections appear in on the home page, and whether they appear at all.
+            The order sections appear in on each page, and whether they appear at all.
           </p>
         </Link>
 

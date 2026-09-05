@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { PageHeader, breadcrumbSchema } from "../../components/page-header";
@@ -34,17 +35,14 @@ const itemListSchema = {
     name: `${vehicle.brand} ${vehicle.name}`,
   })),
 };
+import { sectionsFor } from "../../lib/layout";
 
 export default function InventoryPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([breadcrumbSchema(crumbs), itemListSchema]),
-        }}
-      />
-
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         label="The range"
         title="Mini buses and mini trucks"
@@ -57,13 +55,16 @@ export default function InventoryPage() {
           { label: "Mini trucks", value: String(catalogueStats.trucks) },
         ]}
       />
+    ),
 
+    section2: (
       <Section space="normal">
         <VehicleBrowser vehicles={vehicles} />
       </Section>
+    ),
 
-      {/* Build options offered across the whole range, rather than figures
-          belonging to any one model. */}
+    /* Build options offered across the whole range, rather than figures belonging to any one model. */
+    section3: (
       <Section tone="tint" rules>
         <SectionHead
           label={specifications.label}
@@ -84,7 +85,9 @@ export default function InventoryPage() {
           ))}
         </dl>
       </Section>
+    ),
 
+    section4: (
       <Section tone="ink" space="tight">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
@@ -123,6 +126,21 @@ export default function InventoryPage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([breadcrumbSchema(crumbs), itemListSchema]),
+        }}
+      />
+
+      {sectionsFor("inventory").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

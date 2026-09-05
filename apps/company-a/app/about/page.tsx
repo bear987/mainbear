@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import { about } from "@/content/about";
@@ -15,10 +16,14 @@ export const metadata: Metadata = buildMetadata({
     "The GG BEARERS story, a Lagos trade group built on integrity, running its own services and parent to GG FOODS and GG AUTOS. Vision, values and leadership.",
   path: "/about",
 });
+import { sectionsFor } from "@/lib/layout";
 
 export default function AboutPage() {
-  return (
-    <>
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         eyebrow={about.hero.eyebrow}
         title={about.hero.title}
@@ -26,8 +31,10 @@ export default function AboutPage() {
         breadcrumb={[{ name: "About", path: "/about" }]}
         backdrop={{ src: "/images/header-about.jpg" }}
       />
+    ),
 
-      {/* STORY + VISION */}
+    /* STORY + VISION */
+    section2: (
       <Section
         tone="paper"
         backdrop={{ src: "/images/about-story.jpg", fadeTop: true, fadeBottom: true }}
@@ -61,8 +68,10 @@ export default function AboutPage() {
           </Reveal>
         </div>
       </Section>
+    ),
 
-      {/* VALUES */}
+    /* VALUES */
+    section3: (
       <Section tone="tint">
         <div className="max-w-2xl">
           <Reveal>
@@ -87,8 +96,10 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+    ),
 
-      {/* MILESTONES, a real sequence, so numbered */}
+    /* MILESTONES, a real sequence, so numbered */
+    section4: (
       <Section tone="paper">
         <div className="max-w-2xl">
           <Reveal>
@@ -114,8 +125,10 @@ export default function AboutPage() {
           ))}
         </ol>
       </Section>
+    ),
 
-      {/* LEADERSHIP */}
+    /* LEADERSHIP */
+    section5: (
       <Section tone="tint">
         <div className="max-w-2xl">
           <Reveal>
@@ -140,8 +153,10 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+    ),
 
-      {/* CTA */}
+    /* CTA */
+    section6: (
       <Section tone="ink" space="tight">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
@@ -167,6 +182,14 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      {sectionsFor("about").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

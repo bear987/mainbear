@@ -279,16 +279,30 @@ monorepo, is never deployed, and no Netlify site maps to it.
     port photograph dissolves into the sea photograph across both bands through
     a single `PhotoDuo`, so separating or reordering them apart would put a
     hard seam in the middle. Keep coupled regions as one entry.
-  - Only the three home pages are wired up. Extending to another page means
-    moving that page's sections into the same record and adding an entry to its
-    `layout.json`.
+  - **15 pages are wired up**: every page on all three sites that has more than
+    one orderable section. GG Bearers home, about, services, companies, careers
+    and contact; GG Foods home, about and order; GG Autos home, inventory,
+    services, wholesale, about and contact.
+  - **Two pages are deliberately not wired**, and should stay that way. GG
+    Foods' menu builds its categories from a `{categories.map(...)}` expression
+    rather than fixed blocks, so there is nothing stable to reorder; its visit
+    page returns a single section. Both were refused by the transformer rather
+    than forced.
+  - **Structured data and analytics are never sections.** A `<script>` block,
+    `<JsonLd>` or `<Analytics>` renders outside the layout, because switching a
+    page's schema off would quietly cost search results with nothing visible to
+    show for it.
+  - Section ids on the converted pages are positional (`header`, `section2`,
+    ...). The **label** in `layout.json` is what the owner reads, so keep those
+    written in their words; the ids are internal and changing one breaks the
+    link to the page's code.
 - **Preview** starts a site's dev server on demand and links to it.
 - Everything editable is enumerated in `lib/sites.ts`. Nothing outside that
   registry can be read or written, which is what blocks a path-traversal
   request; `dataPath()` throws for anything else.
 
-All four phases are built. What remains is extending the layout control beyond
-the three home pages, and anything new the owner asks for.
+All four phases are built, and layout control now covers every page that has
+sections worth ordering. What remains is whatever the owner asks for next.
 
 ## Current state, site by site
 
@@ -636,6 +650,20 @@ one, so it was not built.
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-09-05** — **Layout control extended from 3 pages to 15**, every page
+  across the three sites with more than one orderable section. The pages were
+  converted by a script that moves their own blocks and **refuses anything it
+  cannot parse with certainty** rather than guessing: it correctly declined GG
+  Foods' menu, whose categories come from a `map()` expression, and its visit
+  page, which is a single section. Verified by comparing the rendered DOM of
+  **all 45 routes before and after: identical**, then proved to detect a change
+  by hiding and reordering a section on the GG Bearers about page, which
+  removed exactly that section and left every other route untouched. Labels
+  were written by hand: the auto-derived ones were developer comments and HTML
+  entities, which is not what the owner should be reading. Two bugs caught on
+  the way, both by the type check: the header slice re-emitted the function's
+  opening line, and company-c's relative import needed one more level.
 
 - **2026-09-04** — **Admin platform, Phase 4: page layout.** The three home
   pages now render from `content/data/layout.json`, so sections can be reordered

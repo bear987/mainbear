@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import { services } from "@/content/services";
@@ -14,10 +15,14 @@ export const metadata: Metadata = buildMetadata({
     "The services GG BEARERS runs in-house: trade partnerships, investment, and corporate services (importation, clearing, warehousing and distribution).",
   path: "/services",
 });
+import { sectionsFor } from "@/lib/layout";
 
 export default function ServicesPage() {
-  return (
-    <>
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         eyebrow="Services"
         title="The trade services we run ourselves."
@@ -25,7 +30,9 @@ export default function ServicesPage() {
         breadcrumb={[{ name: "Services", path: "/services" }]}
         backdrop={{ src: "/images/header-services.jpg" }}
       />
+    ),
 
+    section2: (
       <Section tone="paper">
         <div className="grid gap-6 lg:grid-cols-3">
           {services.map((service, i) => (
@@ -35,7 +42,9 @@ export default function ServicesPage() {
           ))}
         </div>
       </Section>
+    ),
 
+    section3: (
       <Section tone="ink" space="tight">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
@@ -52,6 +61,14 @@ export default function ServicesPage() {
           </CtaButton>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      {sectionsFor("services").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

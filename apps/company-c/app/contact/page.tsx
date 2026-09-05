@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { MapPin } from "lucide-react";
 import { EnquiryForm } from "../../components/enquiry-form";
@@ -19,26 +20,27 @@ export const metadata: Metadata = {
 };
 
 const crumbs = [{ label: "Contact", href: "/contact" }];
+import { sectionsFor } from "../../lib/layout";
 
 export default function ContactPage() {
   const openDays = contact.hours.filter((slot) => slot.opens !== null);
   const mapQuery = encodeURIComponent(contact.address.full);
 
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }}
-      />
-
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         label="Contact"
         title="Come to the yard"
         crumbs={crumbs}
         intro="The fastest answer is a phone call or a WhatsApp message. Use the form if you would rather write it out, and we will come back to you with the units that fit."
       />
+    ),
 
-      {/* Contact routes come first. Nothing is hidden behind the form. */}
+    /* Contact routes come first. Nothing is hidden behind the form. */
+    section2: (
       <Section space="normal">
         <div className="grid gap-px bg-line lg:grid-cols-3">
           <div className="bg-surface p-7">
@@ -98,7 +100,9 @@ export default function ContactPage() {
           </div>
         </div>
       </Section>
+    ),
 
+    section3: (
       <Section tone="tint">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -159,7 +163,9 @@ export default function ContactPage() {
           </div>
         </div>
       </Section>
+    ),
 
+    section4: (
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -174,6 +180,19 @@ export default function ContactPage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema(crumbs)) }}
+      />
+
+      {sectionsFor("contact").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

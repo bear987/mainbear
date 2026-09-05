@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Reveal } from "@repo/ui/reveal";
@@ -52,25 +53,24 @@ const serviceSchema = {
     })),
   },
 };
+import { sectionsFor } from "../../lib/layout";
 
 export default function ServicesPage() {
-  return (
-    <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify([breadcrumbSchema(crumbs), serviceSchema, faqSchema(faqs)]),
-        }}
-      />
-
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         label={service.label}
         title={service.title}
         crumbs={crumbs}
         intro={service.standfirst}
       />
+    ),
 
-      {/* The proof sits high: footage of the work itself. */}
+    /* The proof sits high: footage of the work itself. */
+    section2: (
       <Section space="normal">
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -107,9 +107,10 @@ export default function ServicesPage() {
           </div>
         </div>
       </Section>
+    ),
 
-      {/* Products & services. The two uses sit as paired cells, the rest as a
-          ruled ledger. No 01/02 markers: this is a list, not a sequence. */}
+    /* Products & services. The two uses sit as paired cells, the rest as a ruled ledger. No 01/02 markers: this is a list, not a sequence. */
+    section3: (
       <Section tone="ink">
         <Reveal>
           <SectionHead
@@ -192,8 +193,10 @@ export default function ServicesPage() {
           </div>
         </Reveal>
       </Section>
+    ),
 
-      {/* A genuine sequence, so it is genuinely numbered. */}
+    /* A genuine sequence, so it is genuinely numbered. */
+    section4: (
       <Section tone="tint" rules>
         <Reveal>
           <SectionHead
@@ -216,7 +219,9 @@ export default function ServicesPage() {
           ))}
         </ol>
       </Section>
+    ),
 
+    section5: (
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -238,7 +243,9 @@ export default function ServicesPage() {
           </div>
         </div>
       </Section>
+    ),
 
+    section6: (
       <Section tone="ink" space="loose">
         <Reveal>
           <SectionHead label={buyerMeaning.label} title={buyerMeaning.title} size="lg" />
@@ -254,7 +261,9 @@ export default function ServicesPage() {
           ))}
         </ul>
       </Section>
+    ),
 
+    section7: (
       <Section tone="tint">
         <Reveal>
           <SectionHead
@@ -275,7 +284,9 @@ export default function ServicesPage() {
           ))}
         </div>
       </Section>
+    ),
 
+    section8: (
       <Section>
         <div className="grid gap-12 lg:grid-cols-12">
           <div className="lg:col-span-5">
@@ -286,7 +297,9 @@ export default function ServicesPage() {
           </div>
         </div>
       </Section>
+    ),
 
+    section9: (
       <Section tone="ink" space="tight">
         <div className="grid items-end gap-8 lg:grid-cols-12">
           <div className="lg:col-span-7">
@@ -319,6 +332,21 @@ export default function ServicesPage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([breadcrumbSchema(crumbs), serviceSchema, faqSchema(faqs)]),
+        }}
+      />
+
+      {sectionsFor("services").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

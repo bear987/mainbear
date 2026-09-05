@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import { site } from "@/content/site";
@@ -15,11 +16,14 @@ export const metadata: Metadata = buildMetadata({
     "Get in touch with GG BEARERS in Lagos. Routed enquiries for partnerships, investment, corporate services and careers. Call, email or send a message.",
   path: "/contact",
 });
+import { sectionsFor } from "@/lib/layout";
 
 export default function ContactPage() {
-  return (
-    <>
-      <JsonLd data={localBusinessSchema()} />
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         eyebrow={contactCopy.eyebrow}
         title={contactCopy.title}
@@ -27,7 +31,9 @@ export default function ContactPage() {
         breadcrumb={[{ name: "Contact", path: "/contact" }]}
         backdrop={{ src: "/images/header-contact.jpg" }}
       />
+    ),
 
+    section2: (
       <Section tone="paper" globe>
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
           {/* Details */}
@@ -129,6 +135,16 @@ export default function ContactPage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      <JsonLd data={localBusinessSchema()} />
+
+      {sectionsFor("contact").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

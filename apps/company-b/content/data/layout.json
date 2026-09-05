@@ -28,5 +28,53 @@
         "enabled": true
       }
     ]
+  },
+  "about": {
+    "label": "About page",
+    "sections": [
+      {
+        "id": "section1",
+        "label": "Our story",
+        "note": "The opening, over the candlelit spread.",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "The kitchen",
+        "note": "The kitchen roles, over the footage of the line.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "What makes the food special",
+        "note": "Fresh every day, both kitchens, made to order.",
+        "enabled": true
+      },
+      {
+        "id": "section4",
+        "label": "Part of the GG BEARERS group",
+        "note": "The band linking to the parent company and GG AUTOS.",
+        "enabled": true
+      }
+    ]
+  },
+  "order": {
+    "label": "Order page",
+    "sections": [
+      {
+        "id": "section1",
+        "label": "Order in two taps",
+        "note": "The call and WhatsApp cards. Switching this off leaves no way to order.",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "How it works",
+        "note": "The three steps, and the note about delivery coming later.",
+        "enabled": true
+      }
+    ]
   }
 }

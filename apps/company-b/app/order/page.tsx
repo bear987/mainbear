@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Phone, ArrowRight } from "lucide-react";
@@ -28,10 +29,14 @@ const steps = [
     body: "Your order is cooked fresh and ready for pickup at the restaurant. Delivery options are coming.",
   },
 ];
+import { sectionsFor } from "@/lib/layout";
 
 export default function OrderPage() {
-  return (
-    <>
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    section1: (
       <Section
         tone="paper"
         space="tight"
@@ -100,8 +105,10 @@ export default function OrderPage() {
           </Reveal>
         </div>
       </Section>
+    ),
 
-      {/* real sequence, so numbered */}
+    /* real sequence, so numbered */
+    section2: (
       <Section tone="surface" space="tight">
         <h2 className="text-2xl font-semibold sm:text-3xl">How it works</h2>
         <ol className="mt-8 grid gap-6 sm:grid-cols-3">
@@ -129,6 +136,14 @@ export default function OrderPage() {
           before you call.
         </p>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      {sectionsFor("order").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

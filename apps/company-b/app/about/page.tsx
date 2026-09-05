@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { Reveal } from "@repo/ui/reveal";
 import { CtaButton } from "@repo/ui/cta-button";
@@ -12,10 +13,14 @@ export const metadata: Metadata = {
     "The GG FOODS story: one Lagos kitchen cooking Nigerian classics and intercontinental dishes with the same seriousness. Part of the GG BEARERS group.",
   alternates: { canonical: "/about" },
 };
+import { sectionsFor } from "@/lib/layout";
 
 export default function AboutPage() {
-  return (
-    <>
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    section1: (
       <Section
         tone="paper"
         space="tight"
@@ -44,7 +49,9 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+    ),
 
+    section2: (
       <Section
         tone="surface"
         space="tight"
@@ -73,7 +80,9 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+    ),
 
+    section3: (
       <Section tone="paper" space="tight">
         <h2 className="text-[clamp(1.75rem,2.5vw+0.5rem,2.5rem)] font-semibold">
           What makes the food special
@@ -89,7 +98,9 @@ export default function AboutPage() {
           ))}
         </div>
       </Section>
+    ),
 
+    section4: (
       <Section tone="ember" space="tight" atmosphere>
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
@@ -111,6 +122,14 @@ export default function AboutPage() {
           </div>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      {sectionsFor("about").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

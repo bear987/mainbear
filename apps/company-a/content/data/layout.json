@@ -34,5 +34,136 @@
         "enabled": true
       }
     ]
+  },
+  "about": {
+    "label": "About page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "note": "The title and the photograph behind it.",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "Where we come from, and where we are going",
+        "note": "The story paragraphs and the vision, over a photograph.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "What we stand for",
+        "note": "The four values.",
+        "enabled": true
+      },
+      {
+        "id": "section4",
+        "label": "How the group grew",
+        "note": "The numbered milestones, from trade desk to operating group.",
+        "enabled": true
+      },
+      {
+        "id": "section5",
+        "label": "The people accountable",
+        "note": "The leadership roles. Placeholder until real names and photographs are added.",
+        "enabled": true
+      },
+      {
+        "id": "section6",
+        "label": "Closing invitation",
+        "enabled": true
+      }
+    ]
+  },
+  "services": {
+    "label": "Services page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "The three services",
+        "note": "The cards linking to partnerships, investments and corporate services.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "Not sure which fits?",
+        "note": "The closing invitation.",
+        "enabled": true
+      }
+    ]
+  },
+  "companies": {
+    "label": "Our companies page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "GG FOODS and GG AUTOS",
+        "note": "The two company cards.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "How the group fits together",
+        "enabled": true
+      },
+      {
+        "id": "section4",
+        "label": "Closing invitation",
+        "enabled": true
+      }
+    ]
+  },
+  "careers": {
+    "label": "Careers page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "Open roles",
+        "note": "The filterable list of roles across all three companies. Switching this off leaves the page with nothing to apply to.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "No role that fits?",
+        "note": "The closing invitation.",
+        "enabled": true
+      }
+    ]
+  },
+  "contact": {
+    "label": "Contact page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "Reach us directly, and the enquiry form",
+        "note": "The phone numbers, address and the form itself. Switching this off removes the only way to send a message.",
+        "enabled": true
+      }
+    ]
   }
 }

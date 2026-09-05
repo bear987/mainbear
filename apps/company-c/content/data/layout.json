@@ -52,5 +52,219 @@
         "enabled": true
       }
     ]
+  },
+  "inventory": {
+    "label": "Inventory page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "The model browser",
+        "note": "The spec selector and the photograph carousel. This is the page, so switching it off leaves nothing to look at.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "What you can specify",
+        "note": "Engines, gear selection, plug systems and speeds.",
+        "enabled": true
+      },
+      {
+        "id": "section4",
+        "label": "Closing invitation",
+        "enabled": true
+      }
+    ]
+  },
+  "services": {
+    "label": "Services page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "The work itself",
+        "note": "The assembly footage, placed high as proof.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "Products and services",
+        "note": "Who the vehicles are for, and what the workshop supplies.",
+        "enabled": true
+      },
+      {
+        "id": "section4",
+        "label": "The build, step by step",
+        "note": "The numbered stages.",
+        "enabled": true
+      },
+      {
+        "id": "section5",
+        "label": "How the quality is held",
+        "enabled": true
+      },
+      {
+        "id": "section6",
+        "label": "What this means for the buyer",
+        "enabled": true
+      },
+      {
+        "id": "section7",
+        "label": "The four services",
+        "note": "Coupling and joining, importation and clearing, retail, wholesale.",
+        "enabled": true
+      },
+      {
+        "id": "section8",
+        "label": "Questions about the build",
+        "note": "This also supplies the questions search engines show.",
+        "enabled": true
+      },
+      {
+        "id": "section9",
+        "label": "Closing invitation",
+        "enabled": true
+      }
+    ]
+  },
+  "wholesale": {
+    "label": "Wholesale page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "Who it is for",
+        "note": "The three kinds of volume buyer.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "From enquiry to handover",
+        "note": "How a wholesale order runs.",
+        "enabled": true
+      },
+      {
+        "id": "section4",
+        "label": "Trading terms",
+        "note": "The ledger. Values the owner has not confirmed are shown in brackets.",
+        "enabled": true
+      },
+      {
+        "id": "section5",
+        "label": "Models offered wholesale",
+        "enabled": true
+      },
+      {
+        "id": "section6",
+        "label": "The wholesale enquiry form",
+        "note": "Switching this off removes the only way to send volume numbers.",
+        "enabled": true
+      },
+      {
+        "id": "section7",
+        "label": "Questions about buying in volume",
+        "enabled": true
+      }
+    ]
+  },
+  "about": {
+    "label": "About page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "The story",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "Mission",
+        "note": "The statement and the commitments under it.",
+        "enabled": true
+      },
+      {
+        "id": "section4",
+        "label": "What we do",
+        "note": "The two jobs the yard runs in parallel.",
+        "enabled": true
+      },
+      {
+        "id": "section5",
+        "label": "The figures",
+        "note": "Deliberately left unfilled rather than invented. Fill in the bracketed values, or switch this off until you have them.",
+        "enabled": true
+      },
+      {
+        "id": "section6",
+        "label": "What we do not bend on",
+        "note": "The four values.",
+        "enabled": true
+      },
+      {
+        "id": "section7",
+        "label": "The team",
+        "note": "Roles, not invented people.",
+        "enabled": true
+      },
+      {
+        "id": "section8",
+        "label": "Part of the GG BEARERS group",
+        "enabled": true
+      },
+      {
+        "id": "section9",
+        "label": "Closing invitation",
+        "enabled": true
+      }
+    ]
+  },
+  "contact": {
+    "label": "Contact page",
+    "sections": [
+      {
+        "id": "header",
+        "label": "Page header",
+        "enabled": true,
+        "required": true
+      },
+      {
+        "id": "section2",
+        "label": "Talk to us now",
+        "note": "Phone and WhatsApp, put before the form on purpose so nothing is hidden behind it.",
+        "enabled": true
+      },
+      {
+        "id": "section3",
+        "label": "Where to find us",
+        "note": "The address and the trading hours.",
+        "enabled": true
+      },
+      {
+        "id": "section4",
+        "label": "The enquiry form",
+        "note": "Switching this off removes the only way to send a written message.",
+        "enabled": true
+      }
+    ]
   }
 }

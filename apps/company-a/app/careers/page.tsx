@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import { companyLabels } from "@/content/roles";
@@ -12,10 +13,14 @@ export const metadata: Metadata = buildMetadata({
     "Open roles across the GG BEARERS group, GG BEARERS, GG FOODS and GG AUTOS. Filter by company and apply. Trade operations, sales, finance and more, in Lagos.",
   path: "/careers",
 });
+import { sectionsFor } from "@/lib/layout";
 
 export default function CareersPage() {
-  return (
-    <>
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         eyebrow="Careers"
         title="One hiring hub for the whole group."
@@ -23,11 +28,15 @@ export default function CareersPage() {
         breadcrumb={[{ name: "Careers", path: "/careers" }]}
         backdrop={{ src: "/images/header-careers.jpg" }}
       />
+    ),
 
+    section2: (
       <Section tone="paper">
         <RolesList />
       </Section>
+    ),
 
+    section3: (
       <Section tone="tint" space="tight">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div className="max-w-xl">
@@ -44,6 +53,14 @@ export default function CareersPage() {
           </CtaButton>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      {sectionsFor("careers").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }

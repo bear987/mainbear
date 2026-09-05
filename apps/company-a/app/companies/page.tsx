@@ -1,3 +1,4 @@
+import { Fragment, type ReactNode } from "react";
 import type { Metadata } from "next";
 import { buildMetadata } from "@/lib/metadata";
 import { companies } from "@/content/companies";
@@ -15,10 +16,14 @@ export const metadata: Metadata = buildMetadata({
     "GG BEARERS owns and operates two businesses, GG FOODS (food trade) and GG AUTOS (automotive trade). Visit each company's site.",
   path: "/companies",
 });
+import { sectionsFor } from "@/lib/layout";
 
 export default function CompaniesPage() {
-  return (
-    <>
+  /* Which of these appear, and in what order, is content: see
+     content/data/layout.json. Turning one off or moving it is done in
+     the admin, not here. */
+  const sections: Record<string, ReactNode> = {
+    header: (
       <PageHeader
         eyebrow="The group"
         title="Two companies, owned and operated by GG BEARERS."
@@ -26,7 +31,9 @@ export default function CompaniesPage() {
         breadcrumb={[{ name: "Our Companies", path: "/companies" }]}
         backdrop={{ src: "/images/header-companies.jpg" }}
       />
+    ),
 
+    section2: (
       <Section tone="paper">
         <div className="grid gap-6 md:grid-cols-2">
           {companies.map((company, i) => (
@@ -36,7 +43,9 @@ export default function CompaniesPage() {
           ))}
         </div>
       </Section>
+    ),
 
+    section3: (
       <Section tone="tint" space="tight">
         <div className="grid gap-10 lg:grid-cols-2 lg:items-center">
           <div>
@@ -76,7 +85,9 @@ export default function CompaniesPage() {
           </ul>
         </div>
       </Section>
+    ),
 
+    section4: (
       <Section tone="ink" space="tight">
         <div className="flex flex-col items-start justify-between gap-6 sm:flex-row sm:items-center">
           <div>
@@ -93,6 +104,14 @@ export default function CompaniesPage() {
           </CtaButton>
         </div>
       </Section>
+    ),
+  };
+
+  return (
+    <>
+      {sectionsFor("companies").map((id) => (
+        <Fragment key={id}>{sections[id]}</Fragment>
+      ))}
     </>
   );
 }
