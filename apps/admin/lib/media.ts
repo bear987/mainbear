@@ -1,7 +1,9 @@
-import { readFile, stat } from "node:fs/promises";
+import { stat } from "node:fs/promises";
 import path from "node:path";
+import { isHosted } from "./config";
 import { REPO_ROOT } from "./repo";
 import { getSite, type SiteId } from "./sites";
+import { exists, readText } from "./store";
 
 /**
  * Every picture and video the three sites can show, and where each one has to
@@ -45,18 +47,19 @@ export type MediaStatus = MediaSlot & {
 
 const PAGE_IMAGE = { kind: "image" as const, maxWidth: 1920 };
 
-async function readJson(siteId: SiteId, file: string): Promise<Record<string, unknown>> {
-  const raw = await readFile(
-    path.join(REPO_ROOT, "apps", siteId, "content", "data", `${file}.json`),
-    "utf8",
-  );
+async function readJson(
+  siteId: SiteId,
+  file: string,
+  token?: string,
+): Promise<Record<string, unknown>> {
+  const raw = await readText(`apps/${siteId}/content/data/${file}.json`, token);
   return JSON.parse(raw) as Record<string, unknown>;
 }
 
-async function slotsForA(): Promise<MediaSlot[]> {
+async function slotsForA(token?: string): Promise<MediaSlot[]> {
   // The logo's filename is whatever the content currently points at, so the
   // card shows the real file rather than a guess.
-  const siteData = await readJson("company-a", "site");
+  const siteData = await readJson("company-a", "site", token);
   const current = (siteData.site as { logoFile?: string }).logoFile ?? "brand/logo.jpg";
 
   return [
@@ -81,7 +84,7 @@ async function slotsForA(): Promise<MediaSlot[]> {
   ];
 }
 
-async function slotsForB(): Promise<MediaSlot[]> {
+async function slotsForB(token?: string): Promise<MediaSlot[]> {
   const slots: MediaSlot[] = [
     { path: "images/menu/hero.jpg", label: "Home hero, still picture", group: "Home page", ...PAGE_IMAGE },
     {
@@ -130,7 +133,7 @@ async function slotsForB(): Promise<MediaSlot[]> {
   }
 
   // One photograph per dish. The site looks for the file by the dish slug.
-  const menu = await readJson("company-b", "menu");
+  const menu = await readJson("company-b", "menu", token);
   const dishes = (menu.menu as { slug: string; name: string }[]) ?? [];
   for (const dish of dishes) {
     slots.push({
@@ -147,7 +150,7 @@ async function slotsForB(): Promise<MediaSlot[]> {
   return slots;
 }
 
-async function slotsForC(): Promise<MediaSlot[]> {
+async function slotsForC(token?: string): Promise<MediaSlot[]> {
   const slots: MediaSlot[] = [
     { path: "images/hero-poster.jpg", label: "Home hero, still picture", group: "Home page", ...PAGE_IMAGE },
     {
@@ -172,7 +175,7 @@ async function slotsForC(): Promise<MediaSlot[]> {
 
   // Each model looks for its own photographs, numbered. Adding a model in the
   // editor creates its slots here automatically.
-  const data = await readJson("company-c", "vehicles");
+  const data = await readJson("company-c", "vehicles", token);
   const vehicles = (data.vehicles as { slug: string; name: string; imageCount: number }[]) ?? [];
   for (const vehicle of vehicles) {
     const count = Math.max(1, vehicle.imageCount || 1);
@@ -201,10 +204,10 @@ async function slotsForC(): Promise<MediaSlot[]> {
   return slots;
 }
 
-export async function slotsFor(siteId: SiteId): Promise<MediaSlot[]> {
-  if (siteId === "company-a") return slotsForA();
-  if (siteId === "company-b") return slotsForB();
-  return slotsForC();
+export async function slotsFor(siteId: SiteId, token?: string): Promise<MediaSlot[]> {
+  if (siteId === "company-a") return slotsForA(token);
+  if (siteId === "company-b") return slotsForB(token);
+  return slotsForC(token);
 }
 
 /** Absolute path for a slot, refusing anything that escapes the public folder. */
@@ -223,10 +226,17 @@ export function relativeMediaPath(siteId: string, slotPath: string): string {
   return `apps/${siteId}/public/${slotPath}`;
 }
 
-export async function statusFor(siteId: SiteId): Promise<MediaStatus[]> {
-  const slots = await slotsFor(siteId);
+export async function statusFor(siteId: SiteId, token?: string): Promise<MediaStatus[]> {
+  const slots = await slotsFor(siteId, token);
   return Promise.all(
     slots.map(async (slot) => {
+      // Hosted there is no disk, so presence is asked of the repository. The
+      // byte size is not fetched, because that would be one request per slot
+      // and there are over a hundred of them.
+      if (isHosted) {
+        const there = await exists(relativeMediaPath(siteId, slot.path), token);
+        return { ...slot, exists: there };
+      }
       try {
         const info = await stat(mediaPath(siteId, slot.path));
         return { ...slot, exists: true, bytes: info.size };

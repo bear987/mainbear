@@ -1,7 +1,5 @@
-import { readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
-import { REPO_ROOT } from "./repo";
 import { getSite } from "./sites";
+import { readText, writeText } from "./store";
 
 /**
  * Reading and rewriting the design tokens in each site's globals.css.
@@ -42,7 +40,7 @@ export type ThemeFile = {
 
 function themePath(siteId: string): string {
   if (!getSite(siteId)) throw new Error(`Unknown site: ${siteId}`);
-  return path.join(REPO_ROOT, "apps", siteId, "app", "globals.css");
+  return `apps/${siteId}/app/globals.css`;
 }
 
 /** Find a block by its opening selector and return the span inside the braces. */
@@ -144,8 +142,8 @@ function mirrorsFor(siteId: string): string[] {
   return [];
 }
 
-export async function readTheme(siteId: string): Promise<ThemeFile> {
-  const css = await readFile(themePath(siteId), "utf8");
+export async function readTheme(siteId: string, authToken?: string): Promise<ThemeFile> {
+  const css = await readText(themePath(siteId), authToken);
 
   const blocks: TokenBlock[] = [];
   for (const entry of blockPlan(siteId)) {
@@ -176,9 +174,13 @@ export function validateValue(kind: TokenKind, value: string): string | null {
  * applied from the end backwards, so earlier replacements cannot shift the
  * position of later ones.
  */
-export async function writeTheme(siteId: string, edits: Edit[]): Promise<number> {
+export async function writeTheme(
+  siteId: string,
+  edits: Edit[],
+  authToken?: string,
+): Promise<number> {
   const file = themePath(siteId);
-  let css = await readFile(file, "utf8");
+  let css = await readText(file, authToken);
 
   const plan = blockPlan(siteId);
   const mirrors = mirrorsFor(siteId);
@@ -223,6 +225,12 @@ export async function writeTheme(siteId: string, edits: Edit[]): Promise<number>
     css = css.slice(0, r.start) + r.value + css.slice(r.end);
   }
 
-  await writeFile(file, css, "utf8");
+  const site = getSite(siteId);
+  await writeText(
+    file,
+    css,
+    `${site?.name ?? siteId}: update the colours and design`,
+    authToken,
+  );
   return replacements.length;
 }

@@ -33,6 +33,9 @@ case "${SITE_NAME:-}" in
   gg-bearers) workspace="company-a" ;;
   gg-food)    workspace="company-b" ;;
   gg-autos)   workspace="company-c" ;;
+  # The hosted admin. It reads the content of all three sites, so it is the one
+  # site that also has to rebuild when their content changes.
+  gg-admin)   workspace="admin" ;;
   *)
     echo "netlify-ignore: unrecognised SITE_NAME '${SITE_NAME:-<unset>}'."
     echo "netlify-ignore: building rather than guessing."
@@ -67,7 +70,16 @@ echo "netlify-ignore: site '${SITE_NAME}' -> workspace '${workspace}'"
 echo "netlify-ignore: comparing ${previous}..${current}"
 
 # shellcheck disable=SC2086
-if git diff --quiet "${previous}" "${current}" -- "apps/${workspace}" ${SHARED}; then
+extra=""
+if [ "${workspace}" = "admin" ]; then
+  # The admin's screens are built from the sites' own content: the media slots
+  # come from the menu and the vehicle list, and the layout screen from each
+  # site's layout.json. A content change there changes what the admin shows.
+  extra="apps/company-a/content apps/company-b/content apps/company-c/content"
+fi
+
+# shellcheck disable=SC2086
+if git diff --quiet "${previous}" "${current}" -- "apps/${workspace}" ${SHARED} ${extra}; then
   echo "netlify-ignore: nothing affecting ${workspace} changed, cancelling build."
   exit 0
 fi

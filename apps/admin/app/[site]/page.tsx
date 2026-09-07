@@ -1,7 +1,10 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PreviewControl } from "@/components/preview-control";
+import { isHosted } from "@/lib/config";
 import { SITES, getSite } from "@/lib/sites";
+
+export const dynamic = "force-dynamic";
 
 export function generateStaticParams() {
   return SITES.map((s) => ({ site: s.id }));
@@ -31,7 +34,17 @@ export default async function SitePage({ params }: { params: Promise<{ site: str
         </a>
       </div>
 
-      <PreviewControl siteId={site.id} port={site.port} />
+      {isHosted ? (
+        <p className="mt-4 rounded-lg border border-line bg-panel px-4 py-3 text-sm text-muted">
+          Changes you save here are published immediately. To see one, open{" "}
+          <a href={site.url} target="_blank" rel="noreferrer" className="text-heading underline">
+            {site.url.replace("https://", "")}
+          </a>{" "}
+          about a minute later.
+        </p>
+      ) : (
+        <PreviewControl siteId={site.id} port={site.port} />
+      )}
 
       <h2 className="mt-8 text-sm font-semibold tracking-wide text-muted uppercase">
         What would you like to change?

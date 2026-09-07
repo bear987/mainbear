@@ -2,12 +2,14 @@
 
 import { AlertTriangle, Check, ImageOff, Loader2, Trash2, Upload } from "lucide-react";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { shrinkImage } from "@/lib/shrink";
 
 type Slot = {
   path: string;
   label: string;
   group: string;
   kind: "image" | "video";
+  maxWidth?: number;
   note?: string;
   optional?: boolean;
   exists: boolean;
@@ -25,10 +27,12 @@ function size(bytes: number): string {
 function SlotCard({
   siteId,
   slot,
+  hosted,
   onChanged,
 }: {
   siteId: string;
   slot: Slot;
+  hosted: boolean;
   onChanged: () => void;
 }) {
   const input = useRef<HTMLInputElement>(null);
@@ -44,9 +48,16 @@ function SlotCard({
       setError(null);
       setResult(null);
       try {
+        // Hosted, the server has no ffmpeg, so the picture is resized here
+        // before it is sent. Locally the server does a better job of it.
+        let toSend = file;
+        if (hosted && slot.kind === "image") {
+          toSend = (await shrinkImage(file, slot.maxWidth ?? 1600)).file;
+        }
+
         const body = new FormData();
         body.set("path", slot.path);
-        body.set("file", file);
+        body.set("file", toSend);
         const res = await fetch(`/api/media/${siteId}`, { method: "POST", body });
         const payload = (await res.json()) as Result & { error?: string };
         if (!res.ok) {
@@ -62,7 +73,7 @@ function SlotCard({
         setBusy(false);
       }
     },
-    [siteId, slot.path, onChanged],
+    [siteId, slot.path, slot.kind, slot.maxWidth, hosted, onChanged],
   );
 
   const remove = async () => {
@@ -143,17 +154,22 @@ function SlotCard({
           ) : null}
 
           <div className="mt-2 flex items-center gap-2">
+            {hosted && slot.kind === "video" ? (
+              <span className="text-xs text-muted">
+                Videos are added from the admin on your computer, where they can be re-encoded.
+              </span>
+            ) : null}
             <button
               type="button"
               className="btn"
-              disabled={busy}
+              disabled={busy || (hosted && slot.kind === "video")}
               onClick={() => input.current?.click()}
             >
               {busy ? <Loader2 className="size-3.5 animate-spin" /> : <Upload className="size-3.5" />}
               {slot.exists ? "Replace" : "Add"}
             </button>
 
-            {slot.exists && slot.optional ? (
+            {slot.exists && slot.optional && !hosted ? (
               <button type="button" className="btn btn-danger" disabled={busy} onClick={remove}>
                 <Trash2 className="size-3.5" /> Remove
               </button>
@@ -179,11 +195,13 @@ function SlotCard({
 
 export function MediaManager({ siteId }: { siteId: string }) {
   const [slots, setSlots] = useState<Slot[] | null>(null);
+  const [hosted, setHosted] = useState(false);
 
   const load = useCallback(async () => {
     const res = await fetch(`/api/media/${siteId}`, { cache: "no-store" });
-    const body = (await res.json()) as { slots: Slot[] };
+    const body = (await res.json()) as { slots: Slot[]; hosted?: boolean };
     setSlots(body.slots);
+    setHosted(Boolean(body.hosted));
   }, [siteId]);
 
   useEffect(() => {
@@ -204,9 +222,11 @@ export function MediaManager({ siteId }: { siteId: string }) {
   return (
     <div>
       <p className="text-sm text-muted">
-        {present} of {slots.length} in place. Drop a file on a card, or press Add. Pictures and
-        video are resized and re-encoded on the way in, so a large photograph straight off a phone
-        is safe to use.
+        {present} of {slots.length} in place. Drop a file on a card, or press Add. Pictures are
+        resized on the way in, so a large photograph straight off a phone is safe to use.
+        {hosted
+          ? " Saving here publishes straight away, and the new picture appears once the site has rebuilt."
+          : " Video is re-encoded too."}
       </p>
 
       <div className="mt-6 space-y-8">
@@ -219,7 +239,13 @@ export function MediaManager({ siteId }: { siteId: string }) {
               {slots
                 .filter((s) => s.group === group)
                 .map((slot) => (
-                  <SlotCard key={slot.path} siteId={siteId} slot={slot} onChanged={load} />
+                  <SlotCard
+                    key={slot.path}
+                    siteId={siteId}
+                    slot={slot}
+                    hosted={hosted}
+                    onChanged={load}
+                  />
                 ))}
             </div>
           </section>

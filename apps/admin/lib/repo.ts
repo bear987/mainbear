@@ -1,31 +1,35 @@
-import { readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { isAllowed } from "./sites";
+import { readText, writeText } from "./store";
 
 /**
- * Filesystem access, scoped to the content data of the three sites.
+ * The content files, read and written through the storage layer so the same
+ * screens work whether the admin is running on the owner's machine or hosted.
  *
- * The repo root is derived from this app's own location rather than an
- * environment variable, so the admin cannot be pointed somewhere else by
- * accident.
+ * Everything the admin may touch is enumerated in sites.ts. Nothing else can
+ * be addressed, which is what keeps a stray request from reaching the rest of
+ * the repository.
  */
 export const REPO_ROOT = path.resolve(process.cwd(), "..", "..");
+
+/** Path relative to the repository root, which is what both backends speak. */
+export function relativeDataPath(siteId: string, fileId: string): string {
+  return `apps/${siteId}/content/data/${fileId}.json`;
+}
 
 export function dataPath(siteId: string, fileId: string): string {
   if (!isAllowed(siteId, fileId)) {
     throw new Error(`Not an editable file: ${siteId}/${fileId}`);
   }
-  return path.join(REPO_ROOT, "apps", siteId, "content", "data", `${fileId}.json`);
+  return relativeDataPath(siteId, fileId);
 }
 
-/** Path relative to the repo root, for git commands and for display. */
-export function relativeDataPath(siteId: string, fileId: string): string {
-  return `apps/${siteId}/content/data/${fileId}.json`;
-}
-
-export async function readContent(siteId: string, fileId: string): Promise<unknown> {
-  const raw = await readFile(dataPath(siteId, fileId), "utf8");
-  return JSON.parse(raw);
+export async function readContent(
+  siteId: string,
+  fileId: string,
+  token?: string,
+): Promise<unknown> {
+  return JSON.parse(await readText(dataPath(siteId, fileId), token));
 }
 
 /**
@@ -36,7 +40,9 @@ export async function writeContent(
   siteId: string,
   fileId: string,
   value: unknown,
-): Promise<void> {
+  message: string,
+  token?: string,
+): Promise<{ commit?: string }> {
   const json = JSON.stringify(value, null, 2) + "\n";
-  await writeFile(dataPath(siteId, fileId), json, "utf8");
+  return writeText(dataPath(siteId, fileId), json, message, token);
 }

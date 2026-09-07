@@ -15,6 +15,8 @@ type Props = {
   fileLabel: string;
   fileHint: string;
   initial: unknown;
+  /** Hosted, a save is a publish: there is no separate step. */
+  hosted?: boolean;
 };
 
 export function ContentForm({
@@ -25,6 +27,7 @@ export function ContentForm({
   fileLabel,
   fileHint,
   initial,
+  hosted = false,
 }: Props) {
   const [value, setValue] = useState<Record<string, unknown>>(
     initial as Record<string, unknown>,
@@ -104,7 +107,7 @@ export function ContentForm({
             ) : (
               <Save className="size-3.5" />
             )}
-            {saved ? "Saved" : "Save"}
+            {saved ? "Saved" : hosted ? "Save and publish" : "Save"}
           </button>
         </div>
       </div>
@@ -128,7 +131,9 @@ export function ContentForm({
 
       {saved ? (
         <p className="mt-4 rounded-md border border-good/40 bg-good/10 px-4 py-2 text-sm text-body">
-          Saved to this computer. It is not public until you publish it on the review screen.
+          {hosted
+            ? "Saved and published. The site is rebuilding, and the change is live in about a minute."
+            : "Saved to this computer. It is not public until you publish it on the review screen."}
         </p>
       ) : null}
 

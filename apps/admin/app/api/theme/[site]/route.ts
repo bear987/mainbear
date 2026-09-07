@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { isHosted } from "@/lib/config";
 import { checkContrast } from "@/lib/contrast-pairs";
+import { isRefusal, requireSession } from "@/lib/guard";
 import { getSite } from "@/lib/sites";
 import { readTheme, writeTheme, type Edit } from "@/lib/theme";
 
@@ -15,12 +17,15 @@ function resolve(base: Record<string, string>, overrides?: Record<string, string
 }
 
 export async function GET(_request: Request, { params }: Params) {
+  const guard = await requireSession();
+  if (isRefusal(guard)) return guard;
+
   const { site } = await params;
   if (!getSite(site)) {
     return NextResponse.json({ error: "Unknown site." }, { status: 404 });
   }
 
-  const theme = await readTheme(site);
+  const theme = await readTheme(site, guard.session?.token);
   const valuesFor = (selector: string) =>
     Object.fromEntries(
       (theme.blocks.find((b) => b.selector === selector)?.tokens ?? []).map((t) => [
@@ -44,6 +49,9 @@ export async function GET(_request: Request, { params }: Params) {
 }
 
 export async function PUT(request: Request, { params }: Params) {
+  const guard = await requireSession();
+  if (isRefusal(guard)) return guard;
+
   const { site } = await params;
   if (!getSite(site)) {
     return NextResponse.json({ error: "Unknown site." }, { status: 404 });
@@ -62,8 +70,8 @@ export async function PUT(request: Request, { params }: Params) {
   }
 
   try {
-    const changed = await writeTheme(site, edits);
-    return NextResponse.json({ ok: true, changed });
+    const changed = await writeTheme(site, edits, guard.session?.token);
+    return NextResponse.json({ ok: true, changed, published: isHosted });
   } catch (error) {
     return NextResponse.json(
       { error: error instanceof Error ? error.message : "Could not save the design." },

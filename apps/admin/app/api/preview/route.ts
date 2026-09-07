@@ -1,5 +1,7 @@
 import { spawn } from "node:child_process";
 import { NextResponse } from "next/server";
+import { isHosted } from "@/lib/config";
+import { isRefusal, requireSession } from "@/lib/guard";
 import { REPO_ROOT } from "@/lib/repo";
 import { SITES, getSite } from "@/lib/sites";
 
@@ -27,6 +29,11 @@ async function isUp(port: number): Promise<boolean> {
 }
 
 export async function GET() {
+  const guard = await requireSession();
+  if (isRefusal(guard)) return guard;
+
+  if (isHosted) return NextResponse.json({ status: [], hosted: true });
+
   const status = await Promise.all(
     SITES.map(async (s) => ({
       id: s.id,
@@ -39,6 +46,16 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
+  const guard = await requireSession();
+  if (isRefusal(guard)) return guard;
+
+  if (isHosted) {
+    return NextResponse.json(
+      { error: "The preview runs on your computer, not here. Save a change and look at the live site instead." },
+      { status: 501 },
+    );
+  }
+
   const { site } = (await request.json()) as { site?: string };
   const definition = site ? getSite(site) : undefined;
   if (!definition) {

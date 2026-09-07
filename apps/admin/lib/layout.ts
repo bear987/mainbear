@@ -1,7 +1,5 @@
-import { readFile, writeFile } from "node:fs/promises";
-import path from "node:path";
-import { REPO_ROOT } from "./repo";
 import { getSite } from "./sites";
+import { readText, writeText } from "./store";
 
 /**
  * Which sections a page shows, and in what order.
@@ -25,11 +23,11 @@ export type LayoutFile = Record<string, PageLayout>;
 
 function layoutPath(siteId: string): string {
   if (!getSite(siteId)) throw new Error(`Unknown site: ${siteId}`);
-  return path.join(REPO_ROOT, "apps", siteId, "content", "data", "layout.json");
+  return `apps/${siteId}/content/data/layout.json`;
 }
 
-export async function readLayout(siteId: string): Promise<LayoutFile> {
-  return JSON.parse(await readFile(layoutPath(siteId), "utf8")) as LayoutFile;
+export async function readLayout(siteId: string, token?: string): Promise<LayoutFile> {
+  return JSON.parse(await readText(layoutPath(siteId), token)) as LayoutFile;
 }
 
 /**
@@ -42,8 +40,9 @@ export async function writeLayout(
   siteId: string,
   page: string,
   order: { id: string; enabled: boolean }[],
+  token?: string,
 ): Promise<SectionEntry[]> {
-  const layout = await readLayout(siteId);
+  const layout = await readLayout(siteId, token);
   const current = layout[page];
   if (!current) throw new Error(`${page} is not a page with an editable layout.`);
 
@@ -65,6 +64,12 @@ export async function writeLayout(
   }
 
   layout[page] = { ...current, sections: next };
-  await writeFile(layoutPath(siteId), JSON.stringify(layout, null, 2) + "\n", "utf8");
+  const site = getSite(siteId);
+  await writeText(
+    layoutPath(siteId),
+    JSON.stringify(layout, null, 2) + "\n",
+    `${site?.name ?? siteId}: reorder the ${current.label.toLowerCase()}`,
+    token,
+  );
   return next;
 }

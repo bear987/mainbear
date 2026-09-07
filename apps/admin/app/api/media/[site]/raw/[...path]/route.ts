@@ -1,6 +1,8 @@
 import { readFile, stat } from "node:fs/promises";
 import path from "node:path";
 import { NextResponse } from "next/server";
+import { isHosted } from "@/lib/config";
+import { isRefusal, requireSession } from "@/lib/guard";
 import { mediaPath } from "@/lib/media";
 import { getSite } from "@/lib/sites";
 
@@ -23,10 +25,22 @@ export async function GET(
   _request: Request,
   { params }: { params: Promise<{ site: string; path: string[] }> },
 ) {
+  const guard = await requireSession();
+  if (isRefusal(guard)) return guard;
+
   const { site, path: parts } = await params;
-  if (!getSite(site)) return new NextResponse("Unknown site", { status: 404 });
+  const definition = getSite(site);
+  if (!definition) return new NextResponse("Unknown site", { status: 404 });
 
   const slotPath = parts.join("/");
+
+  // Hosted there is no disk. The picture is already public on the site itself,
+  // so the thumbnail comes from there rather than pulling it back out of the
+  // repository. A picture just uploaded shows once that site has rebuilt.
+  if (isHosted) {
+    return NextResponse.redirect(`${definition.url}/${slotPath}`, 302);
+  }
+
   let file: string;
   try {
     file = mediaPath(site, slotPath);

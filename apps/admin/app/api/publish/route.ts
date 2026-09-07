@@ -1,4 +1,6 @@
 import { NextResponse } from "next/server";
+import { isHosted } from "@/lib/config";
+import { isRefusal, requireSession } from "@/lib/guard";
 import { changedFiles, commitAndPush, sitesThatWouldRebuild } from "@/lib/git";
 
 /**
@@ -8,6 +10,16 @@ import { changedFiles, commitAndPush, sitesThatWouldRebuild } from "@/lib/git";
 const PUBLISHABLE = /^apps\/company-[abc]\/(content\/data\/[a-z-]+\.json|public\/.+)$/;
 
 export async function POST(request: Request) {
+  const guard = await requireSession();
+  if (isRefusal(guard)) return guard;
+
+  if (isHosted) {
+    return NextResponse.json(
+      { error: "Changes here are published the moment you save them, so there is nothing to publish separately." },
+      { status: 400 },
+    );
+  }
+
   let body: { message?: string };
   try {
     body = (await request.json()) as { message?: string };
