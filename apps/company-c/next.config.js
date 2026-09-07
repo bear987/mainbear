@@ -13,14 +13,25 @@ const ga = process.env.NEXT_PUBLIC_GA_ID
 // so the allowance is scoped to the dev server and never ships.
 const evalAllowance = process.env.NODE_ENV === "production" ? "" : " 'unsafe-eval'";
 
+// Cloudflare Web Analytics is cookieless, so it needs no consent banner. Its
+// beacon only loads when NEXT_PUBLIC_CF_BEACON is set, and the policy only
+// widens by exactly the two hosts it needs when it is, so a site with no
+// analytics keeps the tighter policy.
+const cf = process.env.NEXT_PUBLIC_CF_BEACON
+  ? {
+      script: " https://static.cloudflareinsights.com",
+      connect: " https://cloudflareinsights.com https://static.cloudflareinsights.com",
+    }
+  : { script: "", connect: "" };
+
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${evalAllowance}${ga.script}`,
+  `script-src 'self' 'unsafe-inline'${evalAllowance}${ga.script}${cf.script}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "media-src 'self'",
   "font-src 'self' data:",
-  `connect-src 'self'${ga.connect}`,
+  `connect-src 'self'${ga.connect}${cf.connect}`,
   "frame-src https://www.google.com",
   "object-src 'none'",
   "base-uri 'self'",

@@ -137,7 +137,8 @@
     "url": "https://autos.ggbearers.com",
     "locale": "en_NG",
     "region": "Lagos, Nigeria",
-    "coordinates": "6.5244° N, 3.3792° E"
+    "coordinates": "6.5244° N, 3.3792° E",
+    "logoFile": ""
   },
   "tickerItems": [
     "COUPLING, ATTACHMENT & JOINING",

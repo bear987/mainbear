@@ -30,8 +30,11 @@
   --color-action-100: #f8ddcb;
   --color-action-200: #f2be9e;
   --color-action-300: #ea9a6b;
-  --color-action-400: #e37e43;
-  --color-action-500: #d9622b;
+  /* Deliberately DARKER than 500: this is the hover fill under white button
+     text, and a hover that lightened dropped the contrast to 2.8:1. Same
+     name-is-not-the-value trick used on the other two sites. */
+  --color-action-400: #b4491c; /* hover fill, white text 5.4:1 */
+  --color-action-500: #c65020; /* the flame. White text on it 4.6:1 */
   --color-action-600: #bc4f1e;
   --color-action-700: #9a3f18;
   --color-action-800: #7c3314;

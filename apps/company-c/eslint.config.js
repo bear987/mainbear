@@ -17,6 +17,7 @@ export default [
             "RESEND_API_KEY",
             "CONTACT_TO_EMAIL",
             "CONTACT_FROM_EMAIL",
+            "NEXT_PUBLIC_CF_BEACON",
           ],
         },
       ],

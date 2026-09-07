@@ -4,18 +4,21 @@ import { useState } from "react";
 import { site } from "../content/site";
 
 /**
- * Brand mark. Drop a file at /public/logo.svg (or logo.png and change the
- * src below) and it appears everywhere automatically. Until then the styled
- * wordmark stands in — no fake logo is drawn.
+ * Brand mark.
+ *
+ * Which file to use is content, not a guess: `site.logoFile` names it, and the
+ * admin sets that when a logo is uploaded. While it is empty the styled
+ * wordmark stands in and NO request is made, which is why the site does not
+ * ask for a logo.svg that is not there. No fake logo is ever drawn.
  */
 export function Logo({ className = "" }: { className?: string }) {
   const [failed, setFailed] = useState(false);
 
-  if (!failed) {
+  if (site.logoFile && !failed) {
     return (
       /* eslint-disable-next-line @next/next/no-img-element */
       <img
-        src="/logo.svg"
+        src={`/${site.logoFile}`}
         alt={`${site.name} logo`}
         width={132}
         height={28}

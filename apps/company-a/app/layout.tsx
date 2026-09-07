@@ -8,6 +8,7 @@ import { JsonLd } from "@/components/json-ld";
 import { Nav } from "@/components/nav";
 import { Footer } from "@/components/footer";
 import { AmbientBackdrop } from "@/components/ambient-backdrop";
+import { WebAnalytics } from "@/components/web-analytics";
 
 const sora = Sora({
   subsets: ["latin"],
@@ -75,6 +76,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <WebAnalytics />
       </body>
     </html>
   );

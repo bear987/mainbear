@@ -34,7 +34,7 @@ live**, so placeholder content is visible to real customers.
 | `apps/company-a` | GG BEARERS (parent) | `gg-bearers` | ggbearers.com | 3000 |
 | `apps/company-b` | GG FOODS (restaurant) | `gg-food` (singular, `gg-foods` was taken) | foods.ggbearers.com | 3001 |
 | `apps/company-c` | GG AUTOS (vehicles) | `gg-autos` | autos.ggbearers.com | 3002 |
-| `apps/admin` | The editing tool, not a site | none, never deployed | local only | 4000 |
+| `apps/admin` | The editing tool, not a site | `gg-admin` | admin.ggbearers.com | 4000 |
 
 GG BEARERS is an *operating* holding company. It runs its own services
 (import/export, wholesale, retail, partnerships, investment, corporate
@@ -142,6 +142,10 @@ the dev server then serves broken chunks.
   - Package directory: `apps/company-{a,b,c}`
   - Build command: `pnpm --filter company-{a,b,c} build`
   - Publish directory: `apps/company-{a,b,c}/.next`
+- **The admin is the fourth site**, `gg-admin` on `admin.ggbearers.com`, built
+  with `pnpm --filter admin build` from package directory `apps/admin`. It
+  needs five environment variables, listed in `apps/admin/SETUP-HOSTED.md`,
+  and refuses to serve without them.
 - **Build skipping:** root `netlify.toml` sets
   `ignore = "bash scripts/netlify-ignore.sh"`. One script serves all three
   sites by switching on Netlify's `SITE_NAME`. A root `netlify.toml` cannot
@@ -149,7 +153,10 @@ the dev server then serves broken chunks.
   this is the only mechanism available. Shared paths that must rebuild
   everything are listed by hand in the script (`packages`, `pnpm-lock.yaml`,
   `pnpm-workspace.yaml`, `package.json`, `turbo.json`, `.nvmrc`,
-  `netlify.toml`, `scripts`), so **keep that list current**. Every uncertain
+  `netlify.toml`, `scripts`), so **keep that list current**. The admin site is
+  the one exception to a site watching only its own folder: it also rebuilds
+  when any site's `content` changes, because its media and layout screens are
+  built from that content. Every uncertain
   case exits 1 and builds. The script makes no network calls, on purpose.
 - **DNS: Cloudflare** (nameservers `anastasia.ns.cloudflare.com` and
   `sid.ns.cloudflare.com`, registrar Namecheap). Four CNAMEs, all **grey cloud
@@ -193,7 +200,41 @@ Shared across all three sites until each subsidiary has its own.
 ## The admin app
 
 `pnpm admin` starts it on `http://127.0.0.1:4000`. It is a fourth app in the
-monorepo, is never deployed, and no Netlify site maps to it.
+monorepo.
+
+**It runs in two modes**, chosen by `ADMIN_MODE`, and `lib/store.ts` is the
+seam between them:
+
+- **local** (the default): reads and writes files on disk, and publishing is
+  the separate deliberate step it has always been. Has ffmpeg, so it handles
+  video, and can start the sites' dev servers for previewing.
+- **hosted** (`ADMIN_MODE=hosted`, only the deployed site): no disk, so every
+  save is a **commit through the GitHub API using the signed-in person's own
+  token**, and the site rebuilds itself. A save IS a publish. No preview, no
+  review screen, no video, no deleting.
+
+**Hosted fails closed.** `lib/config.ts` lists what hosted mode requires, and
+if any of it is missing the middleware serves **503 to everything**, including
+the pages, rather than falling open. Only `/api/health` answers, and it names
+the missing settings without ever printing their values. This matters more
+than it looks: the API routes write content for three live businesses, so a
+deployed admin whose sign-in was not working would be an open door.
+
+**Sign-in is GitHub OAuth**, not a password. `ALLOWED_GITHUB_USERS` is checked
+on every request, not just at sign-in, so removing a username takes effect
+immediately rather than in a week. The session cookie is AES-256-GCM sealed
+and carries the GitHub token, so a forged or tampered cookie fails to decrypt
+and is refused. The `state` parameter is generated per sign-in and checked on
+the way back, so a crafted callback link signs nobody in. All of that is
+tested.
+
+**Setup lives in `apps/admin/SETUP-HOSTED.md`**, written for the owner: the
+GitHub OAuth app, the Netlify site and its five variables, the Cloudflare
+record. The order matters, and the file says why.
+
+**Editor pages are `force-dynamic` on purpose.** They read content with the
+visitor's token, which does not exist at build time, so prerendering them
+would either fail the hosted build or bake in a stale copy.
 
 - **Pick a site, pick a section, edit, save.** Saving writes the JSON to disk
   only. Nothing is public until Publish.
@@ -609,6 +650,19 @@ Each of these cost real time. Read before debugging something similar.
 - **401 on every route including `robots.txt`**, with `Server: Netlify` and an
   empty body, is Netlify visitor-access password protection, not a build
   failure. Site configuration, Access and security, Visitor access.
+- **The Browser pane cannot run IntersectionObserver at all.** An observer
+  created on a plainly visible element never fires there, because the pane does
+  not composite (its viewport reads 0x0 until `resize_window` is called, and
+  even then callbacks do not run). Anything gated on intersection looks broken
+  in that pane whether or not it is. **Verify it with real headless Chrome
+  instead**: `chrome.exe --headless --disable-gpu --virtual-time-budget=8000
+  --window-size=390,844 --dump-dom <url>` renders properly and the DOM it
+  prints shows exactly which elements mounted. Chrome is at
+  `C:\Program Files\Google\Chrome\Application\chrome.exe`.
+- **In that pane, `naturalWidth === 0` on every image means nothing.** Nothing
+  paints, so images never decode. To ask whether a picture is really broken,
+  fetch it and `createImageBitmap` it: that reported the GG Autos hero poster
+  as a healthy 640x357 JPEG when the DOM reading said it had failed.
 - **Comparing a local server against the live site always differs in one
   place:** `og:image` and `twitter:image` are absolute, so they carry
   `http://localhost:3001` locally and the real host in production. The
@@ -635,8 +689,10 @@ Nothing here can be invented. Each item is a real gap that placeholder content
 is currently covering on a live site.
 
 **All sites:** real photography, a transparent PNG logo (company-a currently
-uses a JPG on black, company-c falls back to a text wordmark), a GA4
-measurement ID, real team names and roles, real statistics and testimonials.
+uses a JPG on black, company-c falls back to a text wordmark), real team names
+and roles, real statistics and testimonials. **The Cloudflare Web Analytics
+token** (`NEXT_PUBLIC_CF_BEACON` on each Netlify site) and **how long enquiries
+are kept**, which is bracketed in each privacy policy.
 Photography and the logo can now be uploaded through the admin's media page,
 so these no longer need a developer.
 
@@ -662,6 +718,32 @@ one, so it was not built.
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-09-05** — **Launch-checklist pass against a 20-point list.** Twelve
+  items were already done. Fixed the four that were not or were partly done:
+  a **privacy policy** on all three sites, written only from what the code
+  actually does and editable in the admin; **Cloudflare Web Analytics**, chosen
+  because it is cookieless, which is why these sites still need no consent
+  banner; the **one broken link** found by crawling all 39 links, GG Autos
+  asking for a `logo.svg` that does not exist; and **both contrast failures**,
+  so all three sites now pass every checked combination. GG Foods' below-fold
+  background videos now load only when reached, taking its home page from
+  19.6MB of video to 10.5MB, verified in real headless Chrome.
+
+- **2026-09-05** — **The admin can be hosted.** The owner asked to edit from
+  anywhere, so `lib/store.ts` now sits between the screens and the repository:
+  locally the filesystem, hosted the GitHub API. Sign-in is GitHub OAuth with
+  a per-request username allow list and a sealed session cookie carrying the
+  token. Verified before any of it was deployed: local mode unchanged, saving
+  and validation still working; hosted with nothing configured serves 503 to
+  every page and every route and leaks no content; hosted configured but not
+  signed in redirects pages and refuses APIs with 401; a forged cookie is
+  refused; a crafted OAuth callback signs nobody in; and the production build
+  passes in hosted mode. Hosted has no ffmpeg and a small request limit, so
+  pictures are shrunk in the browser and video stays a job for the computer
+  admin, which is stated on the cards rather than failing at upload. Setup for
+  the owner is in `apps/admin/SETUP-HOSTED.md`, and it is not live until they
+  do those three steps.
 
 - **2026-09-05** — **Layout control extended from 3 pages to 15**, every page
   across the three sites with more than one orderable section. The pages were

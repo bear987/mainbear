@@ -66,7 +66,15 @@ export function Footer() {
           © {new Date().getFullYear()} {site.legalName}. All rights reserved.
         </p>
       }
-      bottomRight={<p>{site.motto}.</p>}
+      bottomRight={
+        <p className="flex items-center gap-3">
+          <Link href="/privacy" className="hover:text-heading">
+            Privacy policy
+          </Link>
+          <span aria-hidden>·</span>
+          <span>{site.motto}.</span>
+        </p>
+      }
     />
   );
 }

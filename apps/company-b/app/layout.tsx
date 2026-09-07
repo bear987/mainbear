@@ -7,6 +7,7 @@ import { SiteFooter } from "@repo/ui/site-footer";
 import { site } from "@/content/site";
 import { Logo } from "@/components/logo";
 import { ThemeToggle } from "@/components/theme-toggle";
+import { WebAnalytics } from "@/components/web-analytics";
 
 // Runs before paint: applies the saved theme so there's no flash of the wrong
 // palette. No stored preference → default Ember (dark).
@@ -179,8 +180,17 @@ export default function RootLayout({
               © {new Date().getFullYear()} {site.legalName}. All rights reserved.
             </p>
           }
-          bottomRight={<p>{site.motto}.</p>}
+          bottomRight={
+            <p className="flex items-center gap-3">
+              <Link href="/privacy" className="hover:text-heading">
+                Privacy policy
+              </Link>
+              <span aria-hidden>·</span>
+              <span>{site.motto}.</span>
+            </p>
+          }
         />
+        <WebAnalytics />
       </body>
     </html>
   );

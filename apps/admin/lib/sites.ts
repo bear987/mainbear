@@ -51,6 +51,7 @@ export const SITES: SiteDefinition[] = [
       { id: "companies", label: "Our companies", hint: "How GG FOODS and GG AUTOS are described on the parent site." },
       { id: "roles", label: "Careers", hint: "Open roles listed across the whole group." },
       { id: "contact", label: "Contact page", hint: "Contact wording and the enquiry categories." },
+      { id: "privacy", label: "Privacy policy", hint: "What the site says it does with people's information. Keep it true to what the site actually does." },
     ],
   },
   {
@@ -65,6 +66,7 @@ export const SITES: SiteDefinition[] = [
       { id: "site", label: "Site details", hint: "Name, phone, WhatsApp, address, opening hours and the menu bar." },
       { id: "menu", label: "The menu", hint: "Every dish, its description, price and category." },
       { id: "about", label: "About page", hint: "The story, the kitchen roles and what the restaurant stands for." },
+      { id: "privacy", label: "Privacy policy", hint: "What the site says it does with people's information. Keep it true to what the site actually does." },
     ],
   },
   {
@@ -82,6 +84,7 @@ export const SITES: SiteDefinition[] = [
       { id: "services", label: "Services", hint: "Coupling and joining, quality, supply and the catalogue band." },
       { id: "wholesale", label: "Wholesale", hint: "Who it is for, how it works and the trading terms." },
       { id: "about", label: "About page", hint: "Story, mission, what we do, statistics, values and team roles." },
+      { id: "privacy", label: "Privacy policy", hint: "What the site says it does with people's information. Keep it true to what the site actually does." },
     ],
   },
 ];

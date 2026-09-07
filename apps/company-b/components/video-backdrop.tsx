@@ -20,6 +20,10 @@ import {
  *   blocked (low-power / data-saver).
  * - The <video> only mounts when motion is allowed, so prefers-reduced-motion
  *   users keep the calm still — never a moving background.
+ * - It also only mounts once the section is NEAR the viewport. These files are
+ *   several megabytes each, and three of them loading at once on the home page
+ *   cost about 19MB before a visitor had scrolled anywhere. The poster carries
+ *   the section until then, so nothing looks unfinished while waiting.
  */
 export function VideoBackdrop({
   src,
@@ -35,7 +39,9 @@ export function VideoBackdrop({
   className?: string;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
+  const holderRef = useRef<HTMLDivElement>(null);
   const [motionOk, setMotionOk] = useState(false);
+  const [near, setNear] = useState(false);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -45,8 +51,31 @@ export function VideoBackdrop({
     return () => mq.removeEventListener("change", sync);
   }, []);
 
+  /* Start fetching a little before the section is reached, so it is playing by
+     the time it is looked at. Once seen, it stays: re-mounting would refetch. */
+  useEffect(() => {
+    const holder = holderRef.current;
+    if (!holder) return;
+    if (typeof IntersectionObserver === "undefined") {
+      setNear(true);
+      return;
+    }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setNear(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: "300px 0px" },
+    );
+    observer.observe(holder);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div
+      ref={holderRef}
       aria-hidden
       className={cn("pointer-events-none absolute inset-0 overflow-hidden", className)}
     >
@@ -56,7 +85,7 @@ export function VideoBackdrop({
           className="absolute inset-0 scale-105 bg-cover bg-center"
           style={{ backgroundImage: `url('${poster}')`, filter: grade }}
         />
-        {motionOk && (
+        {motionOk && near && (
           <video
             ref={videoRef}
             className="absolute inset-0 h-full w-full scale-105 object-cover"

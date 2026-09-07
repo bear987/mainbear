@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { SiteFooter } from "@repo/ui/site-footer";
 import { contact, footerColumns, group, site } from "../content/site";
 import { Logo } from "./logo";
@@ -61,8 +62,13 @@ export function Footer() {
         </div>
       }
       bottomLeft={
-        <span className="stamp">
-          © {new Date().getFullYear()} {site.legalName}. All rights reserved.
+        <span className="stamp flex flex-wrap items-center gap-x-3 gap-y-1">
+          <span>
+            © {new Date().getFullYear()} {site.legalName}. All rights reserved.
+          </span>
+          <Link href="/privacy" className="underline hover:text-heading">
+            Privacy policy
+          </Link>
         </span>
       }
       bottomRight={

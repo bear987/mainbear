@@ -2,13 +2,24 @@
 
 // Content-Security-Policy. 'unsafe-inline' is required for Next's hydration
 // scripts and inline styles / next/font. frame-src allows a future map embed.
+// Cloudflare Web Analytics is cookieless, so it needs no consent banner. Its
+// beacon only loads when NEXT_PUBLIC_CF_BEACON is set, and the policy only
+// widens by exactly the two hosts it needs when it is, so a site with no
+// analytics keeps the tighter policy.
+const cf = process.env.NEXT_PUBLIC_CF_BEACON
+  ? {
+      script: " https://static.cloudflareinsights.com",
+      connect: " https://cloudflareinsights.com https://static.cloudflareinsights.com",
+    }
+  : { script: "", connect: "" };
+
 const csp = [
   "default-src 'self'",
-  "script-src 'self' 'unsafe-inline'",
+  `script-src 'self' 'unsafe-inline'${cf.script}`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data:",
   "font-src 'self' data:",
-  "connect-src 'self'",
+  `connect-src 'self'${cf.connect}`,
   "frame-src https://www.google.com",
   "object-src 'none'",
   "base-uri 'self'",

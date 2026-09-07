@@ -1,0 +1,72 @@
+{
+  "privacy": {
+    "title": "Privacy policy",
+    "updated": "5 September 2026",
+    "intro": "This explains what GG Autos does with your information when you use this site. It is written plainly, and it describes what the site actually does rather than what a policy usually says.",
+    "sections": [
+      {
+        "heading": "What we collect when you contact us",
+        "body": [
+          "The enquiry form asks for your name, your email address, your phone number and your message. On a wholesale enquiry it also asks for your company name, how many vehicles you need and which models, so we can quote you properly.",
+          "If you contact us on WhatsApp instead, that conversation happens through WhatsApp, not through this site, and this policy does not cover WhatsApp's own handling of it."
+        ]
+      },
+      {
+        "heading": "Why we collect it",
+        "body": [
+          "To read your enquiry and reply to it. That is the only reason.",
+          "Your message is sent to our email inbox and answered by a person here."
+        ]
+      },
+      {
+        "heading": "Who else handles your information",
+        "body": [
+          "Three companies handle information on our behalf, and only so this site can work:",
+          "Netlify hosts the site and serves its pages. Cloudflare routes visitors to it and protects it. Resend delivers the enquiry emails to our inbox.",
+          "None of them are given your information for their own purposes, and we do not sell or rent it to anyone, ever. We do not use it for advertising and we do not build profiles of visitors."
+        ]
+      },
+      {
+        "heading": "Cookies",
+        "body": [
+          "This site sets no tracking cookies at all.",
+          "If you switch between the light and dark appearance, that choice is remembered in your own browser and is never sent to us or to anyone else. Clearing your browser data removes it."
+        ]
+      },
+      {
+        "heading": "Visitor numbers",
+        "body": [
+          "We use Cloudflare Web Analytics to see how many people visit and which pages they read. It sets no cookies, does not follow you across other websites, and does not identify you as an individual. We see totals, not people."
+        ]
+      },
+      {
+        "heading": "How long we keep it",
+        "body": [
+          "Enquiries stay in our email inbox so we can answer you and keep a record of what was agreed.",
+          "[HOW LONG YOU KEEP ENQUIRIES BEFORE DELETING THEM. Tell Claude and this sentence is replaced.]"
+        ]
+      },
+      {
+        "heading": "Your rights, and how to use them",
+        "body": [
+          "You can ask us what information we hold about you, ask us to correct it, or ask us to delete it. Write to ggbearers@gmail.com and we will answer.",
+          "This site is operated from Nigeria and we handle personal information in line with the Nigeria Data Protection Act. If you are not satisfied with how we have handled your request, you can complain to the Nigeria Data Protection Commission."
+        ]
+      },
+      {
+        "heading": "Keeping enquiries out of the wrong hands",
+        "body": [
+          "The form is protected against automated spam, and the site is served only over an encrypted connection, so what you type reaches us privately."
+        ]
+      },
+      {
+        "heading": "Changes to this policy",
+        "body": [
+          "If this policy changes, the date at the top of this page changes with it. There is no separate notice, so the date is the honest way to tell."
+        ]
+      }
+    ],
+    "contactHeading": "Asking us about your information",
+    "contactBody": "Write to ggbearers@gmail.com, or to 13 Femi Killa Street, opposite Market Square, Ago Palace, Okota, Lagos, Nigeria."
+  }
+}

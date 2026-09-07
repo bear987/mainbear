@@ -9,8 +9,20 @@ export default [
          the root turbo.json, which is shared tooling this app does not own. */
       "turbo/no-undeclared-env-vars": [
         "error",
-        { allowList: ["RESEND_API_KEY", "CONTACT_TO_EMAIL", "CONTACT_FROM_EMAIL"] },
+        {
+          allowList: [
+            "RESEND_API_KEY",
+            "CONTACT_TO_EMAIL",
+            "CONTACT_FROM_EMAIL",
+            "NEXT_PUBLIC_CF_BEACON",
+          ],
+        },
       ],
     },
+  },
+  {
+    /* next.config.js runs in Node, where `process` is a global. */
+    files: ["next.config.js"],
+    languageOptions: { globals: { process: "readonly" } },
   },
 ];

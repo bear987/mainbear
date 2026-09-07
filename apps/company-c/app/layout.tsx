@@ -5,6 +5,7 @@ import { Analytics } from "../components/analytics";
 import { Footer } from "../components/footer";
 import { Nav } from "../components/nav";
 import { contact, group, site } from "../content/site";
+import { WebAnalytics } from "../components/web-analytics";
 
 /* Two families, self-hosted: a Swiss grotesque for display at extreme
    scale, and a terminal monospace for every label, spec and figure. */
@@ -124,6 +125,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <main id="main">{children}</main>
         <Footer />
         <Analytics />
+        <WebAnalytics />
       </body>
     </html>
   );

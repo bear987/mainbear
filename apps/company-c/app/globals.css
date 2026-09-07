@@ -27,7 +27,7 @@
   --color-ink: #111110;
   --color-heading: #111110;
   --color-fg: #2a2926;
-  --color-muted: #6e6b64;
+  --color-muted: #66635c; /* on concrete 4.85:1 */
 
   /* Action = SIGNAL RED. The hazard accent: prices, availability,
      primary actions. Nothing else. NOTE: 200/300 are deliberately
