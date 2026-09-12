@@ -663,6 +663,18 @@ Each of these cost real time. Read before debugging something similar.
   paints, so images never decode. To ask whether a picture is really broken,
   fetch it and `createImageBitmap` it: that reported the GG Autos hero poster
   as a healthy 640x357 JPEG when the DOM reading said it had failed.
+- **PowerShell here refuses to run .ps1 files.** Execution policy is Undefined
+  for both CurrentUser and LocalMachine, so Windows falls back to Restricted
+  and a double-clicked script dies before printing why. Hand the owner
+  `powershell -NoExit -ExecutionPolicy Bypass -File "<path>"`, or a block to
+  paste, since pasted code is not a script file. `Start-Process powershell
+  -ArgumentList "-NoExit","-ExecutionPolicy","Bypass","-File","<path>"` opens a
+  real window on their desktop, which is the way to let them enter a secret
+  themselves rather than pasting it into the chat.
+- **React HTML-escapes JSON in attributes.** `data-cf-beacon` renders as
+  `{&quot;token&quot;:&quot;...&quot;}`, so grepping the page for `"token"`
+  finds nothing and looks like a missing value. Match the attribute and pull
+  the hex out of it.
 - **Comparing a local server against the live site always differs in one
   place:** `og:image` and `twitter:image` are absolute, so they carry
   `http://localhost:3001` locally and the real host in production. The
@@ -690,9 +702,15 @@ is currently covering on a live site.
 
 **All sites:** real photography, a transparent PNG logo (company-a currently
 uses a JPG on black, company-c falls back to a text wordmark), real team names
-and roles, real statistics and testimonials. **An analytics id per site**
-(`NEXT_PUBLIC_CF_BEACON`, or `NEXT_PUBLIC_UMAMI_WEBSITE_ID`) and **how long
-enquiries are kept**, which is bracketed in each privacy policy.
+and roles, real statistics and testimonials.
+
+**Terms and conditions**, still deliberately not written. Real terms need the
+owner's returns policy, warranty, delivery coverage and payment terms, the same
+values bracketed as unconfirmed on the wholesale page. Placeholder legal text
+on a live site is worse than none. The owner asked to wait until they are
+ready.
+
+Analytics and the retention period are DONE: see the changelog.
 Photography and the logo can now be uploaded through the admin's media page,
 so these no longer need a developer.
 
@@ -718,6 +736,23 @@ one, so it was not built.
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-09-12** — **Analytics is live on all three sites, and the privacy
+  policies are complete.** Cloudflare Web Analytics, one site token per site in
+  `NEXT_PUBLIC_CF_BEACON`. Verified on the live sites: the beacon loads, each
+  site carries **its own** token and not a neighbour's, the CSP allows both the
+  script and the reporting origin, and each privacy policy has grown its
+  "Visitor numbers" section, which only renders when analytics genuinely runs
+  and is therefore independent proof the variable reached the build. Data
+  retention is now stated as **six months**, replacing the bracketed
+  placeholder, and the owner can change it in the admin.
+  **Getting the tokens needed the API, not the dashboard.** The dashboard
+  recognises these hostnames as the owner's own zones and forces the automatic
+  setup, whose Done button does nothing useful here because grey-cloud DNS
+  means Cloudflare never sees the pages. `POST /accounts/{id}/rum/site_info`
+  with `host` set and `auto_install: false` is the grey-cloud path and returns
+  `site_token` directly. That needs an API token with Account Settings Edit,
+  which should be deleted afterwards.
 
 - **2026-09-09** — **Analytics is now provider agnostic**, after two false
   starts. Cloudflare's AUTOMATIC setup cannot work here, because it injects the
