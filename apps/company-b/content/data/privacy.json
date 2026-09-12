@@ -36,7 +36,8 @@
       {
         "heading": "Visitor numbers",
         "body": [
-          "We use Cloudflare Web Analytics to see how many people visit and which pages they read. It sets no cookies, does not follow you across other websites, and does not identify you as an individual. We see totals, not people."
+          "We use ANALYTICS_PROVIDER to count how many people visit and which pages they read. It sets no cookies, does not follow you across other websites, and does not identify you as an individual. We see totals, not people.",
+          "ANALYTICS_PROVIDER is run by a separate company that counts those page views on our behalf. It is not given your enquiry, your name or your contact details."
         ]
       },
       {

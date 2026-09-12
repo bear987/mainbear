@@ -1,3 +1,4 @@
+import { analyticsProviderName } from "@/components/web-analytics";
 import data from "./data/privacy.json";
 
 /**
@@ -24,12 +25,19 @@ const all: Privacy = data.privacy;
 
 /**
  * The analytics section is only true once analytics is switched on, so it is
- * dropped while NEXT_PUBLIC_CF_BEACON is unset. A privacy policy that
- * describes something the site is not doing is worse than one that is silent.
+ * dropped while no provider is configured, and it names whichever provider is
+ * actually running. A privacy policy that describes something the site is not
+ * doing, or names the wrong company, is worse than one that is silent.
  */
+const provider = analyticsProviderName();
+
 export const privacy: Privacy = {
   ...all,
-  sections: all.sections.filter(
-    (s) => s.heading !== "Visitor numbers" || Boolean(process.env.NEXT_PUBLIC_CF_BEACON),
-  ),
+  sections: all.sections
+    .filter((s) => s.heading !== "Visitor numbers" || provider !== null)
+    .map((s) =>
+      s.heading === "Visitor numbers" && provider
+        ? { ...s, body: s.body.map((p) => p.replaceAll("ANALYTICS_PROVIDER", provider)) }
+        : s,
+    ),
 };

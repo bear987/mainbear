@@ -690,9 +690,9 @@ is currently covering on a live site.
 
 **All sites:** real photography, a transparent PNG logo (company-a currently
 uses a JPG on black, company-c falls back to a text wordmark), real team names
-and roles, real statistics and testimonials. **The Cloudflare Web Analytics
-token** (`NEXT_PUBLIC_CF_BEACON` on each Netlify site) and **how long enquiries
-are kept**, which is bracketed in each privacy policy.
+and roles, real statistics and testimonials. **An analytics id per site**
+(`NEXT_PUBLIC_CF_BEACON`, or `NEXT_PUBLIC_UMAMI_WEBSITE_ID`) and **how long
+enquiries are kept**, which is bracketed in each privacy policy.
 Photography and the logo can now be uploaded through the admin's media page,
 so these no longer need a developer.
 
@@ -718,6 +718,27 @@ one, so it was not built.
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-09-09** — **Analytics is now provider agnostic**, after two false
+  starts. Cloudflare's AUTOMATIC setup cannot work here, because it injects the
+  script as pages pass through Cloudflare's network and these sites are
+  deliberately DNS-only so Netlify can issue their certificates; the owner hit
+  that as a Done button doing nothing. Umami Cloud's free tier then turned out
+  to allow only one website, and there are three. **Cloudflare is the right
+  answer after all, via its JS SNIPPET installation**: free, cookieless, and
+  ten non-proxied sites, which is documented at
+  `developers.cloudflare.com/web-analytics/limits/`. The path in the dashboard
+  is Add a site, then **Manage Site, then "Enable with JS Snippet
+  installation"**, which is the step that is easy to miss.
+  Rather than hard-code a third provider, `components/web-analytics.tsx` now
+  supports either: `NEXT_PUBLIC_CF_BEACON` for Cloudflare or
+  `NEXT_PUBLIC_UMAMI_WEBSITE_ID` (plus optional `NEXT_PUBLIC_UMAMI_SRC`) for
+  Umami. Whichever is set decides the provider, the CSP widens by exactly that
+  provider's origins, and **the privacy policy names whichever one is actually
+  running**. Switching provider is now one environment variable and a redeploy,
+  never a code change. Verified in all three states, including that the CSP is
+  fixed at BUILD time, so a variable added after a deploy has no effect until
+  the next one.
 
 - **2026-09-05** — **Launch-checklist pass against a 20-point list.** Twelve
   items were already done. Fixed the four that were not or were partly done:

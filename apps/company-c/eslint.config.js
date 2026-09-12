@@ -18,6 +18,8 @@ export default [
             "CONTACT_TO_EMAIL",
             "CONTACT_FROM_EMAIL",
             "NEXT_PUBLIC_CF_BEACON",
+            "NEXT_PUBLIC_UMAMI_WEBSITE_ID",
+            "NEXT_PUBLIC_UMAMI_SRC",
           ],
         },
       ],
