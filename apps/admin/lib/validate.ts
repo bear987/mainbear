@@ -25,8 +25,14 @@ function label(p: string): string {
 /**
  * Compare a proposed value against the version currently on disk.
  * `template` is the shape to hold to; `next` is what the editor produced.
+ *
+ * `nullOk` says whether emptying this particular field is allowed. It is not a
+ * blanket permission: the data itself decides. A field that is already null
+ * somewhere, or missing from some entries, is one the site copes without. A
+ * field every entry carries is one the site reads, and emptying it would make
+ * the site's types a lie.
  */
-export function checkShape(template: unknown, next: unknown, at = ""): Problem[] {
+export function checkShape(template: unknown, next: unknown, at = "", nullOk = false): Problem[] {
   const problems: Problem[] = [];
 
   const tType = typeOf(template);
@@ -37,10 +43,17 @@ export function checkShape(template: unknown, next: unknown, at = ""): Problem[]
   if (template === undefined) return problems;
 
   if (tType !== nType) {
-    // null is how "not set" is stored in places like opening hours, so allow
-    // a value to move between null and its own type.
-    const nullable = tType === "null" || nType === "null";
-    if (!nullable) {
+    if (tType === "null") {
+      // The template says nothing about the type, so anything may fill it.
+    } else if (nType === "null") {
+      if (!nullOk) {
+        problems.push({
+          path: label(at),
+          message: `needs a ${tType} and cannot be left empty`,
+        });
+      }
+      return problems;
+    } else {
       problems.push({
         path: label(at),
         message: `should still be ${tType}, but it is now ${nType}`,
@@ -77,9 +90,10 @@ export function checkShape(template: unknown, next: unknown, at = ""): Problem[]
 
     // Scalar lists: every entry just has to stay the same kind of value.
     if (objectItems.length === 0) {
-      const first = t[0];
+      const first = t.find((item) => item !== null);
+      const holesAllowed = t.some((item) => item === null);
       n.forEach((item, i) => {
-        problems.push(...checkShape(first, item, `${at}[${i + 1}]`));
+        problems.push(...checkShape(first, item, `${at}[${i + 1}]`, holesAllowed));
       });
       return problems;
     }
@@ -96,6 +110,16 @@ export function checkShape(template: unknown, next: unknown, at = ""): Problem[]
     }
     const required = [...byKey.keys()].filter((key) =>
       objectItems.every((item) => key in item),
+    );
+
+    // A key that some entry leaves out, or already holds null for, is one the
+    // site renders without: a stat with no figure to count up, a Sunday with
+    // no opening time. Those may be emptied. A key every entry carries, like a
+    // price, may not.
+    const emptyAllowed = new Set(
+      [...byKey.keys()].filter(
+        (key) => !objectItems.every((item) => key in item && item[key] !== null),
+      ),
     );
 
     n.forEach((item, i) => {
@@ -116,7 +140,9 @@ export function checkShape(template: unknown, next: unknown, at = ""): Problem[]
       for (const [key, value] of Object.entries(record)) {
         const keyTemplate = byKey.get(key);
         if (keyTemplate === undefined) continue; // a field none of the originals had
-        problems.push(...checkShape(keyTemplate, value, `${where}.${key}`));
+        problems.push(
+          ...checkShape(keyTemplate, value, `${where}.${key}`, emptyAllowed.has(key)),
+        );
       }
     });
     return problems;

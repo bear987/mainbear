@@ -3,6 +3,7 @@
 import { ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react";
 import { useState } from "react";
 import {
+  type Control,
   FIELD_NOTES,
   blankLike,
   controlFor,
@@ -26,8 +27,57 @@ function Note({ name }: { name: string }) {
   return <p className="mt-1 text-xs text-muted">{note}</p>;
 }
 
+/**
+ * A number box that holds its own text while it is being typed into.
+ *
+ * It matters because of what happens to an EMPTY box. Emptying it used to put
+ * null into the data straight away, the editor then saw null and drew a plain
+ * text box in its place, and the figure typed next was stored as text. The
+ * save was refused, correctly but bafflingly, for a price the owner had only
+ * retyped. So the box now keeps the old value until it is left empty, and the
+ * field it lives in stays a number field either way.
+ */
+function NumberBox({
+  value,
+  readOnly,
+  onChange,
+}: {
+  value: unknown;
+  readOnly: boolean;
+  onChange: (next: unknown) => void;
+}) {
+  const [draft, setDraft] = useState<string | null>(null);
+  const shown = draft ?? (value === null || value === undefined ? "" : String(value));
+
+  return (
+    <input
+      type="number"
+      className="field"
+      value={shown}
+      readOnly={readOnly}
+      onChange={(e) => {
+        const text = e.target.value;
+        setDraft(text);
+        if (text.trim() === "") return; // mid-edit, keep the number we had
+        const parsed = Number(text);
+        if (Number.isFinite(parsed)) onChange(parsed);
+      }}
+      onBlur={() => {
+        // Left empty on purpose: clear it, and let the save tell the owner if
+        // this is a field the site cannot do without.
+        if (draft !== null && draft.trim() === "") onChange(null);
+        setDraft(null);
+      }}
+    />
+  );
+}
+
 function Scalar({ name, value, onChange }: Props) {
-  const control = controlFor(name, value);
+  // Chosen once, from the value as it arrived, and then kept. Re-deciding on
+  // every keystroke is what turned a cleared number into text, and it also
+  // swapped the box out from under the cursor when a line grew past 90
+  // characters.
+  const [control] = useState<Control>(() => controlFor(name, value));
   const readOnly = isReadOnly(name);
 
   if (control === "boolean") {
@@ -44,6 +94,11 @@ function Scalar({ name, value, onChange }: Props) {
     );
   }
 
+  // A field that arrived as null is one the site knows how to do without, so
+  // emptying it again has to mean null rather than an empty string.
+  const emptyIsNull = control === "null";
+  const text = (next: string) => onChange(next === "" && emptyIsNull ? null : next);
+
   return (
     <label className="block">
       <span className="mb-1 block text-xs font-medium tracking-wide text-muted uppercase">
@@ -55,37 +110,75 @@ function Scalar({ name, value, onChange }: Props) {
           className="field"
           value={String(value ?? "")}
           readOnly={readOnly}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={(e) => text(e.target.value)}
         />
       ) : control === "number" ? (
-        <input
-          type="number"
-          className="field"
-          value={value === null ? "" : Number(value)}
-          readOnly={readOnly}
-          onChange={(e) => onChange(e.target.value === "" ? null : Number(e.target.value))}
-        />
-      ) : control === "null" ? (
+        <NumberBox value={value} readOnly={readOnly} onChange={onChange} />
+      ) : (
         <input
           type="text"
           className="field"
-          placeholder="not set"
-          value=""
+          placeholder={emptyIsNull ? "not set" : undefined}
+          value={String(value ?? "")}
           readOnly={readOnly}
-          onChange={(e) => onChange(e.target.value === "" ? null : e.target.value)}
+          onChange={(e) => text(e.target.value)}
+        />
+      )}
+
+      <Note name={name} />
+    </label>
+  );
+}
+
+/**
+ * One entry in a list of plain values: a paragraph, a bullet, a figure.
+ *
+ * The control comes from the name of the LIST, so that a paragraph added to
+ * `body` gets a proper box from the first character rather than growing into
+ * one at ninety and throwing the cursor out as it does.
+ */
+function SimpleItem({
+  listName,
+  value,
+  onChange,
+  onRemove,
+  index,
+}: {
+  listName: string;
+  value: unknown;
+  onChange: (next: unknown) => void;
+  onRemove: () => void;
+  index: number;
+}) {
+  const [control] = useState<Control>(() => controlFor(listName, value));
+
+  return (
+    <div className="flex items-start gap-2">
+      {control === "number" ? (
+        <NumberBox value={value} readOnly={false} onChange={onChange} />
+      ) : control === "textarea" ? (
+        <textarea
+          className="field"
+          value={String(value ?? "")}
+          onChange={(e) => onChange(e.target.value)}
         />
       ) : (
         <input
           type="text"
           className="field"
           value={String(value ?? "")}
-          readOnly={readOnly}
           onChange={(e) => onChange(e.target.value)}
         />
       )}
-
-      <Note name={name} />
-    </label>
+      <button
+        type="button"
+        className="btn btn-danger shrink-0"
+        onClick={onRemove}
+        aria-label={`Remove entry ${index + 1}`}
+      >
+        <Trash2 className="size-3.5" />
+      </button>
+    </div>
   );
 }
 
@@ -131,30 +224,14 @@ function ListEditor({ name, value, onChange, depth = 0 }: Props) {
       {simple ? (
         <div className="space-y-2">
           {items.map((item, index) => (
-            <div key={index} className="flex items-start gap-2">
-              {String(item).length > 90 ? (
-                <textarea
-                  className="field"
-                  value={String(item)}
-                  onChange={(e) => replace(index, e.target.value)}
-                />
-              ) : (
-                <input
-                  type="text"
-                  className="field"
-                  value={String(item)}
-                  onChange={(e) => replace(index, e.target.value)}
-                />
-              )}
-              <button
-                type="button"
-                className="btn btn-danger shrink-0"
-                onClick={() => remove(index)}
-                aria-label={`Remove entry ${index + 1}`}
-              >
-                <Trash2 className="size-3.5" />
-              </button>
-            </div>
+            <SimpleItem
+              key={index}
+              listName={name}
+              index={index}
+              value={item}
+              onChange={(next) => replace(index, next)}
+              onRemove={() => remove(index)}
+            />
           ))}
         </div>
       ) : (

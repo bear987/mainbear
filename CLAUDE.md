@@ -245,6 +245,15 @@ would either fail the hosted build or bake in a stale copy.
   address or must match code (`id`, `value`, `tag`), `ALWAYS_LONG` for prose,
   and `FIELD_NOTES` for the fields where a wrong value shows on the site.
   Adding a field to a content file needs no admin change at all.
+- **Each control is chosen once, when the field first renders, and then kept**
+  (`components/value-editor.tsx`). Re-deciding on every keystroke meant a value
+  could change the box it was being typed into: emptying a number turned it
+  into a text box, so the figure typed next was saved as text and the save was
+  refused. The number box also keeps **its own text while it is being edited**,
+  so an empty box is a moment mid-edit rather than an immediate `null`, and it
+  clears the value only when it is left empty. List entries take their control
+  from the name of the **list**, so a paragraph added to `body` gets a proper
+  box from the first character.
 - **Two guards run before anything is written** (`lib/validate.ts`). The file
   currently on disk is the template: values may change and list items may be
   added or removed, but a field cannot disappear or change type, because the
@@ -253,6 +262,11 @@ would either fail the hosted build or bake in a stale copy.
   **Optional fields are handled by merging every existing list item and
   requiring only the keys that appear in all of them** — comparing against the
   first item alone reported every dish without tags as broken.
+  **Emptying a field is allowed only where the data already shows it is
+  optional**: a key some entry leaves out, or already holds `null` for. So a
+  stat with no figure may lose its `countTo` and Sunday may have no opening
+  time, but a price, which every dish carries, cannot be left empty. It reads
+  as "needs a number and cannot be left empty" rather than a type complaint.
 - **Publish** stages only `apps/company-*/content/data/*.json` and
   `apps/company-*/public/*`, so unrelated work in the repo is never swept in.
   It shows which Netlify sites will actually rebuild, using the same rules as
@@ -671,6 +685,14 @@ Each of these cost real time. Read before debugging something similar.
   -ArgumentList "-NoExit","-ExecutionPolicy","Bypass","-File","<path>"` opens a
   real window on their desktop, which is the way to let them enter a secret
   themselves rather than pasting it into the chat.
+- **A controlled input that picks its own type from its own value can trap the
+  person typing into it.** The admin chose a control from the value on every
+  render, so clearing a number wrote `null`, `null` drew a text box, and the
+  number typed next was stored as text: a price the owner had only retyped was
+  refused on save with a type error they had no way to explain. Anything that
+  changes an input's `type`, or swaps `<input>` for `<textarea>`, mid-edit also
+  throws the cursor out of the field. Decide the control once, from the value
+  as it arrives, and let the box hold its own draft text.
 - **React HTML-escapes JSON in attributes.** `data-cf-beacon` renders as
   `{&quot;token&quot;:&quot;...&quot;}`, so grepping the page for `"token"`
   finds nothing and looks like a missing value. Match the attribute and pull
@@ -736,6 +758,27 @@ one, so it was not built.
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-09-17** — **Fixed the admin refusing to save a changed price.** The
+  owner cleared the price box, typed the new figure and got "menu[1].priceNGN
+  should still be number, but it is now string". Reproduced exactly: clearing
+  the box set the value to `null`, the editor then chose a plain **text** box
+  for a null value, and the figure typed into it was stored as text. The save
+  was refused, correctly, for a price that looked right on screen. The control
+  is now chosen once per field and kept, and the number box holds its own text
+  while it is being edited, so an empty box is a moment mid-edit rather than an
+  immediate `null`. The same fix removes a second annoyance: a line growing
+  past ninety characters used to swap its `<input>` for a `<textarea>` and
+  throw the cursor out, and a paragraph added to a list now gets a proper box
+  from the first character.
+  The validator was tightened at the same time, because the editor could still
+  legitimately clear a field: **`null` is accepted only where the data already
+  shows the field is optional**, meaning some entry leaves it out or already
+  holds `null`. `countTo` and a closed Sunday still clear; a price cannot.
+  Checked against all 22 content files unchanged, plus the failing case, the
+  fixed case, both clearable fields, a field that must not be cleared, adding
+  and removing dishes, and the em-dash rule. End to end in the browser: the
+  same clear-and-retype now saves, and writes `"priceNGN": 3000` as a number.
 
 - **2026-09-12** — **Analytics is live on all three sites, and the privacy
   policies are complete.** Cloudflare Web Analytics, one site token per site in
