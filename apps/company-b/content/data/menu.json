@@ -19,9 +19,9 @@
   "menu": [
     {
       "slug": "smoky-party-jollof-rice",
-      "name": "Smoky Party Jollof Rice",
-      "description": "Long-grain rice cooked down in a smoky pepper base, served with fried plantain and your choice of chicken, beef or fish.",
-      "priceNGN": 4500,
+      "name": "Special Salad",
+      "description": "",
+      "priceNGN": 5000,
       "category": "nigerian",
       "tags": [
         "spicy"
