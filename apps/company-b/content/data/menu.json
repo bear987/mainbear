@@ -20,7 +20,7 @@
     {
       "slug": "smoky-party-jollof-rice",
       "name": "Special Salad",
-      "description": "",
+      "description": "A fresh and delicious mix of crisp vegetables, colorful ingredients, and a creamy, flavorful dressing. Carefully prepared to deliver the perfect balance of freshness, crunch, and taste in every bite.",
       "priceNGN": 5000,
       "category": "nigerian",
       "tags": [
@@ -32,26 +32,26 @@
       "slug": "egusi-soup-pounded-yam",
       "name": "Egusi Soup with Pounded Yam",
       "description": "Rich melon-seed soup loaded with assorted meat and stockfish, served with soft, freshly pounded yam.",
-      "priceNGN": 6500,
+      "priceNGN": 3000,
       "category": "nigerian",
       "signature": true
     },
     {
       "slug": "suya-beef-platter",
-      "name": "Suya Beef Platter",
-      "description": "Thin-cut beef grilled over open flame, dusted with yaji spice, served with fresh onions and tomatoes.",
-      "priceNGN": 8500,
+      "name": "Pepper Snails",
+      "description": "Thin-cut snail meat grilled over open flame, dusted with yaji spice, served with fresh onions and tomatoes.",
+      "priceNGN": 3500,
       "category": "nigerian",
       "tags": [
         "spicy"
       ],
-      "signature": true
+      "signature": false
     },
     {
       "slug": "catfish-pepper-soup",
-      "name": "Catfish Pepper Soup",
-      "description": "Fresh catfish simmered in a hot, aromatic broth of scent leaves and native spice. Clears the head.",
-      "priceNGN": 7000,
+      "name": "SeaFood Okro + Semo.",
+      "description": "A rich and flavorful seafood okro soup, loaded with fresh seafood and traditional Nigerian spices. Served with smooth, soft semolina (Semo) for the perfect taste of home in every bite.\n",
+      "priceNGN": 15700,
       "category": "nigerian",
       "tags": [
         "spicy"
@@ -69,32 +69,32 @@
     },
     {
       "slug": "moi-moi-deluxe",
-      "name": "Moi Moi Deluxe",
-      "description": "Steamed bean pudding with egg and fish, wrapped and cooked in leaves for that unmistakable aroma.",
-      "priceNGN": 2000,
+      "name": "Boiled yam and Egg sauce",
+      "description": "Soft, perfectly boiled yam served with a rich, savory egg sauce made with fresh tomatoes, peppers, onions, and delicious spices. A simple, satisfying taste of home in every bite.\n",
+      "priceNGN": 4550,
       "category": "nigerian"
     },
     {
       "slug": "village-fried-rice-grilled-chicken",
-      "name": "Village Fried Rice with Grilled Chicken",
-      "description": "Wok-fried rice with liver, green peas and sweet peppers, served with a charred quarter chicken.",
-      "priceNGN": 6000,
+      "name": "Fried Rice and Beef/Plantain",
+      "description": "Flavorful, perfectly seasoned fried rice served with tender, juicy beef and sweet, golden-fried plantain. A delicious combination of savory goodness and irresistible sweetness in every bite.",
+      "priceNGN": 4550,
       "category": "nigerian"
     },
     {
       "slug": "grilled-salmon-lemon-butter",
-      "name": "Grilled Salmon in Lemon Butter",
-      "description": "Atlantic salmon fillet grilled to flake, finished with a lemon butter sauce, served with herbed potatoes.",
-      "priceNGN": 15500,
-      "category": "intercontinental",
+      "name": "Vegetable Soup + Eba/Poundo/Semo",
+      "description": "A rich and delicious vegetable soup, packed with fresh leafy greens, flavorful spices, and tender assorted proteins. Served with your choice of soft Poundo, Eba, or Semo for a hearty and satisfying taste of home.",
+      "priceNGN": 9100,
+      "category": "nigerian",
       "signature": true
     },
     {
       "slug": "creamy-chicken-alfredo",
-      "name": "Creamy Chicken Alfredo",
-      "description": "Fettuccine tossed in a parmesan cream sauce with strips of grilled chicken breast.",
-      "priceNGN": 7500,
-      "category": "intercontinental"
+      "name": "Beans and Plantain",
+      "description": "Deliciously cooked beans seasoned with flavorful spices and served with sweet, golden-fried plantain. A hearty, comforting Nigerian classic that delivers the perfect balance of savory goodness and natural sweetness.",
+      "priceNGN": 3900,
+      "category": "nigerian"
     },
     {
       "slug": "gg-smash-burger-fries",
