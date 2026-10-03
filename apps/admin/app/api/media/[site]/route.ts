@@ -45,7 +45,17 @@ export async function POST(request: Request, { params }: Params) {
   }
 
   const token = guard.session?.token;
-  const form = await request.formData();
+  let form: FormData;
+  try {
+    form = await request.formData();
+  } catch {
+    // A body that arrives cut short cannot be parsed. Say so in words rather
+    // than letting it become an empty 500 the page cannot explain.
+    return NextResponse.json(
+      { error: "The file did not arrive complete, so nothing was saved. Try it again." },
+      { status: 400 },
+    );
+  }
   const slotPath = String(form.get("path") ?? "");
   const file = form.get("file");
 

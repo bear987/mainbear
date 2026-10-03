@@ -18,6 +18,13 @@ type Slot = {
 
 type Result = { bytes: number; originalBytes: number; width?: number; height?: number };
 
+/**
+ * The same cap as MAX_UPLOAD_LOCAL in the upload route. Checked here as well so
+ * that a file too big to send is refused at once, rather than after minutes of
+ * uploading, and so it never reaches the server's body limit in next.config.js.
+ */
+const MAX_UPLOAD_LOCAL = 500 * 1024 * 1024;
+
 function size(bytes: number): string {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
@@ -44,9 +51,17 @@ function SlotCard({
 
   const upload = useCallback(
     async (file: File) => {
-      setBusy(true);
       setError(null);
       setResult(null);
+      if (!hosted && file.size > MAX_UPLOAD_LOCAL) {
+        setError(
+          `That file is ${size(file.size)}, over the 500 MB limit. Trim it, or export it at 1080p, then try again.`,
+        );
+        return;
+      }
+
+      setBusy(true);
+      let res: Response;
       try {
         // Hosted, the server has no ffmpeg, so the picture is resized here
         // before it is sent. Locally the server does a better job of it.
@@ -58,17 +73,30 @@ function SlotCard({
         const body = new FormData();
         body.set("path", slot.path);
         body.set("file", toSend);
-        const res = await fetch(`/api/media/${siteId}`, { method: "POST", body });
-        const payload = (await res.json()) as Result & { error?: string };
-        if (!res.ok) {
-          setError(payload.error ?? "Could not process that file.");
+        res = await fetch(`/api/media/${siteId}`, { method: "POST", body });
+      } catch {
+        // Only a request that never got an answer lands here.
+        setError("Could not reach the admin server. Check its window is still open.");
+        setBusy(false);
+        return;
+      }
+
+      try {
+        // An answer that is not JSON is the server failing, not the network.
+        // Saying "could not reach" for that sent us looking in the wrong place.
+        const payload = (await res.json().catch(() => null)) as
+          | (Result & { error?: string })
+          | null;
+        if (!res.ok || !payload) {
+          setError(
+            payload?.error ??
+              `The admin server could not process that file (error ${res.status}). Nothing was saved.`,
+          );
           return;
         }
         setResult(payload);
         setVersion((v) => v + 1);
         onChanged();
-      } catch {
-        setError("Could not reach the admin server.");
       } finally {
         setBusy(false);
       }

@@ -622,6 +622,31 @@ Each of these cost real time. Read before debugging something similar.
   `Get-NetTCPConnection -LocalPort <port> -State Listen`, check its
   `CommandLine` contains `group-sites`, and only then stop that PID. Never kill
   node broadly.
+- **Any middleware caps request bodies at 10MB, silently.** Next 16 holds the
+  body for the middleware (`proxy`) and keeps only the first 10MB unless
+  `experimental.proxyClientMaxBodySize` says otherwise. It applies even though
+  the admin's middleware does nothing locally, because it exists and matches.
+  A video upload arrived cut in half, `request.formData()` threw, the route
+  returned an empty 500, and the page reported "Could not reach the admin
+  server", which pointed at the wrong thing entirely. The admin now sets the
+  limit to 520mb in `next.config.js`, just above the route's own 500MB cap.
+  **Do not fix this by excluding routes from the middleware matcher**: the
+  matcher is the hosted sign-in gate, and it covers every route by default on
+  purpose. A `next.config.js` change restarts `next dev` by itself.
+- **Do not run the admin for the owner as a background task.** Background
+  tasks hit a time limit, and when the wrapper is killed the Next process
+  survives but its stdout pipe is gone. It then **half-works**: the health check
+  and some pages still return 200, while any page that needs a render worker
+  returns 500 with "Jest worker encountered 2 child process exceptions,
+  exceeding retry limit" (GG Autos' media page was the first to go). It looks
+  alive and isn't. Start it in its own window instead, which the owner can see
+  and close, and which outlives the session:
+  `Start-Process powershell -ArgumentList '-NoExit','-ExecutionPolicy','Bypass','-Command',"Set-Location 'D:\GG project\group-sites'; pnpm admin"`.
+  `-ExecutionPolicy Bypass` matters because `pnpm` resolves to a `.ps1` shim,
+  which the Restricted default refuses. The Terminal panel tool would be the
+  natural home, but its shell integration file is missing on this machine
+  (`claude-desktop.ps1`), so it never reaches a prompt. Preview servers the
+  admin starts are already safe: they are spawned detached with stdio ignored.
 - **`buildId` is not in the served HTML**, so polling for it to detect a fresh
   deploy silently never fires. Read the Netlify dashboard for the published
   commit instead, it is the authoritative signal.
@@ -758,6 +783,24 @@ one, so it was not built.
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-10-03** — **Fixed video uploads failing with "Could not reach the
+  admin server".** The owner tried to add the Suzuki Mini Bus walkaround.
+  Cause: Next 16 caps request bodies at 10MB whenever a middleware exists, and
+  silently keeps only the first 10MB, so every real video arrived truncated and
+  the route could not parse it. Reproduced first with a 20MB test video (empty
+  HTTP 500), then fixed with `experimental.proxyClientMaxBodySize: "520mb"`.
+  The same 20MB file then saved as a 0.8MB 720p clip, and a 150MB 4K file with
+  sound came out as 0.86MB, H.264 at 1280x720 with the audio removed, in about
+  four seconds. Both test files were deleted afterwards, and the owner's own
+  GG Autos photographs were not touched.
+  Two related fixes. The page used to say "could not reach" for ANY failure,
+  including a server that answered with an error, which hid the cause; it now
+  says "could not reach" only when no answer came back, and otherwise shows
+  the server's message or the error number. A file over the 500MB cap is now
+  refused in the browser before it is sent, rather than after minutes of
+  uploading, and the route turns a body it cannot parse into a plain message
+  instead of an empty 500.
 
 - **2026-09-17** — **Fixed the admin refusing to save a changed price.** The
   owner cleared the price box, typed the new figure and got "menu[1].priceNGN
