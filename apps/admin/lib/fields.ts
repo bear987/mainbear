@@ -41,6 +41,38 @@ export const FIELD_NOTES: Record<string, string> = {
 
 export type Control = "text" | "textarea" | "number" | "boolean" | "null";
 
+/**
+ * What the OTHER entries in a list say about one field: a sample of the value
+ * it usually holds, and whether it is ever empty or left out.
+ *
+ * Needed because a value on its own can say too little. A dish with no price
+ * yet holds null, and null alone would get a text box, so the price typed into
+ * it would be saved as text and refused. Its neighbours hold numbers, which
+ * says it is a number field that happens to be empty.
+ */
+export type FieldHint = { sample: unknown; nullable: boolean };
+
+export function fieldHints(items: unknown[]): Record<string, FieldHint> {
+  const records = items.filter(
+    (item): item is Record<string, unknown> =>
+      item !== null && typeof item === "object" && !Array.isArray(item),
+  );
+  const hints: Record<string, FieldHint> = {};
+  for (const record of records) {
+    for (const [key, value] of Object.entries(record)) {
+      const hint = (hints[key] ??= { sample: undefined, nullable: false });
+      if (value === null) hint.nullable = true;
+      else if (hint.sample === undefined) hint.sample = value;
+    }
+  }
+  // A field some entries leave out is optional too. This mirrors the save
+  // guard in validate.ts, so the editor never offers an empty value it refuses.
+  for (const [key, hint] of Object.entries(hints)) {
+    if (records.some((record) => !(key in record))) hint.nullable = true;
+  }
+  return hints;
+}
+
 export function controlFor(key: string, value: unknown): Control {
   if (typeof value === "boolean") return "boolean";
   if (typeof value === "number") return "number";

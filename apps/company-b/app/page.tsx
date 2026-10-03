@@ -17,7 +17,7 @@ import { EmberBackdrop } from "@/components/ember-backdrop";
 export const metadata: Metadata = {
   title: { absolute: `${site.name}, intercontinental dishes and Nigerian meals in Okota, Lagos` },
   description:
-    "Smoky party jollof, egusi with pounded yam, grilled salmon, fresh smoothies and more. Cooked fresh daily in Okota, Lagos. View the menu or order by call or WhatsApp.",
+    "Jollof rice, egusi with pounded yam, Nigerian soups and swallows, small chops, salads, fresh smoothies and more. Cooked fresh daily in Okota, Lagos. View the menu or order by call or WhatsApp.",
   alternates: { canonical: "/" },
 };
 

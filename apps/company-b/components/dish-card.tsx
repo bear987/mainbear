@@ -17,13 +17,21 @@ export function DishCard({ item }: { item: MenuItem }) {
             <h3 className="font-display text-lg font-semibold leading-snug text-heading">
               {item.name}
             </h3>
-            <span className="shrink-0 font-display text-lg text-action-300 tnum">
-              {formatNaira(item.priceNGN)}
-            </span>
+            {/* A dish without a price yet shows none, rather than ₦0 or a guess. */}
+            {item.priceNGN != null && (
+              <span className="shrink-0 font-display text-lg text-action-300 tnum">
+                {formatNaira(item.priceNGN)}
+              </span>
+            )}
           </div>
-          <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
-            {item.description}
-          </p>
+          {item.description ? (
+            <p className="mt-2 flex-1 text-sm leading-relaxed text-muted">
+              {item.description}
+            </p>
+          ) : (
+            // Keeps the tags pinned to the bottom, level with the cards beside it.
+            <div className="flex-1" />
+          )}
           {item.tags && item.tags.length > 0 && (
             <div className="mt-4 flex flex-wrap gap-2">
               {item.tags.map((tag) => (

@@ -1,12 +1,14 @@
 "use client";
 
 import { ChevronDown, ChevronRight, Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import {
   type Control,
+  type FieldHint,
   FIELD_NOTES,
   blankLike,
   controlFor,
+  fieldHints,
   humanise,
   isReadOnly,
   itemTitle,
@@ -19,6 +21,8 @@ type Props = {
   onChange: (next: unknown) => void;
   /** How deep in the tree, for indentation only. */
   depth?: number;
+  /** What the neighbouring entries of a list hold in this field, if any. */
+  hint?: FieldHint;
 };
 
 function Note({ name }: { name: string }) {
@@ -72,12 +76,16 @@ function NumberBox({
   );
 }
 
-function Scalar({ name, value, onChange }: Props) {
+function Scalar({ name, value, onChange, hint }: Props) {
   // Chosen once, from the value as it arrived, and then kept. Re-deciding on
   // every keystroke is what turned a cleared number into text, and it also
   // swapped the box out from under the cursor when a line grew past 90
   // characters.
-  const [control] = useState<Control>(() => controlFor(name, value));
+  // An empty value is judged by its neighbours: a dish with no price yet is
+  // still a price, so it gets a number box, not a text box.
+  const [control] = useState<Control>(() =>
+    controlFor(name, value === null ? (hint?.sample ?? null) : value),
+  );
   const readOnly = isReadOnly(name);
 
   if (control === "boolean") {
@@ -94,9 +102,10 @@ function Scalar({ name, value, onChange }: Props) {
     );
   }
 
-  // A field that arrived as null is one the site knows how to do without, so
-  // emptying it again has to mean null rather than an empty string.
-  const emptyIsNull = control === "null";
+  // A field that arrived empty, or that other entries leave empty, is one the
+  // site knows how to do without, so emptying it has to mean null rather than
+  // an empty string.
+  const emptyIsNull = value === null || control === "null" || Boolean(hint?.nullable);
   const text = (next: string) => onChange(next === "" && emptyIsNull ? null : next);
 
   return (
@@ -204,6 +213,7 @@ function ListEditor({ name, value, onChange, depth = 0 }: Props) {
   };
 
   const simple = items.every((i) => typeof i !== "object" || i === null);
+  const hints = useMemo(() => (simple ? {} : fieldHints(items)), [items, simple]);
 
   return (
     <div>
@@ -269,6 +279,7 @@ function ListEditor({ name, value, onChange, depth = 0 }: Props) {
                       value={item}
                       onChange={(next) => replace(index, next)}
                       depth={depth + 1}
+                      hints={hints}
                     />
                   </div>
                 ) : null}
@@ -285,10 +296,13 @@ function ObjectEditor({
   value,
   onChange,
   depth = 0,
+  hints,
 }: {
   value: unknown;
   onChange: (next: unknown) => void;
   depth?: number;
+  /** Set when this object is one entry of a list. */
+  hints?: Record<string, FieldHint>;
 }) {
   const record = value as Record<string, unknown>;
   return (
@@ -299,6 +313,7 @@ function ObjectEditor({
           name={key}
           value={child}
           depth={depth}
+          hint={hints?.[key]}
           onChange={(next) => onChange({ ...record, [key]: next })}
         />
       ))}
@@ -306,7 +321,7 @@ function ObjectEditor({
   );
 }
 
-export function ValueEditor({ name, value, onChange, depth = 0 }: Props) {
+export function ValueEditor({ name, value, onChange, depth = 0, hint }: Props) {
   if (Array.isArray(value)) {
     return (
       <div className="rounded-md border border-line-soft p-3">
@@ -326,5 +341,5 @@ export function ValueEditor({ name, value, onChange, depth = 0 }: Props) {
     );
   }
 
-  return <Scalar name={name} value={value} onChange={onChange} depth={depth} />;
+  return <Scalar name={name} value={value} onChange={onChange} depth={depth} hint={hint} />;
 }

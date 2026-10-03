@@ -254,6 +254,11 @@ would either fail the hosted build or bake in a stale copy.
   clears the value only when it is left empty. List entries take their control
   from the name of the **list**, so a paragraph added to `body` gets a proper
   box from the first character.
+  **An empty value is judged by its neighbours** (`fieldHints` in
+  `lib/fields.ts`): a dish whose price is `null` gets a number box because the
+  other dishes hold numbers, and emptying a field is offered only where the
+  other entries show it is optional, mirroring the save guard. Without this,
+  a price typed into an unpriced dish was stored as text and refused.
 - **Two guards run before anything is written** (`lib/validate.ts`). The file
   currently on disk is the template: values may change and list items may be
   added or removed, but a field cannot disappear or change type, because the
@@ -447,10 +452,32 @@ sections worth ordering. What remains is whatever the owner asks for next.
   and `video-backdrop.tsx`: a poster base layer carries LCP and the fallback,
   with a `<video autoplay muted loop playsInline>` layered on top, gated on
   `prefers-reduced-motion`. `menu-header.jpg` and `order-hero.jpg` stay static.
-- The menu is one file, `content/menu.ts`, with a loud placeholder header: 7
-  Nigerian dishes, 7 intercontinental, 5 sides and drinks, naira prices, spicy
-  and vegetarian tags, and a `signature` flag driving the home strip. Dish
-  images are `/images/menu/<slug>.jpg` through a client `MenuImage` with a
+- **The menu is the owner's real one** (2026-10-03): **137 dishes in 16
+  sections**, data in `content/data/menu.json`, types in `content/menu.ts`.
+  Sections come from the owner's printed menu (Rice Dishes, Soups & Stews,
+  Swallows, Yam & Plantain, Proteins, Pasta & Noodles, Intercontinental, Small
+  Chops, Breakfasts, six salad sections, Natural Fruit Drinks & Smoothies). The
+  menu page builds its section list and jump links from that data, so a section
+  added in the admin needs no code. Within a section the owner's own combos
+  come first, then the printed menu's order.
+  - **`priceNGN` may be `null`** and the card then shows no price; 118 new
+    dishes are unpriced until the owner sets them. **`description` may be
+    empty** and is then hidden. `MenuCategory` is a plain string, not a union.
+  - **Slugs do not match names, by design.** The owner renames dishes freely in
+    the admin and the slug is only the photo's file name, so
+    `smoky-party-jollof-rice` is "Special Salad" and `moi-moi-deluxe` is
+    "Yam & Egg Sauce". Never "fix" a slug: it would orphan the photo.
+  - **Photos:** 14 are the owner's real ones (the slugs that existed before
+    2026-10-03); `boiled-yam-and-egg-sauce.jpg` is a copy of the real
+    `moi-moi-deluxe.jpg`, the same dish. **The other 122 are AI-generated
+    stand-ins** (GPT Image 2 through Higgsfield, 1k, medium quality, 4:3),
+    styled to sit beside the real ones: white plate or bowl, dark speckled
+    granite counter, window light, only the named dish and no extra sides. The
+    prompt template and every dish's visual are in the session scratchpad's
+    `menu-plan.mjs`; regenerate one by reusing that wording. Replace any of them
+    with a real photo through the admin's media page.
+  - `signature: true` still drives the home strip and is unchanged.
+  Dish images are `/images/menu/<slug>.jpg` through a client `MenuImage` with a
   designed ember fallback.
 - Pages: home, menu, about, visit, order, 404, sitemap, robots,
   opengraph-image. 10 routes. Restaurant JSON-LD in the layout
@@ -622,6 +649,28 @@ Each of these cost real time. Read before debugging something similar.
   `Get-NetTCPConnection -LocalPort <port> -State Listen`, check its
   `CommandLine` contains `group-sites`, and only then stop that PID. Never kill
   node broadly.
+- **The admin's Publish cannot ship a content change that needs new code.** It
+  stages only `content/data/*.json` and `public/*`. When a data change depends
+  on a code change (the menu's `null` prices needed the dish card to cope with
+  them), publishing the data alone makes the Netlify build fail on the old code,
+  and the site silently stays on its previous version. Ship code and data in
+  one commit yourself, and tell the owner not to publish that change from the
+  admin.
+- **Higgsfield's Basic plan runs 4 generations at a time.** A batch of 12 has 8
+  refused with "Rate limit reached"; refused items are not charged. Feed 4 at a
+  time and top up as each finishes. GPT Image 2 at 1k: 0.5 credits low, 1
+  medium, 3.5 high (`get_cost: true` preflights without spending).
+- **Synthetic `blur` events do not reach React's `onBlur`.** React listens for
+  `focusout`. A browser test that dispatches `blur` to simulate clicking away
+  silently skips the handler and looks like an app bug; dispatch
+  `new FocusEvent("focusout", { bubbles: true })`.
+- **Headless screenshots of these sites come out blank below the nav** because
+  every section fades in on scroll through `[data-reveal]` and a headless
+  capture never scrolls. Add `--force-prefers-reduced-motion`: the sites'
+  reduced-motion rule shows everything at once.
+- **`next build` can fail once with "next/font/google queries have exactly one
+  entry".** It is a transient font download hiccup; the same build passed on
+  an immediate rerun with no changes. Rerun before investigating.
 - **Any middleware caps request bodies at 10MB, silently.** Next 16 holds the
   body for the middleware (`proxy`) and keeps only the first 10MB unless
   `experimental.proxyClientMaxBodySize` says otherwise. It applies even though
@@ -761,9 +810,17 @@ Analytics and the retention period are DONE: see the changelog.
 Photography and the logo can now be uploaded through the admin's media page,
 so these no longer need a developer.
 
-**GG FOODS:** the real menu and prices, its own address, phone and opening
-hours (it currently reuses the parent's), and a real maps link for the visit
-page.
+**GG FOODS:** prices for the **118 unpriced dishes** (set in the admin; an
+unpriced dish simply shows no price), what goes into the owner's own creations
+(the 9 GG Signature salads, Power, Green Power, Rainbow, Detox, Garden Power
+Bowl and Nigerian Supreme salads, whose descriptions are empty and whose
+pictures are a plausible guess), **real photographs** to replace the 122
+AI-generated stand-ins over time, and the **"Natural Fruit Drinks &
+Smoothies" section**, which was cut off the edge of the screenshots the menu
+was read from. Also its own address, phone and opening hours (it currently
+reuses the parent's) and a real maps link for the visit page. The about page
+(`about.json`, the owner's copy) still says "our salmon is grilled..." although
+no salmon dish is on the menu any more.
 
 **GG AUTOS:** vehicle photographs for all 12 models, specifications for the six
 non-kei makes (Toyota, Mazda, Nissan, Hummer), warranty and after-sales terms,
@@ -783,6 +840,33 @@ one, so it was not built.
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-10-03** — **GG Foods has its real menu: 137 dishes in 16 sections,
+  every one with a picture.** Read from two screenshots of the owner's printed
+  menu (122 items; Spaghetti was listed twice and is kept once under Pasta),
+  the list was shown to the owner first and their corrections applied: Asun
+  for "Asu" Rice and Pasta, "Gizzeettes" is Gizzards, "Avocade" is Avocado,
+  "Eforiro" is Efo Riro. The owner's 19 dishes kept their names, prices,
+  descriptions, tags and photos; three that were the same dish as a printed
+  item stand in for it (Dodo became Fried Plantain (1 Portion), Golden Spring
+  Rolls became Spring Rolls, Boiled yam and Egg sauce became Yam & Egg Sauce),
+  and the Breakfast "Boiled Yam & Egg Sauce" reuses that real photo.
+  **122 pictures were generated** with GPT Image 2 through Higgsfield, one per
+  dish without a photo, at 1 credit each (124 credits with three test shots
+  and two redos; 146 left), filed through the admin's own upload route so they
+  were resized like an owner's upload. Every picture was reviewed on labelled
+  contact sheets; Moi Moi and Fish Roll were regenerated because the first Fish
+  Roll looked like the spring rolls beside it.
+  New dishes have **no price yet**: the card shows none, `priceNGN` may now be
+  `null`, and an empty description is hidden. The admin's editor now judges an
+  empty value by its neighbours, so a price typed into an unpriced dish is
+  saved as a number; tested as a round trip in the browser (set ₦2,500, then
+  cleared) leaving `menu.json` byte-identical. The menu and home page
+  descriptions for search engines were updated; the home one still named
+  grilled salmon, which the owner has since renamed away.
+  Verified on the built site: 137 cards, 16 sections and jump links, all 19
+  prices shown, no "₦null" or "NaN", every dish has a picture file. The cut-off
+  drinks section of the screenshots is still to come from the owner.
 
 - **2026-10-03** — **Fixed video uploads failing with "Could not reach the
   admin server".** The owner tried to add the Suzuki Mini Bus walkaround.

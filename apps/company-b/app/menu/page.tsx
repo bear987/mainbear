@@ -14,7 +14,7 @@ import { PhotoBackdrop } from "@/components/photo-backdrop";
 export const metadata: Metadata = {
   title: "Menu",
   description:
-    "The GG FOODS menu: Nigerian meals, intercontinental dishes, sides, fresh smoothies and natural drinks. Realistic Lagos prices in naira. Order by call or WhatsApp.",
+    "The GG FOODS menu: rice dishes, Nigerian soups and swallows, yam and plantain, small chops, pasta, breakfasts, salads, intercontinental dishes and natural fruit drinks. Order by call or WhatsApp.",
   alternates: { canonical: "/menu" },
 };
 

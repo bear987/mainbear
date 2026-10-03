@@ -1,9 +1,34 @@
 {
   "categories": [
     {
-      "id": "nigerian",
-      "label": "Nigerian Meals",
-      "blurb": "The classics, cooked the way they should be: slow, generous and full of fire."
+      "id": "rice-dishes",
+      "label": "Rice Dishes",
+      "blurb": "Tasty rice meals for every taste."
+    },
+    {
+      "id": "soups-stews",
+      "label": "Soups & Stews",
+      "blurb": "Richly prepared, with authentic Nigerian taste."
+    },
+    {
+      "id": "swallows",
+      "label": "Swallows",
+      "blurb": "Local staples, perfect with our soups."
+    },
+    {
+      "id": "yam-plantain",
+      "label": "Yam & Plantain",
+      "blurb": "Classic local dishes, always satisfying."
+    },
+    {
+      "id": "proteins",
+      "label": "Proteins (Meat & Fish)",
+      "blurb": "Well prepared, grilled, sauced or fried."
+    },
+    {
+      "id": "pasta-noodles",
+      "label": "Pasta & Noodles",
+      "blurb": "Pasta and noodle meals, inspired by flavours from around the world."
     },
     {
       "id": "intercontinental",
@@ -11,90 +36,438 @@
       "blurb": "Dishes from further afield, made fresh with the same kitchen discipline."
     },
     {
-      "id": "sides-drinks",
-      "label": "Sides & Drinks",
-      "blurb": "Small plates, fresh smoothies and natural fruit drinks made in-house."
+      "id": "small-chops",
+      "label": "Small Chops",
+      "blurb": "Bite-sized treats, perfect for any occasion."
+    },
+    {
+      "id": "breakfasts",
+      "label": "Breakfasts",
+      "blurb": "Start your day the delicious way."
+    },
+    {
+      "id": "classic-salads",
+      "label": "Classic & Continental Salads",
+      "blurb": "Familiar favourites from home and abroad."
+    },
+    {
+      "id": "healthy-salads",
+      "label": "Premium Healthy Salads",
+      "blurb": "Lighter bowls built around avocado and fresh greens."
+    },
+    {
+      "id": "protein-salads",
+      "label": "Protein Salads",
+      "blurb": "Fresh salads with a proper portion of protein."
+    },
+    {
+      "id": "nigerian-salads",
+      "label": "Nigerian / African-Style Salads",
+      "blurb": "Salads with a local accent, from suya to plantain."
+    },
+    {
+      "id": "fruit-salads",
+      "label": "Fruit Salads",
+      "blurb": "Fresh fruit, cut and mixed."
+    },
+    {
+      "id": "signature-salads",
+      "label": "GG Signature Salads",
+      "blurb": "Our own creations, only at GG Foods."
+    },
+    {
+      "id": "drinks",
+      "label": "Natural Fruit Drinks & Smoothies",
+      "blurb": "Fresh smoothies and natural fruit drinks, made in-house."
     }
   ],
   "menu": [
-    {
-      "slug": "smoky-party-jollof-rice",
-      "name": "Special Salad",
-      "description": "A fresh and delicious mix of crisp vegetables, colorful ingredients, and a creamy, flavorful dressing. Carefully prepared to deliver the perfect balance of freshness, crunch, and taste in every bite.",
-      "priceNGN": 5000,
-      "category": "nigerian",
-      "tags": [
-        "spicy"
-      ],
-      "signature": true
-    },
-    {
-      "slug": "egusi-soup-pounded-yam",
-      "name": "Egusi Soup with Pounded Yam",
-      "description": "Rich melon-seed soup loaded with assorted meat and stockfish, served with soft, freshly pounded yam.",
-      "priceNGN": 3000,
-      "category": "nigerian",
-      "signature": true
-    },
-    {
-      "slug": "suya-beef-platter",
-      "name": "Pepper Snails",
-      "description": "Thin-cut snail meat grilled over open flame, dusted with yaji spice, served with fresh onions and tomatoes.",
-      "priceNGN": 3500,
-      "category": "nigerian",
-      "tags": [
-        "spicy"
-      ],
-      "signature": false
-    },
-    {
-      "slug": "catfish-pepper-soup",
-      "name": "SeaFood Okro + Semo.",
-      "description": "A rich and flavorful seafood okro soup, loaded with fresh seafood and traditional Nigerian spices. Served with smooth, soft semolina (Semo) for the perfect taste of home in every bite.\n",
-      "priceNGN": 15700,
-      "category": "nigerian",
-      "tags": [
-        "spicy"
-      ]
-    },
     {
       "slug": "ofada-rice-ayamase",
       "name": "Ofada Rice with Ayamase",
       "description": "Local ofada rice with the famous green-pepper designer stew, assorted meat and boiled egg.",
       "priceNGN": 5500,
-      "category": "nigerian",
+      "category": "rice-dishes",
       "tags": [
         "spicy"
       ]
-    },
-    {
-      "slug": "moi-moi-deluxe",
-      "name": "Boiled yam and Egg sauce",
-      "description": "Soft, perfectly boiled yam served with a rich, savory egg sauce made with fresh tomatoes, peppers, onions, and delicious spices. A simple, satisfying taste of home in every bite.\n",
-      "priceNGN": 4550,
-      "category": "nigerian"
     },
     {
       "slug": "village-fried-rice-grilled-chicken",
       "name": "Fried Rice and Beef/Plantain",
       "description": "Flavorful, perfectly seasoned fried rice served with tender, juicy beef and sweet, golden-fried plantain. A delicious combination of savory goodness and irresistible sweetness in every bite.",
       "priceNGN": 4550,
-      "category": "nigerian"
+      "category": "rice-dishes"
+    },
+    {
+      "slug": "white-rice",
+      "name": "White Rice",
+      "description": "",
+      "priceNGN": null,
+      "category": "rice-dishes"
+    },
+    {
+      "slug": "jollof-rice",
+      "name": "Jollof Rice",
+      "description": "Long-grain rice cooked in a smoky tomato and pepper base.",
+      "priceNGN": null,
+      "category": "rice-dishes"
+    },
+    {
+      "slug": "fried-rice",
+      "name": "Fried Rice",
+      "description": "Rice stir-fried with mixed vegetables.",
+      "priceNGN": null,
+      "category": "rice-dishes"
+    },
+    {
+      "slug": "coconut-rice",
+      "name": "Coconut Rice",
+      "description": "Rice cooked in coconut milk.",
+      "priceNGN": null,
+      "category": "rice-dishes"
+    },
+    {
+      "slug": "asun-rice",
+      "name": "Asun Rice",
+      "description": "Rice tossed with asun, spicy grilled goat meat.",
+      "priceNGN": null,
+      "category": "rice-dishes",
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "slug": "native-rice",
+      "name": "Native Rice",
+      "description": "Palm-oil rice cooked the traditional way.",
+      "priceNGN": null,
+      "category": "rice-dishes"
+    },
+    {
+      "slug": "egusi-soup-pounded-yam",
+      "name": "Egusi Soup with Pounded Yam",
+      "description": "Rich melon-seed soup loaded with assorted meat and stockfish, served with soft, freshly pounded yam.",
+      "priceNGN": 3000,
+      "category": "soups-stews",
+      "signature": true
+    },
+    {
+      "slug": "catfish-pepper-soup",
+      "name": "SeaFood Okro + Semo.",
+      "description": "A rich and flavorful seafood okro soup, loaded with fresh seafood and traditional Nigerian spices. Served with smooth, soft semolina (Semo) for the perfect taste of home in every bite.\n",
+      "priceNGN": 15700,
+      "category": "soups-stews",
+      "tags": [
+        "spicy"
+      ]
     },
     {
       "slug": "grilled-salmon-lemon-butter",
       "name": "Vegetable Soup + Eba/Poundo/Semo",
       "description": "A rich and delicious vegetable soup, packed with fresh leafy greens, flavorful spices, and tender assorted proteins. Served with your choice of soft Poundo, Eba, or Semo for a hearty and satisfying taste of home.",
       "priceNGN": 9100,
-      "category": "nigerian",
+      "category": "soups-stews",
       "signature": true
+    },
+    {
+      "slug": "oha-soup",
+      "name": "Oha Soup",
+      "description": "Eastern soup thickened with cocoyam and cooked with oha leaves.",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "egusi-soup",
+      "name": "Egusi Soup",
+      "description": "Ground melon-seed soup cooked with leafy greens.",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "afang-soup",
+      "name": "Afang Soup",
+      "description": "Calabar soup of afang leaves and waterleaf.",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "vegetable-soup",
+      "name": "Vegetable Soup",
+      "description": "",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "ogbono-soup",
+      "name": "Ogbono Soup",
+      "description": "Draw soup made from ground ogbono seeds.",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "okra-soup",
+      "name": "Okra Soup",
+      "description": "Fresh chopped okra cooked into a light draw soup.",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "seafood-okra",
+      "name": "Seafood Okra",
+      "description": "Okra soup loaded with seafood.",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "fisherman-soup",
+      "name": "Fisherman Soup",
+      "description": "Seafood soup in a rich pepper broth.",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "efo-riro",
+      "name": "Efo Riro",
+      "description": "Spinach stewed in a rich pepper sauce.",
+      "priceNGN": null,
+      "category": "soups-stews"
+    },
+    {
+      "slug": "eba",
+      "name": "Eba",
+      "description": "Garri (cassava flakes) stirred into a smooth, firm swallow.",
+      "priceNGN": null,
+      "category": "swallows"
+    },
+    {
+      "slug": "semo",
+      "name": "Semo",
+      "description": "Smooth swallow made from semolina.",
+      "priceNGN": null,
+      "category": "swallows"
+    },
+    {
+      "slug": "pounded-yam",
+      "name": "Pounded Yam",
+      "description": "Yam pounded until smooth and stretchy.",
+      "priceNGN": null,
+      "category": "swallows"
+    },
+    {
+      "slug": "amala",
+      "name": "Amala",
+      "description": "Soft, dark swallow made from yam flour.",
+      "priceNGN": null,
+      "category": "swallows"
+    },
+    {
+      "slug": "wheat",
+      "name": "Wheat",
+      "description": "Smooth swallow made from wheat flour.",
+      "priceNGN": null,
+      "category": "swallows"
+    },
+    {
+      "slug": "fufu",
+      "name": "Fufu",
+      "description": "Soft cassava swallow with a gentle tang.",
+      "priceNGN": null,
+      "category": "swallows"
     },
     {
       "slug": "creamy-chicken-alfredo",
       "name": "Beans and Plantain",
       "description": "Deliciously cooked beans seasoned with flavorful spices and served with sweet, golden-fried plantain. A hearty, comforting Nigerian classic that delivers the perfect balance of savory goodness and natural sweetness.",
       "priceNGN": 3900,
-      "category": "nigerian"
+      "category": "yam-plantain"
+    },
+    {
+      "slug": "boiled-yam",
+      "name": "Boiled Yam",
+      "description": "",
+      "priceNGN": null,
+      "category": "yam-plantain"
+    },
+    {
+      "slug": "yam-porridge",
+      "name": "Yam Porridge",
+      "description": "Yam cooked down in a palm-oil pepper sauce.",
+      "priceNGN": null,
+      "category": "yam-plantain"
+    },
+    {
+      "slug": "moi-moi-deluxe",
+      "name": "Yam & Egg Sauce",
+      "description": "Soft, perfectly boiled yam served with a rich, savory egg sauce made with fresh tomatoes, peppers, onions, and delicious spices. A simple, satisfying taste of home in every bite.\n",
+      "priceNGN": 4550,
+      "category": "yam-plantain"
+    },
+    {
+      "slug": "boiled-plantain",
+      "name": "Boiled Plantain",
+      "description": "",
+      "priceNGN": null,
+      "category": "yam-plantain"
+    },
+    {
+      "slug": "dodo-fried-plantain",
+      "name": "Fried Plantain (1 Portion)",
+      "description": "Sweet ripe plantain, deep-fried golden at the edges.",
+      "priceNGN": 1500,
+      "category": "yam-plantain",
+      "tags": [
+        "vegetarian"
+      ]
+    },
+    {
+      "slug": "plantain-each",
+      "name": "Plantain (Each)",
+      "description": "",
+      "priceNGN": null,
+      "category": "yam-plantain"
+    },
+    {
+      "slug": "chicken-small",
+      "name": "Chicken (Small)",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "chicken-big",
+      "name": "Chicken (Big)",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "chicken-and-chips",
+      "name": "Chicken & Chips",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "chicken-in-curry-sauce",
+      "name": "Chicken in Curry Sauce",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "grilled-chicken",
+      "name": "Grilled Chicken",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "beef-1-piece",
+      "name": "Beef (1 Piece)",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "goat-meat",
+      "name": "Goat Meat",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "catfish-grilled",
+      "name": "Catfish (Grilled)",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "fish-steamed-fried",
+      "name": "Fish (Steamed/Fried)",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "moi-moi",
+      "name": "Moi Moi",
+      "description": "Steamed bean pudding.",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "beans-1-portion",
+      "name": "Beans (1 Portion)",
+      "description": "",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "egg-sauce",
+      "name": "Egg Sauce",
+      "description": "Eggs scrambled into a tomato and pepper sauce.",
+      "priceNGN": null,
+      "category": "proteins"
+    },
+    {
+      "slug": "beef-stir-fry-noodles",
+      "name": "Beef Stir-Fry Noodles",
+      "description": "Egg noodles flash-fried with strips of beef, spring onions and a glossy soy-ginger glaze.",
+      "priceNGN": 5000,
+      "category": "pasta-noodles",
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "slug": "spaghetti",
+      "name": "Spaghetti",
+      "description": "",
+      "priceNGN": null,
+      "category": "pasta-noodles"
+    },
+    {
+      "slug": "spaghetti-cajun",
+      "name": "Spaghetti Cajun",
+      "description": "Spaghetti tossed in spicy Cajun seasoning.",
+      "priceNGN": null,
+      "category": "pasta-noodles",
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "slug": "alfredo-pasta",
+      "name": "Alfredo Pasta",
+      "description": "Pasta in a creamy Alfredo sauce.",
+      "priceNGN": null,
+      "category": "pasta-noodles"
+    },
+    {
+      "slug": "pasta-bolognaise",
+      "name": "Pasta Bolognaise",
+      "description": "Pasta with a minced beef and tomato sauce.",
+      "priceNGN": null,
+      "category": "pasta-noodles"
+    },
+    {
+      "slug": "jollof-pasta",
+      "name": "Jollof Pasta",
+      "description": "Spaghetti cooked jollof-style in a tomato and pepper base.",
+      "priceNGN": null,
+      "category": "pasta-noodles"
+    },
+    {
+      "slug": "asun-pasta",
+      "name": "Asun Pasta",
+      "description": "Pasta tossed with asun, spicy grilled goat meat.",
+      "priceNGN": null,
+      "category": "pasta-noodles",
+      "tags": [
+        "spicy"
+      ]
     },
     {
       "slug": "gg-smash-burger-fries",
@@ -111,16 +484,6 @@
       "category": "intercontinental"
     },
     {
-      "slug": "beef-stir-fry-noodles",
-      "name": "Beef Stir-Fry Noodles",
-      "description": "Egg noodles flash-fried with strips of beef, spring onions and a glossy soy-ginger glaze.",
-      "priceNGN": 5000,
-      "category": "intercontinental",
-      "tags": [
-        "spicy"
-      ]
-    },
-    {
       "slug": "club-sandwich-triple-stack",
       "name": "Triple-Stack Club Sandwich",
       "description": "Three layers of toasted bread with grilled chicken, egg, cheese and fresh salad, served with fries.",
@@ -135,38 +498,590 @@
       "category": "intercontinental"
     },
     {
-      "slug": "dodo-fried-plantain",
-      "name": "Dodo (Fried Plantain)",
-      "description": "Sweet ripe plantain, deep-fried golden at the edges.",
-      "priceNGN": 1500,
-      "category": "sides-drinks",
+      "slug": "suya-beef-platter",
+      "name": "Pepper Snails",
+      "description": "Thin-cut snail meat grilled over open flame, dusted with yaji spice, served with fresh onions and tomatoes.",
+      "priceNGN": 3500,
+      "category": "small-chops",
+      "tags": [
+        "spicy"
+      ],
+      "signature": false
+    },
+    {
+      "slug": "peppered-gizzard",
+      "name": "Peppered Gizzard",
+      "description": "Gizzard tossed in a spicy pepper sauce.",
+      "priceNGN": null,
+      "category": "small-chops",
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "slug": "peppered-chicken",
+      "name": "Peppered Chicken",
+      "description": "Chicken tossed in a spicy pepper sauce.",
+      "priceNGN": null,
+      "category": "small-chops",
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "slug": "golden-spring-rolls",
+      "name": "Spring Rolls",
+      "description": "Crisp vegetable spring rolls with a sweet-chilli dip.",
+      "priceNGN": 2500,
+      "category": "small-chops",
       "tags": [
         "vegetarian"
       ]
     },
     {
-      "slug": "golden-spring-rolls",
-      "name": "Golden Spring Rolls",
-      "description": "Crisp vegetable spring rolls with a sweet-chilli dip.",
-      "priceNGN": 2500,
-      "category": "sides-drinks",
+      "slug": "samosa",
+      "name": "Samosa",
+      "description": "",
+      "priceNGN": null,
+      "category": "small-chops"
+    },
+    {
+      "slug": "meat-pie",
+      "name": "Meat Pie",
+      "description": "Buttery pastry filled with minced meat and potato.",
+      "priceNGN": null,
+      "category": "small-chops"
+    },
+    {
+      "slug": "chicken-pie",
+      "name": "Chicken Pie",
+      "description": "Buttery pastry filled with chicken.",
+      "priceNGN": null,
+      "category": "small-chops"
+    },
+    {
+      "slug": "puff-puff-10-pcs",
+      "name": "Puff Puff (10 pcs)",
+      "description": "Ten soft, golden fried dough balls.",
+      "priceNGN": null,
+      "category": "small-chops"
+    },
+    {
+      "slug": "fish-roll",
+      "name": "Fish Roll",
+      "description": "Pastry roll filled with seasoned fish.",
+      "priceNGN": null,
+      "category": "small-chops"
+    },
+    {
+      "slug": "gizzards",
+      "name": "Gizzards",
+      "description": "",
+      "priceNGN": null,
+      "category": "small-chops"
+    },
+    {
+      "slug": "assorted-small-chops-platter",
+      "name": "Assorted Small Chops (Platter)",
+      "description": "A platter of mixed small chops.",
+      "priceNGN": null,
+      "category": "small-chops"
+    },
+    {
+      "slug": "full-english-breakfast",
+      "name": "Full English Breakfast",
+      "description": "",
+      "priceNGN": null,
+      "category": "breakfasts"
+    },
+    {
+      "slug": "bread-and-egg",
+      "name": "Bread & Egg",
+      "description": "",
+      "priceNGN": null,
+      "category": "breakfasts"
+    },
+    {
+      "slug": "omelette-and-bread",
+      "name": "Omelette & Bread",
+      "description": "",
+      "priceNGN": null,
+      "category": "breakfasts"
+    },
+    {
+      "slug": "pancakes",
+      "name": "Pancakes",
+      "description": "",
+      "priceNGN": null,
+      "category": "breakfasts"
+    },
+    {
+      "slug": "waffles",
+      "name": "Waffles",
+      "description": "",
+      "priceNGN": null,
+      "category": "breakfasts"
+    },
+    {
+      "slug": "beans-and-bread",
+      "name": "Beans & Bread",
+      "description": "",
+      "priceNGN": null,
+      "category": "breakfasts"
+    },
+    {
+      "slug": "sausage-and-egg",
+      "name": "Sausage & Egg",
+      "description": "",
+      "priceNGN": null,
+      "category": "breakfasts"
+    },
+    {
+      "slug": "boiled-yam-and-egg-sauce",
+      "name": "Boiled Yam & Egg Sauce",
+      "description": "Soft, perfectly boiled yam served with a rich, savory egg sauce made with fresh tomatoes, peppers, onions, and delicious spices. A simple, satisfying taste of home in every bite.",
+      "priceNGN": null,
+      "category": "breakfasts"
+    },
+    {
+      "slug": "classic-garden-salad",
+      "name": "Classic Garden Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "vegetable-salad",
+      "name": "Vegetable Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "coleslaw",
+      "name": "Coleslaw",
+      "description": "Shredded cabbage and carrot in a light dressing.",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "creamy-coleslaw",
+      "name": "Creamy Coleslaw",
+      "description": "Shredded cabbage and carrot in a creamy mayonnaise dressing.",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "caesar-salad",
+      "name": "Caesar Salad",
+      "description": "Romaine lettuce, croutons and parmesan in a creamy Caesar dressing.",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "greek-salad",
+      "name": "Greek Salad",
+      "description": "Tomato, cucumber, red onion, olives and feta.",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "italian-salad",
+      "name": "Italian Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "mediterranean-salad",
+      "name": "Mediterranean Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "russian-salad",
+      "name": "Russian Salad",
+      "description": "Diced potato, carrot, peas and egg in a creamy dressing.",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "waldorf-salad",
+      "name": "Waldorf Salad",
+      "description": "Apple, celery and walnuts in a creamy dressing.",
+      "priceNGN": null,
+      "category": "classic-salads"
+    },
+    {
+      "slug": "avocado-garden-salad",
+      "name": "Avocado Garden Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "avocado-chicken-salad",
+      "name": "Avocado Chicken Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "avocado-egg-salad",
+      "name": "Avocado Egg Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "avocado-tuna-salad",
+      "name": "Avocado Tuna Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "avocado-tropical-salad",
+      "name": "Avocado Tropical Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "power-salad",
+      "name": "Power Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "green-power-salad",
+      "name": "Green Power Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "rainbow-salad",
+      "name": "Rainbow Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "detox-salad",
+      "name": "Detox Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "garden-power-bowl",
+      "name": "Garden Power Bowl",
+      "description": "",
+      "priceNGN": null,
+      "category": "healthy-salads"
+    },
+    {
+      "slug": "chicken-salad",
+      "name": "Chicken Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "grilled-chicken-salad",
+      "name": "Grilled Chicken Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "crispy-chicken-salad",
+      "name": "Crispy Chicken Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "chicken-caesar-salad",
+      "name": "Chicken Caesar Salad",
+      "description": "Caesar salad topped with chicken.",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "tuna-salad",
+      "name": "Tuna Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "egg-salad",
+      "name": "Egg Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "chicken-and-egg-salad",
+      "name": "Chicken & Egg Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "beef-salad",
+      "name": "Beef Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "turkey-salad",
+      "name": "Turkey Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "seafood-salad",
+      "name": "Seafood Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "protein-salads"
+    },
+    {
+      "slug": "smoky-party-jollof-rice",
+      "name": "Special Salad",
+      "description": "A fresh and delicious mix of crisp vegetables, colorful ingredients, and a creamy, flavorful dressing. Carefully prepared to deliver the perfect balance of freshness, crunch, and taste in every bite.",
+      "priceNGN": 5000,
+      "category": "nigerian-salads",
       "tags": [
-        "vegetarian"
+        "spicy"
+      ],
+      "signature": true
+    },
+    {
+      "slug": "nigerian-vegetable-salad",
+      "name": "Nigerian Vegetable Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "nigerian-salads"
+    },
+    {
+      "slug": "nigerian-chicken-salad",
+      "name": "Nigerian Chicken Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "nigerian-salads"
+    },
+    {
+      "slug": "nigerian-egg-salad",
+      "name": "Nigerian Egg Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "nigerian-salads"
+    },
+    {
+      "slug": "nigerian-beef-salad",
+      "name": "Nigerian Beef Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "nigerian-salads"
+    },
+    {
+      "slug": "plantain-chicken-salad",
+      "name": "Plantain Chicken Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "nigerian-salads"
+    },
+    {
+      "slug": "spicy-chicken-salad",
+      "name": "Spicy Chicken Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "nigerian-salads",
+      "tags": [
+        "spicy"
       ]
+    },
+    {
+      "slug": "grilled-fish-salad",
+      "name": "Grilled Fish Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "nigerian-salads"
+    },
+    {
+      "slug": "suya-chicken-salad",
+      "name": "Suya Chicken Salad",
+      "description": "Salad topped with suya chicken, grilled with spicy yaji.",
+      "priceNGN": null,
+      "category": "nigerian-salads",
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "slug": "suya-beef-salad",
+      "name": "Suya Beef Salad",
+      "description": "Salad topped with beef suya, grilled with spicy yaji.",
+      "priceNGN": null,
+      "category": "nigerian-salads",
+      "tags": [
+        "spicy"
+      ]
+    },
+    {
+      "slug": "nigerian-supreme-salad",
+      "name": "Nigerian Supreme Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "nigerian-salads"
+    },
+    {
+      "slug": "tropical-fruit-salad",
+      "name": "Tropical Fruit Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "mixed-fruit-salad",
+      "name": "Mixed Fruit Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "exotic-fruit-salad",
+      "name": "Exotic Fruit Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "berry-fruit-salad",
+      "name": "Berry Fruit Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "watermelon-fruit-salad",
+      "name": "Watermelon Fruit Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "mango-fruit-salad",
+      "name": "Mango Fruit Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "citrus-fruit-salad",
+      "name": "Citrus Fruit Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "honey-fruit-salad",
+      "name": "Honey Fruit Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "tropical-coconut-salad",
+      "name": "Tropical Coconut Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "fruit-salads"
+    },
+    {
+      "slug": "gg-royal-garden-salad",
+      "name": "GG Royal Garden Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
+    },
+    {
+      "slug": "gg-chicken-supreme-salad",
+      "name": "GG Chicken Supreme Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
+    },
+    {
+      "slug": "gg-tropical-paradise-salad",
+      "name": "GG Tropical Paradise Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
+    },
+    {
+      "slug": "gg-royal-avocado-salad",
+      "name": "GG Royal Avocado Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
+    },
+    {
+      "slug": "gg-african-supreme-salad",
+      "name": "GG African Supreme Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
+    },
+    {
+      "slug": "gg-seafood-royale",
+      "name": "GG Seafood Royale",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
+    },
+    {
+      "slug": "gg-power-punch-salad",
+      "name": "GG Power Punch Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
+    },
+    {
+      "slug": "gg-tropical-fruit-royale",
+      "name": "GG Tropical Fruit Royale",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
+    },
+    {
+      "slug": "gg-healthy-bliss-salad",
+      "name": "GG Healthy Bliss Salad",
+      "description": "",
+      "priceNGN": null,
+      "category": "signature-salads"
     },
     {
       "slug": "chapman-classic",
       "name": "Classic Chapman",
       "description": "The Lagos favourite: a tall, ice-cold mix of citrus, grenadine and bitters, finished with cucumber.",
       "priceNGN": 2500,
-      "category": "sides-drinks"
+      "category": "drinks"
     },
     {
       "slug": "mango-pineapple-smoothie",
       "name": "Mango Pineapple Smoothie",
       "description": "Fresh mango and pineapple blended in-house, nothing artificial.",
       "priceNGN": 3000,
-      "category": "sides-drinks",
+      "category": "drinks",
       "tags": [
         "vegetarian"
       ]
@@ -176,7 +1091,7 @@
       "name": "Iced Zobo",
       "description": "Chilled hibiscus drink brewed with ginger and pineapple peel.",
       "priceNGN": 1500,
-      "category": "sides-drinks",
+      "category": "drinks",
       "tags": [
         "vegetarian"
       ]
