@@ -470,12 +470,24 @@ sections worth ordering. What remains is whatever the owner asks for next.
   - **Photos:** 14 are the owner's real ones (the slugs that existed before
     2026-10-03); `boiled-yam-and-egg-sauce.jpg` is a copy of the real
     `moi-moi-deluxe.jpg`, the same dish. **The other 122 are AI-generated
-    stand-ins** (GPT Image 2 through Higgsfield, 1k, medium quality, 4:3),
-    styled to sit beside the real ones: white plate or bowl, dark speckled
-    granite counter, window light, only the named dish and no extra sides. The
-    prompt template and every dish's visual are in the session scratchpad's
-    `menu-plan.mjs`; regenerate one by reusing that wording. Replace any of them
-    with a real photo through the admin's media page.
+    stand-ins**, made a second time on 2026-10-04 to look less "AI": **GPT
+    Image 2.5 through Higgsfield, 1k, medium (0.5 credits each), with the
+    owner's real egusi photo as an `image_references` style reference**
+    (Higgsfield media id `9309f70e-31b1-4e3f-81b8-5540bf16cec0`, imported from
+    the live site). The reference carries the owner's phone-camera look, counter
+    and square plates; the prompt says to copy only the look, never the food.
+    The prompt asks for "a real, unstyled photo ... as actually served", plain
+    daylight, everything in focus, ordinary portions and slightly imperfect
+    plating. The first round (GPT Image 2, no reference) came out uniform and
+    plastic-looking, which the owner rejected. The template and every dish's
+    visual are in the session scratchpad's `menu-plan-v2.mjs`. Replace any
+    picture with a real photo through the admin's media page.
+  - **Every dish has a description.** The owner's 19 keep their own words; the
+    117 added dishes got one or two sensory lines each, in American spelling
+    to match the owner's (flavor, savory), with no long dashes, no health
+    claims (the Detox Salad says what is in it, not what it does), no sourcing
+    claims and no superlatives. The GG Signature salads were described from
+    what the name suggests and the picture shows, for the owner to correct.
   - `signature: true` still drives the home strip and is unchanged.
   Dish images are `/images/menu/<slug>.jpg` through a client `MenuImage` with a
   designed ember fallback.
@@ -656,6 +668,16 @@ Each of these cost real time. Read before debugging something similar.
   and the site silently stays on its previous version. Ship code and data in
   one commit yourself, and tell the owner not to publish that change from the
   admin.
+- **To make AI food pictures look real, give the model a real photo as a style
+  reference.** Prompt wording alone ("realistic", "natural light") still gave
+  uniform, plastic-looking food. GPT Image 2.5 with the owner's own phone photo
+  as `image_references` copied its camera, light and plates, and the food came
+  out with natural texture. Tell it to copy the look only, and check every
+  result for the reference's food leaking in. **Check meat pictures for
+  anything that reads as pork**: "Beef (1 Piece)" first came out layered with
+  fat like pork belly, which many of this restaurant's customers would not
+  forgive; asking for lean beef with visible grain, no fat layers and no skin
+  fixed it.
 - **Higgsfield's Basic plan runs 4 generations at a time.** A batch of 12 has 8
   refused with "Rate limit reached"; refused items are not charged. Feed 4 at a
   time and top up as each finishes. GPT Image 2 at 1k: 0.5 credits low, 1
@@ -811,10 +833,10 @@ Photography and the logo can now be uploaded through the admin's media page,
 so these no longer need a developer.
 
 **GG FOODS:** prices for the **118 unpriced dishes** (set in the admin; an
-unpriced dish simply shows no price), what goes into the owner's own creations
-(the 9 GG Signature salads, Power, Green Power, Rainbow, Detox, Garden Power
-Bowl and Nigerian Supreme salads, whose descriptions are empty and whose
-pictures are a plausible guess), **real photographs** to replace the 122
+unpriced dish simply shows no price), confirmation of what goes into the owner's own
+creations (the 9 GG Signature salads, Power, Green Power, Rainbow, Detox,
+Garden Power Bowl and Nigerian Supreme salads, whose descriptions and pictures
+are a plausible reading of the name, written for the owner to correct), **real photographs** to replace the 122
 AI-generated stand-ins over time, and the **"Natural Fruit Drinks &
 Smoothies" section**, which was cut off the edge of the screenshots the menu
 was read from. Also its own address, phone and opening hours (it currently
@@ -840,6 +862,24 @@ one, so it was not built.
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-10-04** — **Every GG Foods dish now has a description, and the 122
+  AI pictures were redone to look like real photos.** The owner asked for
+  beautiful descriptions instead of just a picture and a name, and for pictures
+  that are realistic rather than obviously AI. 117 descriptions were written
+  for the dishes added yesterday (54 to 158 characters, average 98); the
+  owner's 19 dishes keep their own words, so all 137 now have one. Checked
+  against the admin's save guard and for long dashes, British spellings and
+  health claims.
+  Pictures: tested three styles side by side on the three that looked most
+  artificial (jollof, a chicken leg quarter that looked breaded like fast food,
+  Greek salad); GPT Image 2.5 with the owner's real egusi photo as a style
+  reference won clearly and also costs half as much (0.5 credits). All 122
+  were regenerated that way and reviewed on labelled contact sheets; one redo,
+  "Beef (1 Piece)", whose first version looked like pork belly. 63 credits
+  used, 83 left. The owner's 14 real photos and the copied yam & egg sauce
+  photo were not touched. Verified on a production build: 137 dish cards and
+  137 descriptions on the page.
 
 - **2026-10-03** — **GG Foods has its real menu: 137 dishes in 16 sections,
   every one with a picture.** Read from two screenshots of the owner's printed

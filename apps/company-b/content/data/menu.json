@@ -102,35 +102,35 @@
     {
       "slug": "white-rice",
       "name": "White Rice",
-      "description": "",
+      "description": "Fluffy long-grain white rice, steamed until every grain stands apart. The easy partner for any of our stews, sauces and proteins.",
       "priceNGN": null,
       "category": "rice-dishes"
     },
     {
       "slug": "jollof-rice",
       "name": "Jollof Rice",
-      "description": "Long-grain rice cooked in a smoky tomato and pepper base.",
+      "description": "Long-grain rice slow-cooked in a rich tomato and red pepper base until it takes on that deep orange glow and the smoky, party-style flavor everyone waits for.",
       "priceNGN": null,
       "category": "rice-dishes"
     },
     {
       "slug": "fried-rice",
       "name": "Fried Rice",
-      "description": "Rice stir-fried with mixed vegetables.",
+      "description": "Golden fried rice tossed with diced carrots, green peas, sweetcorn and green beans, lightly seasoned and bursting with color.",
       "priceNGN": null,
       "category": "rice-dishes"
     },
     {
       "slug": "coconut-rice",
       "name": "Coconut Rice",
-      "description": "Rice cooked in coconut milk.",
+      "description": "Rice simmered in coconut milk with a gentle touch of pepper. Soft, fragrant and quietly rich.",
       "priceNGN": null,
       "category": "rice-dishes"
     },
     {
       "slug": "asun-rice",
       "name": "Asun Rice",
-      "description": "Rice tossed with asun, spicy grilled goat meat.",
+      "description": "Rice tossed with asun, spicy smoked goat meat, with sliced onions and red peppers. Smoky, peppery and bold.",
       "priceNGN": null,
       "category": "rice-dishes",
       "tags": [
@@ -140,7 +140,7 @@
     {
       "slug": "native-rice",
       "name": "Native Rice",
-      "description": "Palm-oil rice cooked the traditional way.",
+      "description": "Traditional palm-oil rice cooked with crayfish, dried fish and fragrant scent leaves. Earthy, deeply savory and full of home-style flavor.",
       "priceNGN": null,
       "category": "rice-dishes"
     },
@@ -173,105 +173,105 @@
     {
       "slug": "oha-soup",
       "name": "Oha Soup",
-      "description": "Eastern soup thickened with cocoyam and cooked with oha leaves.",
+      "description": "A treasured Eastern soup, thickened with cocoyam and finished with tender oha leaves, simmered with meat and stockfish into a rich, comforting bowl.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "egusi-soup",
       "name": "Egusi Soup",
-      "description": "Ground melon-seed soup cooked with leafy greens.",
+      "description": "Ground melon seeds cooked down in palm oil with leafy greens and meat. Thick, nutty and generous, and best enjoyed with your choice of swallow.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "afang-soup",
       "name": "Afang Soup",
-      "description": "Calabar soup of afang leaves and waterleaf.",
+      "description": "A Calabar classic of finely shredded afang leaves and waterleaf, cooked in palm oil with meat and periwinkles. Rich, green and deeply satisfying.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "vegetable-soup",
       "name": "Vegetable Soup",
-      "description": "",
+      "description": "Fresh ugu and waterleaf cooked down in palm oil with meat and stockfish. A wholesome, vibrant soup that pairs beautifully with any swallow.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "ogbono-soup",
       "name": "Ogbono Soup",
-      "description": "Draw soup made from ground ogbono seeds.",
+      "description": "Ground ogbono seeds simmered into a smooth, silky draw soup with leafy greens and meat. Earthy, comforting and made for swallow.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "okra-soup",
       "name": "Okra Soup",
-      "description": "Fresh chopped okra cooked into a light draw soup.",
+      "description": "Freshly chopped okra cooked into a light, silky draw soup with meat and a gentle warmth of pepper.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "seafood-okra",
       "name": "Seafood Okra",
-      "description": "Okra soup loaded with seafood.",
+      "description": "Our okra soup loaded with prawns, crab, periwinkles and fish. Light, silky and full of the fresh taste of the sea.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "fisherman-soup",
       "name": "Fisherman Soup",
-      "description": "Seafood soup in a rich pepper broth.",
+      "description": "A Rivers-style soup of fresh fish, prawns, crab and periwinkles in a rich, peppery red broth. Hearty, warming and generous.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "efo-riro",
       "name": "Efo Riro",
-      "description": "Spinach stewed in a rich pepper sauce.",
+      "description": "Chopped spinach stewed in a rich red pepper and palm oil sauce with tender meat. A Yoruba favorite with bold, savory depth.",
       "priceNGN": null,
       "category": "soups-stews"
     },
     {
       "slug": "eba",
       "name": "Eba",
-      "description": "Garri (cassava flakes) stirred into a smooth, firm swallow.",
+      "description": "Garri stirred with hot water into a smooth, firm swallow, soft enough to shape and perfect for scooping up any soup.",
       "priceNGN": null,
       "category": "swallows"
     },
     {
       "slug": "semo",
       "name": "Semo",
-      "description": "Smooth swallow made from semolina.",
+      "description": "A smooth, light swallow made from semolina. Soft and mild, an easy partner for every soup on our menu.",
       "priceNGN": null,
       "category": "swallows"
     },
     {
       "slug": "pounded-yam",
       "name": "Pounded Yam",
-      "description": "Yam pounded until smooth and stretchy.",
+      "description": "Yam pounded until smooth, soft and stretchy. The classic partner for egusi, ogbono and every rich soup.",
       "priceNGN": null,
       "category": "swallows"
     },
     {
       "slug": "amala",
       "name": "Amala",
-      "description": "Soft, dark swallow made from yam flour.",
+      "description": "Soft, dark swallow made from yam flour, with a gentle earthy taste. Wonderful with efo riro or ogbono soup.",
       "priceNGN": null,
       "category": "swallows"
     },
     {
       "slug": "wheat",
       "name": "Wheat",
-      "description": "Smooth swallow made from wheat flour.",
+      "description": "A smooth, light brown swallow made from wheat flour. Soft and mild with a slightly nutty taste.",
       "priceNGN": null,
       "category": "swallows"
     },
     {
       "slug": "fufu",
       "name": "Fufu",
-      "description": "Soft cassava swallow with a gentle tang.",
+      "description": "Fermented cassava swallow, soft and smooth with a gentle tang. A traditional favorite with any rich soup.",
       "priceNGN": null,
       "category": "swallows"
     },
@@ -285,14 +285,14 @@
     {
       "slug": "boiled-yam",
       "name": "Boiled Yam",
-      "description": "",
+      "description": "Thick slices of white yam boiled until soft and fluffy. Simple, filling and perfect with our egg sauce.",
       "priceNGN": null,
       "category": "yam-plantain"
     },
     {
       "slug": "yam-porridge",
       "name": "Yam Porridge",
-      "description": "Yam cooked down in a palm-oil pepper sauce.",
+      "description": "Chunks of yam cooked down in a rich palm-oil and pepper sauce until soft and thick. Comforting, savory and warming.",
       "priceNGN": null,
       "category": "yam-plantain"
     },
@@ -306,7 +306,7 @@
     {
       "slug": "boiled-plantain",
       "name": "Boiled Plantain",
-      "description": "",
+      "description": "Ripe plantain boiled until soft and naturally sweet. A light, simple side that goes with almost anything.",
       "priceNGN": null,
       "category": "yam-plantain"
     },
@@ -323,91 +323,91 @@
     {
       "slug": "plantain-each",
       "name": "Plantain (Each)",
-      "description": "",
+      "description": "One whole ripe plantain, sliced and fried until golden at the edges, soft and sweet inside.",
       "priceNGN": null,
       "category": "yam-plantain"
     },
     {
       "slug": "chicken-small",
       "name": "Chicken (Small)",
-      "description": "",
+      "description": "A tender piece of chicken, seasoned and fried until golden. A perfect add-on to any rice or swallow.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "chicken-big",
       "name": "Chicken (Big)",
-      "description": "",
+      "description": "A generous leg quarter of chicken, seasoned, cooked until tender and fried to a deep golden finish.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "chicken-and-chips",
       "name": "Chicken & Chips",
-      "description": "",
+      "description": "Golden fried chicken with a portion of crispy chips. A simple, satisfying favorite.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "chicken-in-curry-sauce",
       "name": "Chicken in Curry Sauce",
-      "description": "",
+      "description": "Tender pieces of chicken simmered in a warm, mellow curry sauce with peppers and onions.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "grilled-chicken",
       "name": "Grilled Chicken",
-      "description": "",
+      "description": "Seasoned chicken grilled over the flame until lightly charred outside and juicy within.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "beef-1-piece",
       "name": "Beef (1 Piece)",
-      "description": "",
+      "description": "A tender, well-seasoned piece of beef, fried to a deep golden-brown. A hearty add-on to any meal.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "goat-meat",
       "name": "Goat Meat",
-      "description": "",
+      "description": "Pieces of goat meat seasoned, cooked until tender and fried for a rich, savory bite.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "catfish-grilled",
       "name": "Catfish (Grilled)",
-      "description": "",
+      "description": "Whole catfish, seasoned and grilled until the skin is crisp and smoky and the flesh is soft and flaky.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "fish-steamed-fried",
       "name": "Fish (Steamed/Fried)",
-      "description": "",
+      "description": "Whole fish, seasoned and cooked your way: steamed for a light, tender bite, or fried golden and crisp.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "moi-moi",
       "name": "Moi Moi",
-      "description": "Steamed bean pudding.",
+      "description": "Steamed bean pudding made from blended beans and peppers, smooth and soft, with a slice of boiled egg inside.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "beans-1-portion",
       "name": "Beans (1 Portion)",
-      "description": "",
+      "description": "A portion of soft, slow-cooked beans in a rich red palm-oil sauce. Hearty, filling and full of flavor.",
       "priceNGN": null,
       "category": "proteins"
     },
     {
       "slug": "egg-sauce",
       "name": "Egg Sauce",
-      "description": "Eggs scrambled into a tomato and pepper sauce.",
+      "description": "Eggs scrambled into a sauce of fresh tomatoes, peppers and onions. Light, savory and perfect with yam, plantain or bread.",
       "priceNGN": null,
       "category": "proteins"
     },
@@ -424,14 +424,14 @@
     {
       "slug": "spaghetti",
       "name": "Spaghetti",
-      "description": "",
+      "description": "Spaghetti tossed in a light, savory tomato sauce. Simple and satisfying.",
       "priceNGN": null,
       "category": "pasta-noodles"
     },
     {
       "slug": "spaghetti-cajun",
       "name": "Spaghetti Cajun",
-      "description": "Spaghetti tossed in spicy Cajun seasoning.",
+      "description": "Spaghetti tossed in a spicy Cajun-style sauce with peppers and onions. Smoky, bold and full of heat.",
       "priceNGN": null,
       "category": "pasta-noodles",
       "tags": [
@@ -441,28 +441,28 @@
     {
       "slug": "alfredo-pasta",
       "name": "Alfredo Pasta",
-      "description": "Pasta in a creamy Alfredo sauce.",
+      "description": "Ribbons of pasta coated in a rich, creamy Alfredo sauce with parmesan. Smooth, indulgent and comforting.",
       "priceNGN": null,
       "category": "pasta-noodles"
     },
     {
       "slug": "pasta-bolognaise",
       "name": "Pasta Bolognaise",
-      "description": "Pasta with a minced beef and tomato sauce.",
+      "description": "Spaghetti topped with a slow-cooked sauce of minced beef and tomatoes. Rich, hearty and comforting.",
       "priceNGN": null,
       "category": "pasta-noodles"
     },
     {
       "slug": "jollof-pasta",
       "name": "Jollof Pasta",
-      "description": "Spaghetti cooked jollof-style in a tomato and pepper base.",
+      "description": "Spaghetti cooked jollof-style in a smoky tomato and pepper base. All the flavor of jollof rice, twirled onto a fork.",
       "priceNGN": null,
       "category": "pasta-noodles"
     },
     {
       "slug": "asun-pasta",
       "name": "Asun Pasta",
-      "description": "Pasta tossed with asun, spicy grilled goat meat.",
+      "description": "Spaghetti tossed with asun, spicy smoked goat meat, with onions and red peppers. Bold, smoky and fiery.",
       "priceNGN": null,
       "category": "pasta-noodles",
       "tags": [
@@ -511,7 +511,7 @@
     {
       "slug": "peppered-gizzard",
       "name": "Peppered Gizzard",
-      "description": "Gizzard tossed in a spicy pepper sauce.",
+      "description": "Tender chicken gizzards tossed in a spicy red pepper sauce with onions. Chewy, fiery and hard to stop eating.",
       "priceNGN": null,
       "category": "small-chops",
       "tags": [
@@ -521,7 +521,7 @@
     {
       "slug": "peppered-chicken",
       "name": "Peppered Chicken",
-      "description": "Chicken tossed in a spicy pepper sauce.",
+      "description": "Chicken pieces coated in a glossy, spicy pepper sauce with onions. A Lagos party favorite.",
       "priceNGN": null,
       "category": "small-chops",
       "tags": [
@@ -541,98 +541,98 @@
     {
       "slug": "samosa",
       "name": "Samosa",
-      "description": "",
+      "description": "Crisp, golden pastry triangles with a savory spiced filling. Perfect for sharing.",
       "priceNGN": null,
       "category": "small-chops"
     },
     {
       "slug": "meat-pie",
       "name": "Meat Pie",
-      "description": "Buttery pastry filled with minced meat and potato.",
+      "description": "Buttery golden pastry, crimped around a filling of seasoned minced meat and potato. A timeless Nigerian classic.",
       "priceNGN": null,
       "category": "small-chops"
     },
     {
       "slug": "chicken-pie",
       "name": "Chicken Pie",
-      "description": "Buttery pastry filled with chicken.",
+      "description": "Flaky, buttery pastry filled with tender seasoned chicken. Warm and comforting.",
       "priceNGN": null,
       "category": "small-chops"
     },
     {
       "slug": "puff-puff-10-pcs",
       "name": "Puff Puff (10 pcs)",
-      "description": "Ten soft, golden fried dough balls.",
+      "description": "Ten soft, golden puff puff, lightly sweet fried dough balls that are fluffy inside and impossible to stop at one.",
       "priceNGN": null,
       "category": "small-chops"
     },
     {
       "slug": "fish-roll",
       "name": "Fish Roll",
-      "description": "Pastry roll filled with seasoned fish.",
+      "description": "Golden fried dough rolled around a spiced fish filling. Soft, savory and satisfying.",
       "priceNGN": null,
       "category": "small-chops"
     },
     {
       "slug": "gizzards",
       "name": "Gizzards",
-      "description": "",
+      "description": "Chicken gizzards seasoned and fried until golden and tender. Simple, savory and satisfying.",
       "priceNGN": null,
       "category": "small-chops"
     },
     {
       "slug": "assorted-small-chops-platter",
       "name": "Assorted Small Chops (Platter)",
-      "description": "A platter of mixed small chops.",
+      "description": "A sharing platter of puff puff, spring rolls, samosas, peppered gizzard and peppered chicken, made for parties and get-togethers.",
       "priceNGN": null,
       "category": "small-chops"
     },
     {
       "slug": "full-english-breakfast",
       "name": "Full English Breakfast",
-      "description": "",
+      "description": "Fried eggs, sausages, bacon, baked beans, grilled tomato, mushrooms and toast. A proper, hearty start to the day.",
       "priceNGN": null,
       "category": "breakfasts"
     },
     {
       "slug": "bread-and-egg",
       "name": "Bread & Egg",
-      "description": "",
+      "description": "Soft white bread with a fried egg. Simple, warm and quick.",
       "priceNGN": null,
       "category": "breakfasts"
     },
     {
       "slug": "omelette-and-bread",
       "name": "Omelette & Bread",
-      "description": "",
+      "description": "A soft vegetable omelette with peppers and onions, served with slices of fresh bread.",
       "priceNGN": null,
       "category": "breakfasts"
     },
     {
       "slug": "pancakes",
       "name": "Pancakes",
-      "description": "",
+      "description": "A stack of soft, golden pancakes, drizzled with syrup.",
       "priceNGN": null,
       "category": "breakfasts"
     },
     {
       "slug": "waffles",
       "name": "Waffles",
-      "description": "",
+      "description": "Golden waffles, crisp outside and fluffy inside, served with syrup.",
       "priceNGN": null,
       "category": "breakfasts"
     },
     {
       "slug": "beans-and-bread",
       "name": "Beans & Bread",
-      "description": "",
+      "description": "Soft stewed beans in a rich palm-oil pepper sauce with slices of fresh bread. A much-loved Lagos breakfast.",
       "priceNGN": null,
       "category": "breakfasts"
     },
     {
       "slug": "sausage-and-egg",
       "name": "Sausage & Egg",
-      "description": "",
+      "description": "Grilled sausages with fried eggs. A quick, hearty breakfast plate.",
       "priceNGN": null,
       "category": "breakfasts"
     },
@@ -646,210 +646,210 @@
     {
       "slug": "classic-garden-salad",
       "name": "Classic Garden Salad",
-      "description": "",
+      "description": "Crisp mixed greens with cucumber, cherry tomatoes, shredded carrot and red onion. Fresh, simple and bright.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "vegetable-salad",
       "name": "Vegetable Salad",
-      "description": "",
+      "description": "A colorful mix of lettuce, cabbage, carrot, cucumber, tomato and green peas. Crunchy and refreshing.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "coleslaw",
       "name": "Coleslaw",
-      "description": "Shredded cabbage and carrot in a light dressing.",
+      "description": "Finely shredded cabbage and carrot in a light, tangy dressing. Crisp and refreshing.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "creamy-coleslaw",
       "name": "Creamy Coleslaw",
-      "description": "Shredded cabbage and carrot in a creamy mayonnaise dressing.",
+      "description": "Shredded cabbage and carrot folded through a rich, creamy mayonnaise dressing.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "caesar-salad",
       "name": "Caesar Salad",
-      "description": "Romaine lettuce, croutons and parmesan in a creamy Caesar dressing.",
+      "description": "Crisp romaine tossed in a creamy Caesar dressing with golden croutons and shaved parmesan.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "greek-salad",
       "name": "Greek Salad",
-      "description": "Tomato, cucumber, red onion, olives and feta.",
+      "description": "Juicy tomato, cucumber, red onion, green pepper and black olives beneath a slab of feta, finished with oregano and olive oil.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "italian-salad",
       "name": "Italian Salad",
-      "description": "",
+      "description": "Crisp lettuce, cherry tomatoes, black olives, red onion and croutons in a bright Italian herb vinaigrette.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "mediterranean-salad",
       "name": "Mediterranean Salad",
-      "description": "",
+      "description": "Mixed greens with tomato, cucumber, chickpeas, olives and crumbled feta, dressed with lemon and olive oil.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "russian-salad",
       "name": "Russian Salad",
-      "description": "Diced potato, carrot, peas and egg in a creamy dressing.",
+      "description": "Diced potato, carrot, green peas and boiled egg folded through a creamy dressing. Smooth, comforting and classic.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "waldorf-salad",
       "name": "Waldorf Salad",
-      "description": "Apple, celery and walnuts in a creamy dressing.",
+      "description": "Crisp apple, celery, walnuts and grapes in a light, creamy dressing on a bed of lettuce.",
       "priceNGN": null,
       "category": "classic-salads"
     },
     {
       "slug": "avocado-garden-salad",
       "name": "Avocado Garden Salad",
-      "description": "",
+      "description": "Creamy sliced avocado over fresh garden greens with cucumber and cherry tomatoes.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "avocado-chicken-salad",
       "name": "Avocado Chicken Salad",
-      "description": "",
+      "description": "Sliced grilled chicken and ripe avocado over crisp, fresh greens.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "avocado-egg-salad",
       "name": "Avocado Egg Salad",
-      "description": "",
+      "description": "Ripe avocado and halved boiled eggs over fresh greens. Simple and satisfying.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "avocado-tuna-salad",
       "name": "Avocado Tuna Salad",
-      "description": "",
+      "description": "Flaked tuna and creamy avocado over fresh greens with a hint of red onion.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "avocado-tropical-salad",
       "name": "Avocado Tropical Salad",
-      "description": "",
+      "description": "Creamy avocado with sweet mango and pineapple over fresh greens. Bright and refreshing.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "power-salad",
       "name": "Power Salad",
-      "description": "",
+      "description": "A hearty bowl of greens, quinoa, chickpeas, avocado, boiled egg and seeds. Filling and full of goodness.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "green-power-salad",
       "name": "Green Power Salad",
-      "description": "",
+      "description": "An all-green bowl of spinach, kale, cucumber, avocado, broccoli and green peas. Crisp and fresh.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "rainbow-salad",
       "name": "Rainbow Salad",
-      "description": "",
+      "description": "Red cabbage, carrot, sweetcorn, cucumber, peppers and tomatoes in bright bands of color. As good to look at as it is to eat.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "detox-salad",
       "name": "Detox Salad",
-      "description": "",
+      "description": "A light, fresh bowl of spinach, cucumber, beetroot, carrot, apple and seeds, finished with a squeeze of lemon.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "garden-power-bowl",
       "name": "Garden Power Bowl",
-      "description": "",
+      "description": "Greens, roasted sweet potato, chickpeas, avocado, cherry tomatoes and seeds. A hearty, colorful bowl.",
       "priceNGN": null,
       "category": "healthy-salads"
     },
     {
       "slug": "chicken-salad",
       "name": "Chicken Salad",
-      "description": "",
+      "description": "Tender pieces of chicken over a fresh green salad with tomato and cucumber.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "grilled-chicken-salad",
       "name": "Grilled Chicken Salad",
-      "description": "",
+      "description": "Sliced chargrilled chicken breast over crisp mixed greens. Smoky, lean and satisfying.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "crispy-chicken-salad",
       "name": "Crispy Chicken Salad",
-      "description": "",
+      "description": "Golden, crispy chicken strips over fresh greens and tomatoes, with crunch in every forkful.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "chicken-caesar-salad",
       "name": "Chicken Caesar Salad",
-      "description": "Caesar salad topped with chicken.",
+      "description": "Our Caesar salad of romaine, croutons and parmesan, topped with sliced grilled chicken.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "tuna-salad",
       "name": "Tuna Salad",
-      "description": "",
+      "description": "Flaked tuna over crisp lettuce with sweetcorn, tomato and cucumber.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "egg-salad",
       "name": "Egg Salad",
-      "description": "",
+      "description": "Sliced boiled eggs over fresh lettuce, tomato and cucumber. Light and simple.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "chicken-and-egg-salad",
       "name": "Chicken & Egg Salad",
-      "description": "",
+      "description": "Pieces of chicken and halved boiled eggs over fresh greens. A filling, protein-rich bowl.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "beef-salad",
       "name": "Beef Salad",
-      "description": "",
+      "description": "Slices of seared beef over fresh greens with tomato and onion.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "turkey-salad",
       "name": "Turkey Salad",
-      "description": "",
+      "description": "Sliced roast turkey over fresh greens with tomato and cucumber.",
       "priceNGN": null,
       "category": "protein-salads"
     },
     {
       "slug": "seafood-salad",
       "name": "Seafood Salad",
-      "description": "",
+      "description": "Prawns, calamari and mussels over fresh greens with a wedge of lemon.",
       "priceNGN": null,
       "category": "protein-salads"
     },
@@ -867,42 +867,42 @@
     {
       "slug": "nigerian-vegetable-salad",
       "name": "Nigerian Vegetable Salad",
-      "description": "",
+      "description": "The classic Nigerian salad: lettuce, cabbage, carrot, cucumber, tomato, sweetcorn and baked beans with creamy salad cream.",
       "priceNGN": null,
       "category": "nigerian-salads"
     },
     {
       "slug": "nigerian-chicken-salad",
       "name": "Nigerian Chicken Salad",
-      "description": "",
+      "description": "Our Nigerian-style salad of lettuce, cabbage, carrot, sweetcorn and baked beans, topped with pieces of chicken.",
       "priceNGN": null,
       "category": "nigerian-salads"
     },
     {
       "slug": "nigerian-egg-salad",
       "name": "Nigerian Egg Salad",
-      "description": "",
+      "description": "Nigerian-style salad of lettuce, cabbage, carrot, sweetcorn and baked beans, topped with sliced boiled eggs.",
       "priceNGN": null,
       "category": "nigerian-salads"
     },
     {
       "slug": "nigerian-beef-salad",
       "name": "Nigerian Beef Salad",
-      "description": "",
+      "description": "Nigerian-style salad of lettuce, cabbage, carrot, sweetcorn and baked beans, topped with pieces of beef.",
       "priceNGN": null,
       "category": "nigerian-salads"
     },
     {
       "slug": "plantain-chicken-salad",
       "name": "Plantain Chicken Salad",
-      "description": "",
+      "description": "Fresh salad topped with golden fried plantain and pieces of chicken. Sweet and savory together.",
       "priceNGN": null,
       "category": "nigerian-salads"
     },
     {
       "slug": "spicy-chicken-salad",
       "name": "Spicy Chicken Salad",
-      "description": "",
+      "description": "Fresh salad topped with chicken in a glossy, spicy pepper glaze, for those who like it hot.",
       "priceNGN": null,
       "category": "nigerian-salads",
       "tags": [
@@ -912,14 +912,14 @@
     {
       "slug": "grilled-fish-salad",
       "name": "Grilled Fish Salad",
-      "description": "",
+      "description": "A fillet of grilled fish over a fresh, crisp salad. Light and full of flavor.",
       "priceNGN": null,
       "category": "nigerian-salads"
     },
     {
       "slug": "suya-chicken-salad",
       "name": "Suya Chicken Salad",
-      "description": "Salad topped with suya chicken, grilled with spicy yaji.",
+      "description": "Fresh salad topped with suya chicken, grilled with spicy yaji and finished with sliced onions and tomatoes.",
       "priceNGN": null,
       "category": "nigerian-salads",
       "tags": [
@@ -929,7 +929,7 @@
     {
       "slug": "suya-beef-salad",
       "name": "Suya Beef Salad",
-      "description": "Salad topped with beef suya, grilled with spicy yaji.",
+      "description": "Fresh salad topped with thin slices of beef suya, coated in spicy yaji and served with sliced onions.",
       "priceNGN": null,
       "category": "nigerian-salads",
       "tags": [
@@ -939,133 +939,133 @@
     {
       "slug": "nigerian-supreme-salad",
       "name": "Nigerian Supreme Salad",
-      "description": "",
+      "description": "Our most loaded Nigerian-style salad: lettuce, cabbage, carrot, sweetcorn, baked beans, boiled eggs, chicken and sliced sausage.",
       "priceNGN": null,
       "category": "nigerian-salads"
     },
     {
       "slug": "tropical-fruit-salad",
       "name": "Tropical Fruit Salad",
-      "description": "",
+      "description": "Juicy chunks of pineapple, mango, papaya, banana and kiwi. Sweet and sunny.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "mixed-fruit-salad",
       "name": "Mixed Fruit Salad",
-      "description": "",
+      "description": "A colorful mix of apple, grapes, orange, pineapple, banana and watermelon. Fresh and juicy.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "exotic-fruit-salad",
       "name": "Exotic Fruit Salad",
-      "description": "",
+      "description": "Dragon fruit, kiwi, passion fruit, mango and pomegranate seeds. Bright, sweet and a little unexpected.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "berry-fruit-salad",
       "name": "Berry Fruit Salad",
-      "description": "",
+      "description": "Strawberries, blueberries, raspberries and blackberries. Sweet, tart and vibrant.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "watermelon-fruit-salad",
       "name": "Watermelon Fruit Salad",
-      "description": "",
+      "description": "Cool cubes of juicy red watermelon with fresh mint. Simple and refreshing.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "mango-fruit-salad",
       "name": "Mango Fruit Salad",
-      "description": "",
+      "description": "Cubes of ripe, golden mango. Sweet, juicy and needing nothing else.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "citrus-fruit-salad",
       "name": "Citrus Fruit Salad",
-      "description": "",
+      "description": "Segments of orange, grapefruit, tangerine and lime. Zesty, juicy and refreshing.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "honey-fruit-salad",
       "name": "Honey Fruit Salad",
-      "description": "",
+      "description": "Freshly chopped mixed fruit with a light drizzle of honey.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "tropical-coconut-salad",
       "name": "Tropical Coconut Salad",
-      "description": "",
+      "description": "Tropical fruit chunks tossed with shredded fresh coconut. Sweet, juicy and fragrant.",
       "priceNGN": null,
       "category": "fruit-salads"
     },
     {
       "slug": "gg-royal-garden-salad",
       "name": "GG Royal Garden Salad",
-      "description": "",
+      "description": "Our generously topped garden salad of mixed greens, cherry tomatoes, cucumber, sweetcorn, boiled egg and creamy avocado.",
       "priceNGN": null,
       "category": "signature-salads"
     },
     {
       "slug": "gg-chicken-supreme-salad",
       "name": "GG Chicken Supreme Salad",
-      "description": "",
+      "description": "A generous salad loaded with grilled chicken, boiled egg, avocado, sweetcorn and cherry tomatoes.",
       "priceNGN": null,
       "category": "signature-salads"
     },
     {
       "slug": "gg-tropical-paradise-salad",
       "name": "GG Tropical Paradise Salad",
-      "description": "",
+      "description": "Fresh greens topped with mango, pineapple, avocado and grilled chicken. Sweet, savory and bright.",
       "priceNGN": null,
       "category": "signature-salads"
     },
     {
       "slug": "gg-royal-avocado-salad",
       "name": "GG Royal Avocado Salad",
-      "description": "",
+      "description": "A celebration of avocado: fanned slices over fresh greens with cherry tomatoes and boiled egg.",
       "priceNGN": null,
       "category": "signature-salads"
     },
     {
       "slug": "gg-african-supreme-salad",
       "name": "GG African Supreme Salad",
-      "description": "",
+      "description": "A loaded African-style salad of lettuce, cabbage, carrot, baked beans, sweetcorn, boiled egg, fried plantain and suya beef.",
       "priceNGN": null,
       "category": "signature-salads"
     },
     {
       "slug": "gg-seafood-royale",
       "name": "GG Seafood Royale",
-      "description": "",
+      "description": "Prawns, calamari and smoked fish over fresh greens. Our most indulgent seafood salad.",
       "priceNGN": null,
       "category": "signature-salads"
     },
     {
       "slug": "gg-power-punch-salad",
       "name": "GG Power Punch Salad",
-      "description": "",
+      "description": "Grilled chicken, boiled egg, chickpeas and avocado over fresh greens. A hearty bowl packed with protein.",
       "priceNGN": null,
       "category": "signature-salads"
     },
     {
       "slug": "gg-tropical-fruit-royale",
       "name": "GG Tropical Fruit Royale",
-      "description": "",
+      "description": "Our grand fruit bowl of mango, pineapple, strawberries, kiwi, grapes and watermelon.",
       "priceNGN": null,
       "category": "signature-salads"
     },
     {
       "slug": "gg-healthy-bliss-salad",
       "name": "GG Healthy Bliss Salad",
-      "description": "",
+      "description": "A light, fresh bowl of greens, cucumber, avocado, berries, seeds and nuts.",
       "priceNGN": null,
       "category": "signature-salads"
     },
