@@ -910,16 +910,14 @@ Newest first, one entry per change. Keep to roughly 25 entries.
   Pushed as `a990610` and **live on foods.ggbearers.com within a minute**:
   checked on the live site, 137 of 137 dishes on the page and 137 of 137
   pictures answering 200.
-  **GG Autos is NOT live with the owner's last publish** (`f6316fe`, 16:24,
+  **GG Autos was late with the owner's last publish** (`f6316fe`, 16:24,
   four Suzuki Mini Bus photos, one Suzuki Mini Truck photo and the walkaround
-  video): every one of those files still 404s two hours later. The skip rule
-  says build, the app builds locally in 9 seconds, and GG Foods deployed
-  normally at 18:13, so it is not an account-wide Netlify limit. Most likely
-  its Netlify build failed once and was not retried, possibly the same
-  transient font-download error seen locally. **Fix: Netlify, gg-autos,
-  Deploys, Trigger deploy, Deploy site**, then confirm
-  `/images/inventory/suzuki-mini-bus.jpg` answers 200. Not yet done: it needs
-  the dashboard, and the Chrome extension was not connected.
+  video): every one of those files still 404'd two hours later, while GG Foods
+  deployed normally, and the app built locally in 9 seconds. Most likely its
+  Netlify build failed once and was not retried. **Resolved on 2026-10-04**:
+  all six files now answer 200 and match the repo byte for byte, and the bus
+  page links all four photos and the video. If a publish ever sticks like this
+  again, the fix is **Netlify, the site, Deploys, Trigger deploy, Deploy site**.
 
 - **2026-10-03** — **Fixed video uploads failing with "Could not reach the
   admin server".** The owner tried to add the Suzuki Mini Bus walkaround.
