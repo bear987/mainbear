@@ -560,24 +560,36 @@ sections worth ordering. What remains is whatever the owner asks for next.
   `/images/hero-poster.jpg` and `/video/hero.mp4`,
   `/images/assembly-poster.jpg` and `/video/assembly.mp4`, and an optional
   `/video/inventory/<slug>.mp4`.
-- **Vehicle photographs are partly in place, a mix of the owner's real
-  photos and AI stand-ins.** Real (owner's own phone photos):
+- **Every image slot of the 12 available models is filled: 5 of the owner's
+  real photos and 37 AI stand-ins.** Real (owner's own phone photos):
   `suzuki-mini-bus.jpg` and `-1` (a blue/white repainted Suzuki Every in a
   Lagos yard), `hijet-mini-bus.jpg` and `-1`, `hijet-mini-truck.jpg`, plus the
-  walkaround `video/inventory/suzuki-mini-bus.mp4`. **AI stand-ins**
-  (2026-10-14, GPT Image 2.5 through Higgsfield, 1k low, 0.25 credits each,
-  the owner's photos passed as `image_references`): `suzuki-mini-bus-2`,
-  `hijet-mini-bus-2`, `hijet-mini-bus-3`, `hijet-mini-truck-1`. Every other
-  slot of the 12 available models is still empty (33 slots, including all of
-  suzuki-mini-truck, daihatsu-*, toyota-*, hummer-bus, nissan-vanette and
-  mazda-*), and those models show the designed "Photographs pending" panel
-  or rotate only the slides that exist. A missing slot simply drops out of
+  walkaround `video/inventory/suzuki-mini-bus.mp4`. **Everything else under
+  `public/images/inventory/` is an AI-generated stand-in** (2026-10-14, GPT
+  Image 2.5 through Higgsfield, 1k low, 4:3, 0.25 credits each), the same
+  way GG FOODS records its AI dish photos. Models with owner photos used
+  those as `image_references`. The other models were generated as a front 3/4
+  base shot (with an owner photo as a look-only reference), and that base was
+  then the reference for the model's other angles. Each model keeps one
+  vehicle, colour and yard: Suzuki truck white at a roadside lot, Daihatsu
+  bus a KEI van in light grey over navy at a mechanic's forecourt, Daihatsu
+  truck a faded silver KEI pickup on an untarred side street, Hiace white
+  high-roof, Hummer bus white with a blue stripe, Vanette cream and maroon,
+  Bongo bus green and white, Dyna white with grey sides, Bongo truck pale
+  blue. Images are 1280 wide and under 250KB, with the **bottom 8% trimmed**,
+  because GPT Image 2.5 sometimes stamps a faint sparkle watermark in the
+  bottom-right corner. Replace any stand-in with a real photo through the
+  admin's media page. The two coming-soon models still have no pictures and
+  show "Photographs pending", by design. A missing slot simply drops out of
   the carousel, so partial sets are safe. The 7 old AI photos were full-size
   vans, the wrong class for kei vehicles, and are parked in
   `public/images/_archive-full-size-vans/` rather than deleted.
-  `hero-poster.jpg` and `assembly-poster.jpg` are still the older generic
-  ones; `/video/assembly.mp4` does not exist yet, so /services shows the
-  poster.
+- **Assembly video is AI-generated too**: `public/video/assembly.mp4` (Kling
+  3.0, 10s, 1280x720, silent, H.264 CRF 26 faststart, 0.9MB), showing a
+  masked welder working on a white kei van in an open-sided Lagos workshop
+  with a corrugated roof, dirt floor and block wall. `assembly-poster.jpg` is
+  now its frame at 5s, replacing the older generic dark workshop.
+  `hero-poster.jpg` is still the older one.
   - **The look the stand-ins follow:** casual smartphone photos by a Lagos
     dealer, matching the owner's uploads. Laterite or gravel yards, cracked
     concrete, block walls, rusty roofing sheets, palm trees, electric poles,
@@ -590,9 +602,11 @@ sections worth ordering. What remains is whatever the owner asks for next.
     model, and vary the angle: front 3/4, side, rear 3/4, open sliding door
     or cargo bed. For a model with no owner photo, generate its base shot
     first, then feed that result back as the reference for its other angles.
-  - **`hummer-bus` is unclear.** The data says only "high-capacity bus",
-    full-size body type. Use a plain generic full-size bus with no badge
-    unless the owner says which vehicle the Lagos market means by it.
+  - **`hummer-bus` is UNCONFIRMED.** The data says only "high-capacity bus",
+    full-size body type, and the owner has not said which vehicle the Lagos
+    market means by "Hummer bus". Its three pictures are a plain generic
+    full-size single-deck bus, white with a blue stripe and no badge or
+    maker name, and must be replaced once the owner says what it is.
 - Below-fold video never autoplays (poster plus a play control). The hero video
   is gated on reduced-motion **and** `navigator.connection.saveData` / 2g.
 - Lint fixes for `turbo/no-undeclared-env-vars` and `no-undef` on `next.config`
@@ -773,6 +787,15 @@ Each of these cost real time. Read before debugging something similar.
   result URL with `media_import_url` and pass the returned `media_id`
   instead. Presigned upload PUTs need `-H "If-None-Match: *"` as well as the
   content type, because that header is in the signature.
+- **GPT Image 2.5 results can carry a faint four-point sparkle watermark in
+  the bottom-right corner**, easy to miss at thumbnail size, and once some
+  stray characters at bottom left as well. Zoom into the corners before
+  accepting a picture, or trim the bottom strip as a matter of course
+  (`crop=iw:ih*0.92:0:0` in ffmpeg).
+- **Some Higgsfield image jobs end as `failed` with no reason given** (about
+  1 in 10 here), and are not charged. Resubmitting the same request once
+  has always worked. This is different from the grace-period refusal, which
+  refuses the submission itself.
 
 **Deployment**
 
@@ -882,10 +905,12 @@ reuses the parent's) and a real maps link for the visit page. The about page
 (`about.json`, the owner's copy) still says "our salmon is grilled..." although
 no salmon dish is on the menu any more.
 
-**GG AUTOS:** **real vehicle photographs**: 4 AI stand-ins are now in place
-beside the owner's 5 real photos and 33 slots are still empty (see the site
-state block); real photos should replace the stand-ins over time through the
-admin's media page. Also which vehicle "Hummer bus" means, specifications for the six
+**GG AUTOS:** **real vehicle photographs**: AI stand-ins now fill all 37
+remaining slots beside the owner's 5 real photos (see the site state block),
+and real photos should replace them over time through the admin's media
+page. Real **assembly footage** would likewise replace the AI
+`assembly.mp4`. Also **which vehicle "Hummer bus" means** (its pictures are an
+unconfirmed generic bus), specifications for the six
 non-kei makes (Toyota, Mazda, Nissan, Hummer), warranty and after-sales terms,
 payment terms, lead time and delivery coverage (all bracketed on /wholesale),
 and real trading hours to replace the assumed ones.
@@ -893,12 +918,6 @@ and real trading hours to replace the assumed ones.
 **Parked:** animating the two remaining static GG FOODS backdrops
 (`menu-header`, `order-hero`), and regenerating any video whose motion warps.
 Both need an image-generation credit top-up.
-
-**Also parked on Higgsfield's limit (2026-10-14):** the remaining 33 GG Autos
-vehicle stand-ins (about 8.25 credits at 0.25 each) and the 10s assembly video
-for /services (`kling3_0`, 16:9, sound off, 12.5 credits by `get_cost`), after
-which `assembly-poster.jpg` should be replaced with a frame from that video.
-The owner has already approved both.
 
 (The old "Declined so far: an `/admin` CMS" note is gone: the admin was
 built after all, and is live at admin.ggbearers.com. See **The admin app**.)
@@ -908,6 +927,36 @@ built after all, and is live at admin.ggbearers.com. See **The admin app**.)
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-10-14 (later)** — **GG Autos: every vehicle now has pictures, and
+  /services has its assembly video.** Once the owner cleared the Higgsfield
+  limit, the 33 empty slots of the 12 available models were filled with
+  GPT Image 2.5 stand-ins, made the same way and to the same look as the
+  first 4. Every one was reviewed on contact sheets. Three were redone: two
+  Daihatsu truck angles came out as a double-cab truck when the base is
+  single-cab, and the first Hijet truck bed shot had warped gates at the
+  rear corner. A faint sparkle watermark turned up in the bottom-right
+  corner of a few results, so every new image has its bottom 8% trimmed.
+  "Hummer bus" is a generic full-size bus with no badge and is flagged as
+  unconfirmed. The assembly video is Kling 3.0 text-to-video, 10s, silent,
+  compressed to 0.9MB, and its 5s frame is the new `assembly-poster.jpg`.
+  21.5 credits spent (36 images at 0.25 plus 12.5 for the video), 130.5
+  left. A few image jobs failed with no reason given and were not charged;
+  resubmitting them once worked. Verified on the dev server in headless
+  Chrome: all 12 models rotate a full set (4 for the kei range, 3 for the
+  others), the coming-soon truck still shows "Photographs pending", and
+  /services shows the new poster with the play control while the MP4
+  answers 200. check-types and lint pass. No code changed.
+  **Then all 8 Daihatsu pictures were redone** (owner-approved): the first
+  set had come out the wrong vehicle class, a full-size Hiace-style van and
+  a full-size cab-over flatbed like the Dyna. Both are kei vehicles in this
+  catalogue. They were regenerated with the owner's Hijet photos as the size
+  and class reference, as visibly different units from the Hijet sets: the
+  bus a light grey and navy two-tone kei van at a roadside mechanic's
+  forecourt, the truck a faded silver kei dropside on an untarred side
+  street. All 8 were accepted first time, 2 credits, 128.5 left. Lesson: a
+  base prompt that describes a kei model only as "a size up from a kei van"
+  drifts to full-size; always give an owner photo as the size reference.
 
 - **2026-10-14** — **GG Autos: the owner's mislabelled uploads fixed, and the
   first 4 AI vehicle stand-ins added. The rest stopped on a Higgsfield account
