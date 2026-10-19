@@ -30,12 +30,14 @@
 set -uo pipefail
 
 case "${SITE_NAME:-}" in
-  gg-bearers) workspace="company-a" ;;
-  gg-food)    workspace="company-b" ;;
-  gg-autos)   workspace="company-c" ;;
+  # Recreated as ggbearers-* in October 2026 after the original gg-* sites
+  # were lost from the Netlify team; the old names are still held by Netlify.
+  ggbearers-main|gg-bearers)  workspace="company-a" ;;
+  ggbearers-foods|gg-food)    workspace="company-b" ;;
+  ggbearers-autos|gg-autos)   workspace="company-c" ;;
   # The hosted admin. It reads the content of all three sites, so it is the one
   # site that also has to rebuild when their content changes.
-  gg-admin)   workspace="admin" ;;
+  ggbearers-admin|gg-admin)  workspace="admin" ;;
   *)
     echo "netlify-ignore: unrecognised SITE_NAME '${SITE_NAME:-<unset>}'."
     echo "netlify-ignore: building rather than guessing."

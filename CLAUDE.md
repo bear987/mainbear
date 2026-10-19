@@ -31,10 +31,10 @@ live**, so placeholder content is visible to real customers.
 
 | App | Company | Netlify site | Live domain | Dev port |
 | --- | --- | --- | --- | --- |
-| `apps/company-a` | GG BEARERS (parent) | `gg-bearers` | ggbearers.com | 3000 |
-| `apps/company-b` | GG FOODS (restaurant) | `gg-food` (singular, `gg-foods` was taken) | foods.ggbearers.com | 3001 |
-| `apps/company-c` | GG AUTOS (vehicles) | `gg-autos` | autos.ggbearers.com | 3002 |
-| `apps/admin` | The editing tool, not a site | `gg-admin` | admin.ggbearers.com | 4000 |
+| `apps/company-a` | GG BEARERS (parent) | `ggbearers-main` | ggbearers.com (**domain locked, see Deployment**; live at ggbearers-main.netlify.app) | 3000 |
+| `apps/company-b` | GG FOODS (restaurant) | `ggbearers-foods` | **food.ggbearers.com** (was foods.) | 3001 |
+| `apps/company-c` | GG AUTOS (vehicles) | `ggbearers-autos` | **auto.ggbearers.com** (was autos.) | 3002 |
+| `apps/admin` | The editing tool, not a site | `ggbearers-admin` (not yet recreated) | admin.ggbearers.com | 4000 |
 
 GG BEARERS is an *operating* holding company. It runs its own services
 (import/export, wholesale, retail, partnerships, investment, corporate
@@ -142,7 +142,7 @@ the dev server then serves broken chunks.
   - Package directory: `apps/company-{a,b,c}`
   - Build command: `pnpm --filter company-{a,b,c} build`
   - Publish directory: `apps/company-{a,b,c}/.next`
-- **The admin is the fourth site**, `gg-admin` on `admin.ggbearers.com`, built
+- **The admin is the fourth site**, `ggbearers-admin` (was `gg-admin`) on `admin.ggbearers.com`, built
   with `pnpm --filter admin build` from package directory `apps/admin`. It
   needs five environment variables, listed in `apps/admin/SETUP-HOSTED.md`,
   and refuses to serve without them.
@@ -158,10 +158,21 @@ the dev server then serves broken chunks.
   when any site's `content` changes, because its media and layout screens are
   built from that content. Every uncertain
   case exits 1 and builds. The script makes no network calls, on purpose.
+- **October 2026 outage: the original Netlify sites (`gg-bearers`, `gg-food`,
+  `gg-autos`, `gg-admin`) were removed from the team** and recreated as
+  `ggbearers-*`. Netlify still holds the old site names AND the domains attached
+  to them (ggbearers.com, www, foods., autos., probably admin.), so adding
+  them fails with "another project is already using this domain". A
+  `subdomain-owner-verification` TXT record at the apex (keep it) let NEW
+  subdomains through, so GG FOODS moved to **food.** and GG AUTOS to **auto.**.
+  The apex needs **Netlify Support** to release it. When the old domains are
+  released: attach them, redirect foods. -> food. and autos. -> auto. (or move
+  back), and update this file. All four sites' env vars were re-entered with a
+  new Resend key.
 - **DNS: Cloudflare** (nameservers `anastasia.ns.cloudflare.com` and
   `sid.ns.cloudflare.com`, registrar Namecheap). Four CNAMEs, all **grey cloud
-  / DNS-only**: apex and `www` to `gg-bearers.netlify.app`, `foods` to
-  `gg-food.netlify.app`, `autos` to `gg-autos.netlify.app`. **Keep the proxy
+  / DNS-only**: apex and `www` to `ggbearers-main.netlify.app`, `food` and `foods` to
+  `ggbearers-foods.netlify.app`, `auto` and `autos` to `ggbearers-autos.netlify.app`. **Keep the proxy
   off**, an orange cloud blocks Netlify's Let's Encrypt issuance. The five
   Namecheap `eforward*` MX records and the root `v=spf1` TXT are preserved so
   email forwarding keeps working.
@@ -927,6 +938,16 @@ built after all, and is live at admin.ggbearers.com. See **The admin app**.)
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-10-19** — **Sites recreated on Netlify after the originals were lost;
+  GG FOODS and GG AUTOS moved to food. and auto.** The four `gg-*` sites vanished
+  from the team (every domain showed Netlify "Site not found"). The owner
+  recreated them as `ggbearers-main/-foods/-autos` with fresh env vars. The old
+  names and domains are still held by Netlify, so the subsidiaries moved to
+  new subdomains (cross-site links in the three `site.json` files and
+  `apps/admin/lib/sites.ts` updated) and `scripts/netlify-ignore.sh` now
+  accepts both old and new site names. ggbearers.com awaits a Netlify Support
+  release; until then the parent is only at ggbearers-main.netlify.app.
 
 - **2026-10-14 (later)** — **GG Autos: every vehicle now has pictures, and
   /services has its assembly video.** Once the owner cleared the Higgsfield

@@ -5,7 +5,7 @@
     "motto": "Taste with a touch of excellence",
     "tagline": "Intercontinental dishes and Nigerian classics, cooked fresh in Okota, Lagos.",
     "description": "GG FOODS is a Lagos restaurant serving intercontinental dishes, Nigerian meals, fresh smoothies and natural fruit drinks. Part of the GG BEARERS group.",
-    "url": "https://foods.ggbearers.com",
+    "url": "https://food.ggbearers.com",
     "email": "ggbearers@gmail.com",
     "parent": {
       "name": "GG BEARERS",
@@ -15,7 +15,7 @@
     "siblings": [
       {
         "name": "GG AUTOS",
-        "url": "https://autos.ggbearers.com"
+        "url": "https://auto.ggbearers.com"
       }
     ],
     "address": {
