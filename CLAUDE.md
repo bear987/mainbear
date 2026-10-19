@@ -535,7 +535,8 @@ sections worth ordering. What remains is whatever the owner asks for next.
     `suzuki-mini-truck`, `hijet-mini-bus`, `hijet-mini-truck`,
     `daihatsu-mini-bus`, `daihatsu-mini-truck`.
   - Also supplied, specifications deliberately blank and shown as "to be
-    confirmed": `toyota-hiace`, `hummer-bus` (full-size bus body type),
+    confirmed": `toyota-hiace`, `hummer-bus` (still the full-size bus body
+    type in the data, though it is assumed to be a HiAce, see below),
     `nissan-vanette`, `mazda-bongo-bus`, `toyota-dyna-truck`,
     `mazda-bongo-truck`.
   - Coming soon: `enclosed-box-body-truck`, `long-wheelbase-mini-bus`. No
@@ -585,7 +586,9 @@ sections worth ordering. What remains is whatever the owner asks for next.
   vehicle, colour and yard: Suzuki truck white at a roadside lot, Daihatsu
   bus a KEI van in light grey over navy at a mechanic's forecourt, Daihatsu
   truck a faded silver KEI pickup on an untarred side street, Hiace white
-  high-roof, Hummer bus white with a blue stripe, Vanette cream and maroon,
+  high-roof at a roadside lot with yellow danfos, Hummer bus a silver-grey
+  extra-long super-high-roof HiAce at an interstate motor park under a
+  rusty canopy (redone 2026-10-19), Vanette cream and maroon,
   Bongo bus green and white, Dyna white with grey sides, Bongo truck pale
   blue. Images are 1280 wide and under 250KB, with the **bottom 8% trimmed**,
   because GPT Image 2.5 sometimes stamps a faint sparkle watermark in the
@@ -596,11 +599,14 @@ sections worth ordering. What remains is whatever the owner asks for next.
   vans, the wrong class for kei vehicles, and are parked in
   `public/images/_archive-full-size-vans/` rather than deleted.
 - **Assembly video is AI-generated too**: `public/video/assembly.mp4` (Kling
-  3.0, 10s, 1280x720, silent, H.264 CRF 26 faststart, 0.9MB), showing a
-  masked welder working on a white kei van in an open-sided Lagos workshop
-  with a corrugated roof, dirt floor and block wall. `assembly-poster.jpg` is
-  now its frame at 5s, replacing the older generic dark workshop.
-  `hero-poster.jpg` is still the older one.
+  3.0 image-to-video from the previous calm clip's poster, 10s, 1280x720,
+  silent, H.264 CRF 26 faststart, 2.4MB), redone 2026-10-19 because the owner
+  found the first one too calm. Several mechanics at once in the same
+  open-sided Lagos workshop (corrugated roof, dirt floor, block wall, palms,
+  used kei vans): welding sparks, an angle grinder throwing a spark fan, two
+  men lifting and lining up a van body panel, hammering, with handheld
+  push-ins and a lateral move. `assembly-poster.jpg` is its frame at 2.6s,
+  the masked welder with sparks. `hero-poster.jpg` is still the older one.
   - **The look the stand-ins follow:** casual smartphone photos by a Lagos
     dealer, matching the owner's uploads. Laterite or gravel yards, cracked
     concrete, block walls, rusty roofing sheets, palm trees, electric poles,
@@ -613,11 +619,23 @@ sections worth ordering. What remains is whatever the owner asks for next.
     model, and vary the angle: front 3/4, side, rear 3/4, open sliding door
     or cargo bed. For a model with no owner photo, generate its base shot
     first, then feed that result back as the reference for its other angles.
-  - **`hummer-bus` is UNCONFIRMED.** The data says only "high-capacity bus",
-    full-size body type, and the owner has not said which vehicle the Lagos
-    market means by "Hummer bus". Its three pictures are a plain generic
-    full-size single-deck bus, white with a blue stripe and no badge or
-    maker name, and must be replaced once the owner says what it is.
+  - **`hummer-bus` is assumed HiAce high-roof (Hummer 2), owner may
+    correct.** In the Nigerian trade "Hummer bus" is the nickname for the
+    Toyota HiAce high-roof commuter bus ("Hummer 1/2/3" are HiAce
+    generations; Jiji.ng lists "Toyota Hiace Hummer 2 18-seater bus"). That is
+    a trade-name reading, not something the owner has said. On that basis its
+    three pictures (front 3/4, side, open-door interior with four bench rows)
+    show an H200-style extra-long, super-high-roof HiAce in silver-grey at a
+    motor park, deliberately longer, taller and differently coloured and
+    placed than the white `toyota-hiace` set. Its `variant` now reads
+    "high-roof commuter bus" and its `summary` names the HiAce. **Specs are
+    still "to be confirmed"**: no seat count was added, and `bodyType` is
+    still `full-size-bus`, so the page header and Type row say "Full-size
+    bus" and the ledger shows a "Payload" row. Changing that to `mini-bus`
+    would make it a 7 seater under the catalogue's rule, which would be
+    wrong, so it waits for the owner. Note the `toyota-hiace` stand-ins are
+    themselves a high-roof HiAce, so the two entries may be the same vehicle
+    in the owner's mind.
 - Below-fold video never autoplays (poster plus a play control). The hero video
   is gated on reduced-motion **and** `navigator.connection.saveData` / 2g.
 - Lint fixes for `turbo/no-undeclared-env-vars` and `no-undef` on `next.config`
@@ -803,6 +821,11 @@ Each of these cost real time. Read before debugging something similar.
   stray characters at bottom left as well. Zoom into the corners before
   accepting a picture, or trim the bottom strip as a matter of course
   (`crop=iw:ih*0.92:0:0` in ffmpeg).
+- **Replacing a picture under the same file name shows the old one in local
+  dev**, because `next/image` serves `/_next/image` from
+  `apps/<app>/.next/cache/images`, keyed by URL. Delete that folder (Bash
+  `rm -rf` works) and reload. A fresh Netlify build does not have the stale
+  cache.
 - **Some Higgsfield image jobs end as `failed` with no reason given** (about
   1 in 10 here), and are not charged. Resubmitting the same request once
   has always worked. This is different from the grace-period refusal, which
@@ -920,8 +943,9 @@ no salmon dish is on the menu any more.
 remaining slots beside the owner's 5 real photos (see the site state block),
 and real photos should replace them over time through the admin's media
 page. Real **assembly footage** would likewise replace the AI
-`assembly.mp4`. Also **which vehicle "Hummer bus" means** (its pictures are an
-unconfirmed generic bus), specifications for the six
+`assembly.mp4`. Also **confirmation that "Hummer bus" means the HiAce
+high-roof (Hummer 2)**, as now assumed, plus its seat count and whether it
+should stay separate from the Toyota Hiace entry; specifications for the six
 non-kei makes (Toyota, Mazda, Nissan, Hummer), warranty and after-sales terms,
 payment terms, lead time and delivery coverage (all bracketed on /wholesale),
 and real trading hours to replace the assumed ones.
@@ -938,6 +962,22 @@ built after all, and is live at admin.ggbearers.com. See **The admin app**.)
 ## Changelog
 
 Newest first, one entry per change. Keep to roughly 25 entries.
+
+- **2026-10-19 (later)** — **GG Autos: livelier assembly video, and the Hummer
+  bus pictured as a HiAce.** Owner-approved. The /services assembly clip was
+  regenerated with Kling 3.0 (10s, 16:9, sound off) from the old poster as
+  start frame: several mechanics, welding sparks, a grinder spark fan, a body
+  panel lifted and lined up, hammering, handheld push-ins. Accepted first
+  time; compressed to 2.4MB, new poster at 2.6s. The three `hummer-bus`
+  pictures, previously a generic coaster-style bus, were regenerated with GPT
+  Image 2.5 (owner's Suzuki photo as look reference for the base shot, the
+  base as reference for side and interior) as a silver extra-long high-roof
+  HiAce at a motor park, trimmed and 1280 wide (138 to 163KB); its
+  `variant` and `summary` in `vehicles.json` now name the HiAce high-roof
+  known locally as the Hummer bus, with specs still to be confirmed. 13.25
+  credits spent, 115.25 left. check-types and lint pass; checked on the dev
+  server in headless Chrome. Locally the Next image cache served the OLD
+  Hummer photo until `.next/cache/images` was cleared (see Gotchas).
 
 - **2026-10-19** — **Sites recreated on Netlify after the originals were lost;
   GG FOODS and GG AUTOS moved to food. and auto.** The four `gg-*` sites vanished

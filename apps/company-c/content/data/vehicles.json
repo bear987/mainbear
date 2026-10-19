@@ -230,11 +230,11 @@
       "brand": "Hummer",
       "bodyType": "full-size-bus",
       "status": "available",
-      "variant": "high-capacity bus",
+      "variant": "high-roof commuter bus",
       "wholesaleAvailable": true,
       "minWholesaleQty": 2,
       "coupledInHouse": false,
-      "summary": "The high-capacity body for operators who need more fares per trip than a mini bus can carry. Supplied to order.",
+      "summary": "The long-body, high-roof Toyota HiAce commuter bus, known in the Lagos market as the Hummer bus, for operators who need more fares per trip than a mini bus can carry. Supplied to order.",
       "bestFor": [
         "High-capacity routes",
         "Interstate transport",
